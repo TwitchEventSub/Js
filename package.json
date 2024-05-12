@@ -1,0 +1,37 @@
+{
+  "name": "twitcheventsub.js",
+  "version": "0.1.0",
+  "description": "twitch eventsub trough socket",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TwitchEventSub/Js.git"
+  },
+  "keywords": [
+    "twitch",
+    "eventsub"
+  ],
+  "author": "TwitchEventSub",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TwitchEventSub/Js/issues"
+  },
+  "homepage": "https://github.com/TwitchEventSub/Js#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "@stylistic/eslint-plugin-js": "^2.1.0",
+    "@stylistic/eslint-plugin-ts": "^2.1.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^20.12.11",
+    "eslint": "^8.57.0",
+    "globals": "^15.2.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.8.0"
+  },
+  "typings": "./types/index.d.ts"
+}
