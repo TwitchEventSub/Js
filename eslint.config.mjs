@@ -62,6 +62,7 @@ export default tseslint.config(
         2,
         {
           MemberExpression: 0,
+          SwitchCase: 1,
         },
       ],
       "@stylistic/js/newline-per-chained-call": [
