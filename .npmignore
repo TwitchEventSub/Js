@@ -1,0 +1,7 @@
+node_modules
+src
+dist/tests
+.vscode
+eslint.config.mjs
+jest.config.js
+tsconfig.json
