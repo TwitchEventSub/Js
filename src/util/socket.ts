@@ -1,5 +1,5 @@
 import WS from "ws";
 
-const socket = window !== undefined ? WebSocket : WS;
+const socket = typeof window !== "undefined" ? WebSocket : WS;
 
 export default socket;
