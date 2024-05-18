@@ -4,7 +4,7 @@ Libary for managing twitch eventsub via websocket
 ## Usage
 
 ```ts
-import { EventSub, events: { ChannelFollow } } from "twitchEventSub";
+import { EventSub, events } from "twitchEventSub";
 
 // creating instance
 const sub = new EventSub({
@@ -13,7 +13,7 @@ const sub = new EventSub({
 });
 
 // creating event handler
-const followEvent = new ChannelFollow((e) => {
+const followEvent = new events.ChannelFollow((e) => {
   console.log("event listener", e);
 });
 
