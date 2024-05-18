@@ -37,7 +37,7 @@
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.8.0"
   },
-  "typings": "./types/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "dependencies": {
     "ws": "^8.17.0"
   }
