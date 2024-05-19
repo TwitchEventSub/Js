@@ -16,7 +16,13 @@ jest.mock("../util/fetch", () => {
           ? resolve({ status: 202 })
           : data.headers["Client-Id"] === "2"
             ? resolve({ status: 503, json: () => Promise.resolve({ reason: "test error" }) })
-            : rej(new Error("Fail case"))
+            : data.headers["Client-Id"] === "4"
+              // data in this case is expected to have this structure
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              ? "moderator_user_id" in (JSON.parse(data.body?.toString() ?? "{}")?.condition ?? {})
+                ? rej(new Error("moderator_user_id should not be here"))
+                : resolve({ status: 202 })
+              : rej(new Error("Fail case"))
         : rej(new Error("No Client-Id")));
     }),
   };
@@ -47,6 +53,15 @@ describe("subscribeToEventAsync", () => {
     expect(result)
     .toBe(false);
   });
+
+  it(
+    "it should not send moderator_user_id in condition when broadcasterOnly is true",
+    async () => {
+      const result = await subscribeToEventAsync({ auth: "", broadcaster: "broadcaster", clientId: "4", event: { type: "type", version: "version" }, session: "session", broadcasterOnly: true });
+      expect(result)
+      .toBe(true);
+    },
+  );
 
   afterAll(() => {
     jest.clearAllMocks();

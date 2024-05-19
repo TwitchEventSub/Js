@@ -5,12 +5,14 @@ import {
   ChannelFollowEvent,
   ChannelFollowSubscription,
   ChannelModeratorRemoveEvent,
+  ChannelUpdateEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
 import AutomodMessageHoldUpdate from "./events/AutomodMessageHoldUpdate";
 import AutomodSettingsUpdate from "./events/AutomodSettingsUpdate";
 import AutomodTermsUpdate from "./events/AutomodTermsUpdate";
+import ChannelUpdate from "./events/ChannelUpdate";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -84,12 +86,15 @@ export type NotificationAutomodSettingsUpdate = BaseEventSubMessage<"notificatio
 
 export type NotificationAutomodTermsUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<AutomodTermsUpdate["type"], AutomodTermsUpdateEvent>>;
 
+export type NotificationChannelUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelUpdate["type"], ChannelUpdateEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
 | NotificationAutomodMessageHoldUpdate
 | NotificationAutomodSettingsUpdate
-| NotificationAutomodTermsUpdate;
+| NotificationAutomodTermsUpdate
+| NotificationChannelUpdate;
 
 export interface PingMessage {
   type: "PING";

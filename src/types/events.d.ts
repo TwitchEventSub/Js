@@ -2,6 +2,7 @@ interface SubscriptionType {
   readonly type: string;
   readonly version: string;
   readonly permissions: string[];
+  readonly broadcasterOnly?: true;
 }
 
 export type EventIndex = number;
@@ -144,8 +145,28 @@ export interface AutomodTermsUpdateEvent extends BaseBroadcaster, BaseModerator 
 
 export type AutomodTermsUpdateSubscription = BaseSubscription<AutomodTermsUpdateEvent, "automod.terms.update">;
 
+export interface ChannelUpdateEvent extends BaseBroadcaster {
+  /** The channel’s stream title. */
+  title: string;
+  /** The channel’s broadcast language. */
+  language: string;
+  /** The channel’s category ID. */
+  category_id: string;
+  /** The category name. */
+  category_name: string;
+  /**
+   * Array of content classification label IDs currently applied on the Channel.
+   * To retrieve a list of all possible IDs, use the Get Content Classification Labels API endpoint.
+   * @link https://dev.twitch.tv/docs/api/reference/#get-content-classification-labels
+   */
+  content_classification_labels: string[];
+}
+
+export type ChannelUpdateSubscription = BaseSubscription<ChannelUpdateEvent, "channel.update">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
 | AutomodMessageHoldUpdateSubscription
-| AutomodSettingsUpdateSubscription;
+| AutomodSettingsUpdateSubscription
+| AutomodTermsUpdateSubscription;

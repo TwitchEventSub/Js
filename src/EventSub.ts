@@ -169,6 +169,7 @@ export default class EventSub {
           clientId: this.clientId!,
           session: message.payload.session.id,
           broadcaster: this.broadcasterId!,
+          broadcasterOnly: x.broadcasterOnly,
         })))
         .then((res) => {
           const failed = res.map<[boolean, EventItem]>((x, i) => [x, uniqueSubscriptions[i]])
