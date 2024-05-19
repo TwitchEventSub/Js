@@ -5,9 +5,9 @@ import {
 import BaseEvent from "../util/BaseEvent";
 
 
-export default class ChannelFollow extends BaseEvent<AutomodMessageHoldEvent> implements AutomodMessageHoldSubscription {
+export default class AutomodMessageHold extends BaseEvent<AutomodMessageHoldEvent> implements AutomodMessageHoldSubscription {
   readonly type = "automod.message.hold";
-  readonly version = "2";
+  readonly version = "1";
   readonly permissions = ["moderator:read:followers"];
   
   constructor(...args: ((arg: AutomodMessageHoldEvent) => void)[]) {
