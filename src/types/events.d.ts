@@ -34,6 +34,15 @@ interface BaseUser {
   user_name: string;
 }
 
+interface BaseModerator {
+  /** The ID of the moderator. */
+  moderator_user_id: string;
+  /** TThe moderator’s user name. */
+  moderator_user_name: string;
+  /** The login of the moderator. */
+  moderator_user_login: string;
+}
+
 export interface ChannelFollowEvent extends BaseBroadcaster, BaseUser {
     /** RFC3339 timestamp of when the follow occurred. */
     followed_at: string;
@@ -94,6 +103,14 @@ export interface AutomodMessageHoldEvent extends BaseMessageEvent, BaseUser {
 
 export type AutomodMessageHoldSubscription = BaseSubscription<AutomodMessageHoldEvent, "automod.message.hold">;
 
+export interface AutomodMessageHoldUpdateEvent extends AutomodMessageHoldEvent, BaseModerator {
+  /** The message’s status. */
+  status: "Approved" | "Denied" | "Expired";
+}
+
+export type AutomodMessageHoldUpdateSubscription = BaseSubscription<AutomodMessageHoldUpdateEvent, "automod.message.update">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
-| AutomodMessageHoldSubscription;
+| AutomodMessageHoldSubscription
+| AutomodMessageHoldUpdateSubscription;
