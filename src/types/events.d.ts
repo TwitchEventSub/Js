@@ -133,6 +133,17 @@ export interface AutomodSettingsUpdateEvent extends BaseBroadcaster, BaseModerat
 
 export type AutomodSettingsUpdateSubscription = BaseSubscription<AutomodSettingsUpdateEvent, "automod.settings.update">;
 
+export interface AutomodTermsUpdateEvent extends BaseBroadcaster, BaseModerator {
+  /** The status change applied to the terms. */
+  action: "add_permitted" | "add_blocked" | "remove_permitted" | "remove_blocked";
+  /** Indicates whether this term was added due to an Automod message approve/deny action. */
+  from_automod: boolean;
+  /** The list of terms that had a status change. */
+  terms: string[];
+}
+
+export type AutomodTermsUpdateSubscription = BaseSubscription<AutomodTermsUpdateEvent, "automod.terms.update">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
