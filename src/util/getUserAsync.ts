@@ -4,6 +4,7 @@ import fetch from "./fetch";
 export interface UserValidation {
   client_id: string;
   scopes: string[];
+  user_id: string;
 }
 
 export default async function getUserAsync(auth: string) {
