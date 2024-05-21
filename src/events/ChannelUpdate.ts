@@ -9,8 +9,24 @@ export default class ChannelUpdate extends BaseEvent<ChannelUpdateEvent> impleme
   readonly version = "2";
   readonly permissions = [];
   readonly broadcasterOnly = true;
+
+  private _channel: string;
+
+  get channel() {
+    return [this._channel];
+  }
+
+  get condition() {
+    return (...args: string[]) => {
+      // always expect arg count to be channel array length + 1
+      return {
+        broadcaster_user_id: args[0],
+      };
+    };
+  }
   
-  constructor(...args: ((arg: ChannelUpdateEvent) => void)[]) {
+  constructor(channel: string, ...args: ((arg: ChannelUpdateEvent) => void)[]) {
     super(args);
+    this._channel = channel;
   }
 }

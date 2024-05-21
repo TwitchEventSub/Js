@@ -5,6 +5,11 @@ interface SubscriptionType {
   readonly broadcasterOnly?: true;
 }
 
+interface SubscriptionProperties {
+  get channel(): string[];
+  get condition(): ((...args: string[]) => Record<string, string>);
+}
+
 export type EventIndex = number;
 
 export interface BaseEventManagement<T> {
@@ -15,6 +20,7 @@ export interface BaseEventManagement<T> {
 
 export type  BaseSubscription<E, T extends string> = BaseEventManagement<E>
   & Omit<SubscriptionType, "type">
+  & SubscriptionProperties
   & { readonly type: T };
 
 interface BaseBroadcaster {
