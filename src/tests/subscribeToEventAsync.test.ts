@@ -37,27 +37,66 @@ describe("subscribeToEventAsync", () => {
   });
 
   it("should return true as success", async () => {
-    const result = await subscribeToEventAsync({ auth: "", broadcaster: "broadcaster", clientId: "1", event: { type: "type", version: "version" }, session: "session" });
+    const result = await subscribeToEventAsync({
+      auth: "",
+      broadcaster: "broadcaster",
+      clientId: "1",
+      event: { type: "type", version: "version" },
+      session: "session",
+      condition: {
+        broadcaster_user_id: "broadcaster",
+        moderator_user_id: "moderator",
+      },
+    });
     expect(result)
     .toEqual(true);
   });
 
   it("should return false when server responds with status code that's not 202", async () => {
-    const result = await subscribeToEventAsync({ auth: "", broadcaster: "broadcaster", clientId: "2", event: { type: "type", version: "version" }, session: "session" });
+    const result = await subscribeToEventAsync({
+      auth: "",
+      broadcaster: "broadcaster",
+      clientId: "2",
+      event: { type: "type", version: "version" },
+      session: "session",
+      condition: {
+        broadcaster_user_id: "broadcaster",
+        moderator_user_id: "moderator",
+      },
+    });
     expect(result)
     .toBe(false);
   });
 
   it("should return false when request fails and gets caught in `.catch` block", async () => {
-    const result = await subscribeToEventAsync({ auth: "", broadcaster: "broadcaster", clientId: "3", event: { type: "type", version: "version" }, session: "session" });
+    const result = await subscribeToEventAsync({
+      auth: "",
+      broadcaster: "broadcaster",
+      clientId: "3",
+      event: { type: "type", version: "version" },
+      session: "session",
+      condition: {
+        broadcaster_user_id: "broadcaster",
+        moderator_user_id: "moderator",
+      },
+    });
     expect(result)
     .toBe(false);
   });
 
   it(
-    "it should not send moderator_user_id in condition when broadcasterOnly is true",
+    "it should not send moderator_user_id in condition",
     async () => {
-      const result = await subscribeToEventAsync({ auth: "", broadcaster: "broadcaster", clientId: "4", event: { type: "type", version: "version" }, session: "session", broadcasterOnly: true });
+      const result = await subscribeToEventAsync({
+        auth: "",
+        broadcaster: "broadcaster",
+        clientId: "4",
+        event: { type: "type", version: "version" },
+        session: "session",
+        condition: {
+          broadcaster_user_id: "broadcaster",
+        },
+      });
       expect(result)
       .toBe(true);
     },
