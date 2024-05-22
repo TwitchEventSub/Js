@@ -9,7 +9,6 @@ interface ChannelChatClearCondition {
   user: string;
 }
 
-/** Requires auth to be at least of an editor */
 export default class ChannelChatClear extends BaseEvent<ChannelChatClearEvent> implements ChannelChatClearSubscription {
   readonly type = "channel.chat.clear";
   readonly version = "1";

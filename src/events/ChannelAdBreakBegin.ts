@@ -4,7 +4,6 @@ import {
 } from "../types/events";
 import BaseEvent from "../util/BaseEvent";
 
-/** Requires auth to be at least of an editor */
 export default class ChannelAdBreakBegin extends BaseEvent<ChannelAdBreakBeginEvent> implements ChannelAdBreakBeginSubscription {
   readonly type = "channel.ad_break.begin";
   readonly version = "1";

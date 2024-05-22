@@ -4,7 +4,7 @@ import {
 } from "../types/events";
 import BaseEvent from "../util/BaseEvent";
 
-
+/** Requires auth to be at least of an editor */
 export default class ChannelModeratorRemove extends BaseEvent<ChannelModeratorRemoveEvent> implements ChannelModeratorRemoveSubscription {
   readonly type = "channel.moderator.remove";
   readonly version = "2";
