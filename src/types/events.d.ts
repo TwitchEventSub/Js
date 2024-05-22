@@ -725,6 +725,155 @@ export interface ChannelUnbanRequestResolveEvent extends BaseBroadcaster, BaseMo
 
 export type ChannelUnbanRequestResolveSubscription = BaseSubscription<ChannelUnbanRequestResolveEvent, "channel.unban_request.resolve">;
 
+interface ChannelModerateBan {
+  action: "ban";
+  ban: BaseUser & {
+    /** Reason given for the ban. */
+    reason?: string;
+  }
+}
+
+interface ChannelModerateTimeout {
+  action: "timeout";
+  /** Metadata associated with the timeout command. */
+  timeout: BaseUser & {
+    /** The time at which the timeout ends. */
+    expires_at: string;
+    /** Reason given for the timeout. */
+    reason?: string;
+  }
+}
+
+interface ChannelModerateUnban {
+  action: "unban";
+  /** Metadata associated with the unban command. */
+  unban: BaseUser;
+}
+
+interface ChannelModerateUntimeout {
+  action: "untimeout";
+  /** Metadata associated with the untimeout command. */
+  untimeout: BaseUser;
+}
+
+interface ChannelModerateFollowers {
+  action: "followers";
+  /** Metadata associated with the followers command. */
+  followers: {
+    /** The length of time, in minutes, that the followers must have followed the broadcaster to participate in the chat room. */
+    follow_duration_minutes: number;
+  }
+}
+
+interface ChannelModerateSlow {
+  action: "slow";
+  /** Metadata associated with the slow command. */
+  slow: {
+    /** The amount of time, in seconds, that users need to wait between sending messages. */
+    wait_time_seconds: number;
+  }
+}
+
+interface ChannelModerateUnraid {
+  action: "unraid";
+  /** Metadata associated with the unraid command. */
+  unraid: BaseUser;
+}
+
+interface ChannelModerateDelete {
+  action: "delete";
+  /** Metadata associated with the delete command. */
+  delete: BaseUser & {
+    /** The ID of the message being deleted. */
+    message_id: string;
+    /** The message body of the message being deleted. */
+    message_body: string;
+  }
+}
+type ChannelModerateMainAction = "" | "un";
+
+interface ChannelModerateVipSpec<A extends ChannelModerateMainAction> {
+  action: `${A}vip`;
+  vip: BaseUser;
+}
+
+type ChannelModerateVip = {
+  [A in ChannelModerateMainAction]: ChannelModerateVipSpec<A>
+}[ChannelModerateMainAction];
+
+interface ChannelModerateRaid {
+  action: "raid";
+  raid: BaseUser & {
+    /** The number of viewers in the raid. */
+    viewers: number;
+  }
+}
+
+type ChannelModerateTermSpecList = "blocked" | "permitted";
+type ChannelModerateTermSpecAction = "add" | "remove";
+
+interface BaseChannelModerateTermSpec<A extends ChannelModerateTermSpecAction, L extends ChannelModerateTermSpecList> {
+  action: `${A}_${L}_term`;
+  automod_terms: {
+    action: A;
+    list: L;
+    terms: string[];
+    /** Whether the terms were added due to an Automod message approve/deny action. */
+    from_automod: boolean;
+  }
+}
+
+type ChannelModerateTermSpec = {
+  [A in ChannelModerateTermSpecAction]: {
+    [L in ChannelModerateTermSpecList]: BaseChannelModerateTermSpec<A, L>
+  }[ChannelModerateTermSpecList]
+}[ChannelModerateTermSpecAction];
+
+interface ChannelModerateModSpec<A extends ChannelModerateMainAction> {
+  action: `${A}mod`;
+  [`${A}mod`]: BaseUser;
+}
+
+type ChannelModerateSpec = { [A in ChannelModerateMainAction]: ChannelModerateModSpec<A> }[ChannelModerateMainAction];
+
+type ChannelModerateApproval = "approve" | "deny";
+
+interface ChannelModerateUnbanRequestSpec<A extends ChannelModerateApproval> {
+  action: `${A}_unban_request`;
+  unban_request: BaseUser & {
+    /** Whether or not the unban request was approved or denied. */
+    is_approved: A extends "approve" ? true : false;
+    moderator_message: string;
+  }
+}
+
+type ChannelModerateUnbanRequest = {
+  [A in ChannelModerateApproval]: ChannelModerateUnbanRequestSpec<A>
+}[ChannelModerateApproval];
+
+interface ChannelModerateTypeless {
+  action: "clear" | "emoteonly" | "emoteonlyoff" | "followersoff" | "uniquechat" | "uniquechatoff" | "slowoff" | "subscribers" | "subscribersoff" | "unraid";
+}
+
+type BaseChannelModerateSpec = ChannelModerateBan
+| ChannelModerateTimeout
+| ChannelModerateUnban
+| ChannelModerateUntimeout
+| ChannelModerateFollowers
+| ChannelModerateSlow
+| ChannelModerateUnraid
+| ChannelModerateDelete
+| ChannelModerateVip
+| ChannelModerateRaid
+| ChannelModerateTermSpec
+| ChannelModerateSpec
+| ChannelModerateUnbanRequest
+| ChannelModerateTypeless;
+
+export type ChannelModerateEvent = BaseChannelModerateSpec & BaseBroadcaster & BaseModerator;
+
+export type ChannelModerateSubscription = BaseSubscription<ChannelModerateEvent, "channel.moderate">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription

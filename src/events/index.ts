@@ -21,9 +21,10 @@ import ChannelCheer from "./ChannelCheer";
 import ChannelRaid from "./ChannelRaid";
 import ChannelBan from "./ChannelBan";
 import ChannelUnban from "./ChannelUnban";
-import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelUnbanRequestCreate from "./ChannelUnbanRequestCreate";
 import ChannelUnbanRequestResolve from "./ChannelUnbanRequestResolve";
+import ChannelModerate from "./ChannelModerate";
+import ChannelModeratorRemove from "./ChannelModeratorRemove";
 
 export default {
   AutomodMessageHold,
@@ -51,5 +52,6 @@ export default {
   ChannelUnban,
   ChannelUnbanRequestCreate,
   ChannelUnbanRequestResolve,
+  ChannelModerate,
   ChannelModeratorRemove,
 };
