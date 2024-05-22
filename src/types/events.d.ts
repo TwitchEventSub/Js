@@ -1079,6 +1079,43 @@ export interface ChannelPollEndEvent extends Omit<ChannelPollBeginEvent, "ends_a
 
 export type ChannelPollEndSubscription = BaseSubscription<ChannelPollEndEvent, "channel.poll.end">;
 
+interface TwitchTopPredictors<Ended extends boolean> extends BaseUser {
+  /** The number of Channel Points won. */
+  channel_points_won: Ended extends true ? number : null;
+  /** The number of Channel Points used to participate in the Prediction. */
+  channel_points_used: number;
+}
+
+interface TwitchOutcomes<Ended extends boolean = false> {
+  /** The outcome ID. */
+  id: string;
+  /** The outcome title. */
+  title: string;
+  /** The color for the outcome. */
+  color: "pink" | "blue";
+  /** The number of users who used Channel Points on this outcome. */
+  users: number;
+  /** The total number of Channel Points used on this outcome. */
+  channel_points: number;
+  /** An array of users who used the most Channel Points on this outcome. */
+  top_predictors: TwitchTopPredictors<Ended>[];
+}
+
+export interface ChannelPredictionBeginEvent extends BaseBroadcaster {
+  /** Channel Points Prediction ID. */
+  id: string;
+  /** Title for the Channel Points Prediction. */
+  title: string;
+  /** An array of outcomes for the Channel Points Prediction. */
+  outcomes: TwitchOutcomes[];
+  /** The time the Channel Points Prediction started. */
+  started_at: string;
+  /** The time the Channel Points Prediction will automatically lock. */
+  locks_at: string;
+}
+
+export type ChannelPredictionBeginSubscription = BaseSubscription<ChannelPredictionBeginEvent, "channel.prediction.begin">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1114,4 +1151,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPointsCustomRewardRedemptionUpdateSubscription
 | ChannelPollBeginSubscription
 | ChannelPollProgressSubscription
-| ChannelPollEndSubscription;
+| ChannelPollEndSubscription
+| ChannelPredictionBeginSubscription;
