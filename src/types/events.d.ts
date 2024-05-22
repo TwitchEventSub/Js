@@ -599,6 +599,14 @@ export interface ChannelChatUserMessageUpdateEvent extends ChannelChatUserMessag
 
 export type ChannelChatUserMessageUpdateSubscription = BaseSubscription<ChannelChatUserMessageUpdateEvent, "channel.chat.user_message_update">;
 
+export interface ChannelSubscribeEvent extends BaseBroadcaster, BaseUser {
+  /** The tier of the subscription. */
+  tier: SubType;
+  /** Whether the subscription is a gift. */
+  is_gift: boolean;
+}
+
+export type ChannelSubscribeSubscription = BaseSubscription<ChannelSubscribeEvent, "channel.subscribe">;
 
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
@@ -614,4 +622,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatNotificationSubscription
 | ChannelChatSettingUpdateSubscription
 | ChannelChatUserMessageHoldSubscription
-| ChannelChatUserMessageUpdateSubscription;
+| ChannelChatUserMessageUpdateSubscription
+| ChannelSubscribeSubscription;

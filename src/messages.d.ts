@@ -14,6 +14,7 @@ import {
   ChannelFollowEvent,
   ChannelFollowSubscription,
   ChannelModeratorRemoveEvent,
+  ChannelSubscribeEvent,
   ChannelUpdateEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
@@ -31,6 +32,7 @@ import ChannelChatNotification from "./events/ChannelChatNotification";
 import ChannelChatSettingsUpdate from "./events/ChannelChatSettingsUpdate";
 import ChannelChatUserMessageHold from "./events/ChannelChatUserMessageHold";
 import ChannelChatUserMessageUpdate from "./events/ChannelChatUserMessageUpdate";
+import ChannelSubscribe from "./events/ChannelSubscribe";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -124,6 +126,8 @@ export type NotificationChannelChatUserMessageHold = BaseEventSubMessage<"notifi
 
 export type NotificationChannelChatUserMessageUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatUserMessageUpdate["type"], ChannelChatUserMessageUpdateEvent>>;
 
+export type NotificationChannelSubscribe = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelSubscribe["type"], ChannelSubscribeEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -139,7 +143,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelChatNotification
 | NotificationChannelChatSettingsUpdate
 | NotificationChannelChatUserMessageHold
-| NotificationChannelChatUserMessageUpdate;
+| NotificationChannelChatUserMessageUpdate
+| NotificationChannelSubscribe;
 
 export interface PingMessage {
   type: "PING";
