@@ -703,6 +703,17 @@ export type ChannelUnbanEvent = BaseBroadcaster & BaseModerator & BaseUser;
 
 export type ChannelUnbanSubscription = BaseSubscription<ChannelUnbanEvent, "channel.unban">;
 
+export interface ChannelUnbanRequestCreateEvent extends BaseBroadcaster, BaseUser {
+  /** The ID of the unban request. */
+  id: string;
+  /** Message sent in the unban request. */
+  text: string;
+  /** The UTC timestamp (in RFC3339 format) of when the unban request was created. */
+  created_at: string;
+}
+
+export type ChannelUnbanRequestCreateSubscription = BaseSubscription<ChannelUnbanRequestCreateEvent, "channel.unban_request.create">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -725,4 +736,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelCheerSubscription
 | ChannelRaidSubscription
 | ChannelBanSubscription
-| ChannelUnbanSubscription;
+| ChannelUnbanSubscription
+| ChannelUnbanRequestCreateSubscription;

@@ -22,6 +22,7 @@ import ChannelRaid from "./ChannelRaid";
 import ChannelBan from "./ChannelBan";
 import ChannelUnban from "./ChannelUnban";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
+import ChannelUnbanRequestCreate from "./ChannelUnbanRequestCreate";
 
 export default {
   AutomodMessageHold,
@@ -47,5 +48,6 @@ export default {
   ChannelRaid,
   ChannelBan,
   ChannelUnban,
+  ChannelUnbanRequestCreate,
   ChannelModeratorRemove,
 };
