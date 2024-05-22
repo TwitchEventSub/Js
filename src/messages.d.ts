@@ -33,6 +33,7 @@ import ChannelChatSettingsUpdate from "./events/ChannelChatSettingsUpdate";
 import ChannelChatUserMessageHold from "./events/ChannelChatUserMessageHold";
 import ChannelChatUserMessageUpdate from "./events/ChannelChatUserMessageUpdate";
 import ChannelSubscribe from "./events/ChannelSubscribe";
+import ChannelSubscriptionEnd from "./events/ChannelSubscriptionEnd";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -128,6 +129,8 @@ export type NotificationChannelChatUserMessageUpdate = BaseEventSubMessage<"noti
 
 export type NotificationChannelSubscribe = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelSubscribe["type"], ChannelSubscribeEvent>>;
 
+export type NotificationChannelSubscriptionEnd = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelSubscriptionEnd["type"], ChannelSubscribeEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -144,7 +147,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelChatSettingsUpdate
 | NotificationChannelChatUserMessageHold
 | NotificationChannelChatUserMessageUpdate
-| NotificationChannelSubscribe;
+| NotificationChannelSubscribe
+| NotificationChannelSubscriptionEnd;
 
 export interface PingMessage {
   type: "PING";

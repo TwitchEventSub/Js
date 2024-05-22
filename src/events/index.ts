@@ -15,6 +15,7 @@ import ChannelChatSettingsUpdate from "./ChannelChatSettingsUpdate";
 import ChannelChatUserMessageHold from "./ChannelChatUserMessageHold";
 import ChannelChatUserMessageUpdate from "./ChannelChatUserMessageUpdate";
 import ChannelSubscribe from "./ChannelSubscribe";
+import ChannelSubscriptionEnd from "./ChannelSubscriptionEnd";
 
 export default {
   AutomodMessageHold,
@@ -33,5 +34,6 @@ export default {
   ChannelChatUserMessageHold,
   ChannelChatUserMessageUpdate,
   ChannelSubscribe,
+  ChannelSubscriptionEnd,
   ChannelModeratorRemove,
 };

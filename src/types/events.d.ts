@@ -608,6 +608,8 @@ export interface ChannelSubscribeEvent extends BaseBroadcaster, BaseUser {
 
 export type ChannelSubscribeSubscription = BaseSubscription<ChannelSubscribeEvent, "channel.subscribe">;
 
+export type ChannelSubscribeEndSubscription = BaseSubscription<ChannelSubscribeEvent, "channel.subscription.end">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -623,4 +625,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatSettingUpdateSubscription
 | ChannelChatUserMessageHoldSubscription
 | ChannelChatUserMessageUpdateSubscription
-| ChannelSubscribeSubscription;
+| ChannelSubscribeSubscription
+| ChannelSubscribeEndSubscription;
