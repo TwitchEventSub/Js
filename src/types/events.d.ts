@@ -191,6 +191,17 @@ export type ChannelChatClearEvent = BaseBroadcaster;
 
 export type ChannelChatClearSubscription = BaseSubscription<ChannelChatClearEvent, "channel.chat.clear">;
 
+export interface ChannelChatClearUserMessageEvent extends BaseBroadcaster {
+  /** The ID of the user that was banned or put in a timeout. All of their messages are deleted. */
+  target_user_id: string;
+  /** The user name of the user that was banned or put in a timeout. */
+  target_user_name: string;
+  /** The user login of the user that was banned or put in a timeout. */
+  target_user_login: string;
+}
+
+export type ChannelChatClearUserMessageSubscription = BaseSubscription<ChannelChatClearUserMessageEvent, "channel.chat.clear_user_messages">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -198,4 +209,5 @@ export type EventItem = ChannelFollowSubscription
 | AutomodSettingsUpdateSubscription
 | AutomodTermsUpdateSubscription
 | ChannelAdBreakBeginSubscription
-| ChannelChatClearSubscription;
+| ChannelChatClearSubscription
+| ChannelChatClearUserMessageSubscription;

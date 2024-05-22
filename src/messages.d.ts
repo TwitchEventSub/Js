@@ -4,6 +4,7 @@ import {
   AutomodTermsUpdateEvent,
   ChannelAdBreakBeginEvent,
   ChannelChatClearEvent,
+  ChannelChatClearUserMessageEvent,
   ChannelFollowEvent,
   ChannelFollowSubscription,
   ChannelModeratorRemoveEvent,
@@ -17,6 +18,7 @@ import AutomodTermsUpdate from "./events/AutomodTermsUpdate";
 import ChannelUpdate from "./events/ChannelUpdate";
 import ChannelAdBreakBegin from "./events/ChannelAdBreakBegin";
 import ChannelChatClear from "./events/ChannelChatClear";
+import ChannelChatClearUserMessage from "./events/ChannelChatClearUserMessage";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -96,6 +98,8 @@ export type NotificationChannelAdBreakBegin = BaseEventSubMessage<"notification"
 
 export type NotificationChannelChatClear = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatClear["type"], ChannelChatClearEvent>>;
 
+export type NotificationChannelChatClearUserMessage = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatClearUserMessage["type"], ChannelChatClearUserMessageEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -104,7 +108,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationAutomodTermsUpdate
 | NotificationChannelUpdate
 | NotificationChannelAdBreakBegin
-| NotificationChannelChatClear;
+| NotificationChannelChatClear
+| NotificationChannelChatClearUserMessage;
 
 export interface PingMessage {
   type: "PING";
