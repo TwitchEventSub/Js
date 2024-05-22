@@ -11,7 +11,6 @@ export default class ChannelPollBegin extends BaseEvent<ChannelPollBeginEvent> i
   readonly permissions = ["channel:read:polls"];
 
   private _channel: string;
-  private _rewardId: string | undefined;
 
   get channel() {
     return [this._channel];
