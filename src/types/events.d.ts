@@ -187,10 +187,15 @@ export interface ChannelAdBreakBeginEvent extends BaseBroadcaster {
 
 export type ChannelAdBreakBeginSubscription = BaseSubscription<ChannelAdBreakBeginEvent, "channel.ad_break.begin">;
 
+export type ChannelChatClearEvent = BaseBroadcaster;
+
+export type ChannelChatClearSubscription = BaseSubscription<ChannelChatClearEvent, "channel.chat.clear">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
 | AutomodMessageHoldUpdateSubscription
 | AutomodSettingsUpdateSubscription
 | AutomodTermsUpdateSubscription
-| ChannelAdBreakBeginSubscription;
+| ChannelAdBreakBeginSubscription
+| ChannelChatClearSubscription;
