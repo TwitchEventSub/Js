@@ -1070,6 +1070,15 @@ export type ChannelPollProgressEvent = ChannelPollBeginEvent;
 
 export type ChannelPollProgressSubscription = BaseSubscription<ChannelPollProgressEvent, "channel.poll.progress">;
 
+export interface ChannelPollEndEvent extends Omit<ChannelPollBeginEvent, "ends_at"> {
+  /** The status of the poll. */
+  status: "completed" | "archived" | "terminated";
+  /** The time the poll ended. */
+  ended_at: string;
+}
+
+export type ChannelPollEndSubscription = BaseSubscription<ChannelPollEndEvent, "channel.poll.end">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1104,4 +1113,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPointsCustomRewardRedemptionAddSubscription
 | ChannelPointsCustomRewardRedemptionUpdateSubscription
 | ChannelPollBeginSubscription
-| ChannelPollProgressSubscription;
+| ChannelPollProgressSubscription
+| ChannelPollEndSubscription;
