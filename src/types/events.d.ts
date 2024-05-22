@@ -251,15 +251,25 @@ export interface MentionMessageFragment extends BaseMessageFragment {
 
 export type MessageFragment = TextMessageFragment | CheermoteMessageFragment | EmoteMessageFragment | MentionMessageFragment;
 
-export interface ChannelChatMessageEvent extends BaseMessageEvent {
+interface BaseChatter {
   /** The user ID of the user that sent the message. */
   chatter_user_id: string;
   /** The user name of the user that sent the message. */
   chatter_user_name: string;
   /** The user login of the user that sent the message. */
   chatter_user_login: string;
+  /** The color of the user’s name in the chat room. */
+  color: "" | `#${string}`;
+}
+
+export interface ChannelChatMessageEvent extends BaseMessageEvent, BaseChatter {
   /** The structured chat message. */
-  message: MessageFragment[],
+  message: {
+    /** The chat message in plain text. */
+    text: string;
+    /** Ordered list of chat message fragments. */
+    fragments: MessageFragment[];
+  },
   /** The type of message. */
   message_type: "text" | "channel_points_highlighted" | "channel_points_sub_only" | "user_intro";
   /** List of chat badges. */
@@ -276,8 +286,6 @@ export interface ChannelChatMessageEvent extends BaseMessageEvent {
     /** The amount of Bits the user cheered. */
     bits: number;
   }
-  /** The color of the user’s name in the chat room. */
-  color: "" | `#${string}`;
   /** Metadata if this message is a reply. */
   reply?: {
     /** An ID that uniquely identifies the parent message that this message is replying to. */
