@@ -262,6 +262,15 @@ interface BaseChatter {
   color: "" | `#${string}`;
 }
 
+interface ChatterBadge {
+  /**An ID that identifies this set of chat badges. For example, Bits or Subscriber. */
+  set_id: string;
+  /** An ID that identifies this version of the badge. */
+  id: string;
+  /** Contains metadata related to the chat badges in the badges tag. */
+  info: string;
+}
+
 export interface ChannelChatMessageEvent extends BaseMessageEvent, BaseChatter {
   /** The structured chat message. */
   message: {
@@ -273,14 +282,7 @@ export interface ChannelChatMessageEvent extends BaseMessageEvent, BaseChatter {
   /** The type of message. */
   message_type: "text" | "channel_points_highlighted" | "channel_points_sub_only" | "user_intro";
   /** List of chat badges. */
-  badges: {
-    /**An ID that identifies this set of chat badges. For example, Bits or Subscriber. */
-    set_id: string;
-    /** An ID that identifies this version of the badge. */
-    id: string;
-    /** Contains metadata related to the chat badges in the badges tag. */
-    info: string;
-  }[];
+  badges: ChatterBadge[];
   /** Metadata if this message is a cheer. */
   cheer?: {
     /** The amount of Bits the user cheered. */
@@ -323,6 +325,219 @@ export interface ChannelChatMessageDeleteEvent extends BaseMessageEvent {
 }
 
 export type ChannelChatMessageDeleteSubscription = BaseSubscription<ChannelChatMessageDeleteEvent, "channel.chat.message_delete">;
+
+interface BaseChannelChatNotificationEvent extends BaseMessageEvent, BaseChatter {
+  /** Whether or not the chatter is anonymous. */
+  chatter_is_anonymous: boolean;
+  /** List of chat badges. */
+  badges: ChatterBadge[];
+  /** The message Twitch shows in the chat room for this notice. */
+  system_message: string;
+  /** The structured chat message. */
+  message: {
+    /** The chat message in plain text. */
+    text: string;
+    /** Ordered list of chat message fragments. */
+    fragments: MessageFragment[];
+  },
+}
+
+type SubType = "1000" | "2000" | "3000";
+
+interface BaseChannelChatNotificationSub {
+  /** The type of subscription plan being used. */
+  sub_tier: SubType;
+  /** The number of months the subscription is for. */
+  duration_months: number;
+}
+
+interface ChannelChatNotificationSub {
+  /** The type of notice */
+  message_type: "sub";
+  /** Information about the sub event. */
+  sub: BaseChannelChatNotificationSub & {
+    /** Indicates if the subscription was obtained through Amazon Prime. */
+    is_prime: boolean;
+  }
+}
+
+interface ChannelChatNotificationResubSubGift {
+  /** Whether or not the resub was a result of a gift. */
+  is_gift: true;
+  /** Whether or not the gift was anonymous. */
+  gifter_is_anonymous: boolean;
+  /** The user ID of the subscription gifter. */
+  gifter_user_id: string;
+  /** The user name of the subscription gifter. */
+  gifter_user_name: string;
+  /** The user login of the subscription gifter. */
+  gifter_user_login: string;
+}
+
+type ChannelChatNotificationResubNonSubGift = Omit<{ [K in keyof ChannelChatNotificationResubSubGift]: null }, "is_gift"> & { is_gift: false };
+
+interface ChannelChatNotificationResub {
+  message_type: "resub";
+  resub: BaseChannelChatNotificationSub
+  & ( ChannelChatNotificationResubSubGift | ChannelChatNotificationResubNonSubGift )
+  & {
+    /** The total number of months the user has subscribed. */
+    cumulative_months: number;
+    /** The total number of months the user has subscribed. */
+    streak_months: number;
+    /** Indicates if the subscription was obtained through Amazon Prime. */
+    is_prime?: boolean;
+  }
+}
+
+interface ChannelChatNotificationSubGift {
+  message_type: "sub_gift";
+  sub_gift: BaseChannelChatNotificationSub
+  & {
+    /** The amount of gifts the gifter has given in this channel. Null if anonymous. */
+    cumulative_total?: number;
+    /** The user ID of the subscription gift recipient. */
+    recipient_user_id: string;
+    /** The user name of the subscription gift recipient. */
+    recipient_user_name: string;
+    /** The user login of the subscription gift recipient. */
+    recipient_user_login: string;
+    /** The ID of the associated community gift. Null if not associated with a community gift. */
+    community_gift_id?: string;
+  }
+}
+
+interface ChannelChatNotificationCommunitySubGift {
+  message_type: "community_sub_gift";
+  community_sub_gift: BaseChannelChatNotificationSub & {
+    /** The ID of the associated community gift. */
+    id: string;
+    /** Number of subscriptions being gifted. */
+    total: number;
+    /** The amount of gifts the gifter has given in this channel. Null if anonymous. */
+    cumulative_total: number;
+  }
+}
+
+interface ChannelChatNotificationGiftPaidUpgradeNonAnonnymous {
+  /** Whether the gift was given anonymously. */
+  gifter_is_anonymous: false;
+  /** The user ID of the user who gifted the subscription. */
+  gifter_user_id: string;
+  /** The user name of the user who gifted the subscription. */
+  gifter_user_name: string;
+  /** The user login of the user who gifted the subscription. */
+  gifter_user_login: string;
+}
+
+type ChannelChatNotificationGiftPaidUpgradeAnonnymous = Omit<{ [K in keyof ChannelChatNotificationGiftPaidUpgradeNonAnonnymous]: null }, "gifter_is_anonymous"> & { gifter_is_anonymous: true };
+
+interface ChannelChatNotificationGiftPaidUpgrade {
+  message_type: "gift_paid_upgrade";
+  gift_paid_upgrade: ChannelChatNotificationGiftPaidUpgradeNonAnonnymous | ChannelChatNotificationGiftPaidUpgradeAnonnymous;
+}
+
+interface ChannelChatNotificationPrimePaidUpgrade {
+  message_type: "prime_paid_upgrade";
+  /** Information about the Prime gift paid upgrade event. */
+  prime_paid_upgrade: {
+    sub_tier: SubType;
+  };
+}
+
+interface ChannelChatNotificationRaid {
+  message_type: "raid";
+  /** Information about the raid event. */
+  raid: {
+    /** The user ID of the broadcaster raiding this channel. */
+    user_id: string;
+    /** The user name of the broadcaster raiding this channel. */
+    user_name: string;
+    /** The user login of the broadcaster raiding this channel. */
+    user_login: string;
+    /** The number of viewers raiding this channel from the broadcaster’s channel. */
+    viewer_count: number;
+    /** Profile image URL of the broadcaster raiding this channel. */
+    profile_image_url: string;
+  }
+}
+
+interface ChannelChatNotificationUnraid {
+  message_type: "unraid";
+  /** Returns an empty payload */
+  unraid: Record<never, never>;
+}
+
+interface ChannelChatNotificationPayItForward {
+  message_type: "pay_it_forward";
+  /** Information about the pay it forward event. */
+  pay_it_forward: ChannelChatNotificationGiftPaidUpgradeNonAnonnymous | ChannelChatNotificationGiftPaidUpgradeAnonnymous;
+}
+
+interface ChannelChatNotificationAnnouncement {
+  message_type: "announcement";
+  /** Information about the announcement event. */
+  announcement: {
+    /** Color of the announcement. */
+    color: string;
+  }
+}
+
+interface ChannelChatNotificationBitsBadgeTier {
+  message_type: "bits_badge_tier";
+  /** Information about the bits badge tier event. */
+  bits_badge_tier: {
+    /** The tier of the Bits badge the user just earned. */
+    tier: number;
+  }
+}
+
+interface ChannelChatNotificationCharityDonation {
+  message_type: "charity_donation";
+  /** Information about the charity donation event. */
+  charity_donation: {
+    /** Name of the charity. */
+    charity_name: string;
+    /** An object that contains the amount of money that the user paid. */
+    amount: {
+      /** The monetary amount. The amount is specified in the currency’s minor unit.
+       * 
+       * For example, the minor units for USD is cents, so if the amount is $5.50 USD, value is set to 550.
+       */
+      value: number;
+      /** The number of decimal places used by the currency.
+       * 
+       * For example, USD uses two decimal places.
+       */
+      decimal_place: number;
+      /**
+       * The ISO-4217 three-letter currency code that identifies the type of currency in value.
+       * 
+       * @link https://www.iso.org/iso-4217-currency-codes.html
+       */
+      currency: string;
+    }
+  }
+
+}
+
+export type ChannelChatNotificationEvent = BaseChannelChatNotificationEvent
+& (
+  ChannelChatNotificationSub
+  | ChannelChatNotificationResub
+  | ChannelChatNotificationSubGift
+  | ChannelChatNotificationCommunitySubGift
+  | ChannelChatNotificationGiftPaidUpgrade
+  | ChannelChatNotificationPrimePaidUpgrade
+  | ChannelChatNotificationRaid
+  | ChannelChatNotificationUnraid
+  | ChannelChatNotificationPayItForward
+  | ChannelChatNotificationAnnouncement
+  | ChannelChatNotificationBitsBadgeTier
+  | ChannelChatNotificationCharityDonation
+);
+
+export type ChannelChatNotificationSubscription = BaseSubscription<ChannelChatNotificationEvent, "channel.chat.notification">;
 
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
