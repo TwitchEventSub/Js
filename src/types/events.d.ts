@@ -549,4 +549,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatClearSubscription
 | ChannelChatClearUserMessageSubscription
 | ChannelChatMessageSubscription
-| ChannelChatMessageDeleteSubscription;
+| ChannelChatMessageDeleteSubscription
+| ChannelChatNotificationEvent;
