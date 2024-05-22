@@ -874,6 +874,10 @@ export type ChannelModerateEvent = BaseChannelModerateSpec & BaseBroadcaster & B
 
 export type ChannelModerateSubscription = BaseSubscription<ChannelModerateEvent, "channel.moderate">;
 
+export type ChannelModeratorAddEvent = BaseBroadcaster & BaseUser;
+
+export type ChannelModeratorAddSubscription = BaseSubscription<ChannelModeratorAddEvent, "channel.moderator.add">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
