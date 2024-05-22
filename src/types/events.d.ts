@@ -202,6 +202,109 @@ export interface ChannelChatClearUserMessageEvent extends BaseBroadcaster {
 
 export type ChannelChatClearUserMessageSubscription = BaseSubscription<ChannelChatClearUserMessageEvent, "channel.chat.clear_user_messages">;
 
+interface BaseMessageFragment {
+  /** Message text in fragment. */
+  text: string;
+}
+
+export interface TextMessageFragment extends BaseMessageFragment {
+  type: "text";
+}
+
+export interface CheermoteMessageFragment extends BaseMessageFragment {
+  type: "cheermote";
+  cheermote: {
+    /** The name portion of the Cheermote string that you use in chat to cheer Bits.  */
+    prefix: string;
+    /** The amount of bits cheered. */
+    bits: number;
+    /** The tier level of the cheermote. */
+    tier: number;
+  }
+}
+
+export interface EmoteMessageFragment extends BaseMessageFragment {
+  type: "emote";
+  emote: {
+    /** An ID that uniquely identifies this emote. */
+    id: string;
+    /** An ID that identifies the emote set that the emote belongs to. */
+    emote_set_id: string;
+    /** The ID of the broadcaster who owns the emote. */
+    owner_id: string;
+    /** The formats that the emote is available in.  */
+    format: "animated" | "static";
+  }
+}
+
+export interface MentionMessageFragment extends BaseMessageFragment {
+  type: "mention";
+  mention: {
+    /** The user ID of the mentioned user. */
+    user_id: string;
+    /** The user name of the mentioned user. */
+    user_name: string;
+    /** The user login of the mentioned user. */
+    user_login: string;
+  }
+}
+
+export type MessageFragment = TextMessageFragment | CheermoteMessageFragment | EmoteMessageFragment | MentionMessageFragment;
+
+export interface ChannelChatMessageEvent extends BaseMessageEvent {
+  /** The user ID of the user that sent the message. */
+  chatter_user_id: string;
+  /** The user name of the user that sent the message. */
+  chatter_user_name: string;
+  /** The user login of the user that sent the message. */
+  chatter_user_login: string;
+  /** The structured chat message. */
+  message: MessageFragment[],
+  /** The type of message. */
+  message_type: "text" | "channel_points_highlighted" | "channel_points_sub_only" | "user_intro";
+  /** List of chat badges. */
+  badges: {
+    /**An ID that identifies this set of chat badges. For example, Bits or Subscriber. */
+    set_id: string;
+    /** An ID that identifies this version of the badge. */
+    id: string;
+    /** Contains metadata related to the chat badges in the badges tag. */
+    info: string;
+  }[];
+  /** Metadata if this message is a cheer. */
+  cheer?: {
+    /** The amount of Bits the user cheered. */
+    bits: number;
+  }
+  /** The color of the user’s name in the chat room. */
+  color: "" | `#${string}`;
+  /** Metadata if this message is a reply. */
+  reply?: {
+    /** An ID that uniquely identifies the parent message that this message is replying to. */
+    parent_message_id: string;
+    /** The message body of the parent message. */
+    parent_message_body: string;
+    /** User ID of the sender of the parent message. */
+    parent_user_id: string;
+    /** User name of the sender of the parent message. */
+    parent_user_name: string;
+    /** User login of the sender of the parent message. */
+    parent_user_login: string;
+    /** An ID that identifies the parent message of the reply thread. */
+    thread_message_id: string;
+    /** User ID of the sender of the thread’s parent message. */
+    thread_user_id: string;
+    /** User name of the sender of the thread’s parent message. */
+    thread_user_name: string;
+    /** User login of the sender of the thread’s parent message. */
+    thread_user_login: string;
+  }
+  /** The ID of a channel points custom reward that was redeemed. */
+  channel_points_custom_reward_id: string;
+}
+
+export type ChannelChatMessageSubscription = BaseSubscription<ChannelChatMessageEvent, "channel.chat.message">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -210,4 +313,5 @@ export type EventItem = ChannelFollowSubscription
 | AutomodTermsUpdateSubscription
 | ChannelAdBreakBeginSubscription
 | ChannelChatClearSubscription
-| ChannelChatClearUserMessageSubscription;
+| ChannelChatClearUserMessageSubscription
+| ChannelChatMessageSubscription;

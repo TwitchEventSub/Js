@@ -8,6 +8,7 @@ import ChannelAdBreakBegin from "./ChannelAdBreakBegin";
 import ChannelChatClear from "./ChannelChatClear";
 import ChannelChatClearUserMessage from "./ChannelChatClearUserMessage";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
+import ChannelChatMessage from "./ChannelChatMessage";
 
 export default {
   AutomodMessageHold,
@@ -19,5 +20,6 @@ export default {
   ChannelAdBreakBegin,
   ChannelChatClear,
   ChannelChatClearUserMessage,
+  ChannelChatMessage,
   ChannelModeratorRemove,
 };
