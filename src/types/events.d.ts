@@ -1031,6 +1031,42 @@ export type ChannelPointsCustomRewardRedemptionUpdateEvent = ChannelPointsCustom
 
 export type ChannelPointsCustomRewardRedemptionUpdateSubscription = BaseSubscription<ChannelPointsCustomRewardRedemptionUpdateEvent, "channel.channel_points_custom_reward_redemption.update">;
 
+interface TwitchChoices {
+  /** ID for the choice. */
+  id: string;
+  /** Text displayed for the choice. */
+  title: string;
+  /** Not used; will be set to 0. */
+  bits_votes: never;
+  /** Number of votes received via Channel Points. */
+  channel_points_votes: number;
+  /** Total number of votes received for the choice across all methods of voting. */
+  votes: number;
+}
+
+interface TwitchBitsVoting {
+  is_enabled: boolean;
+  amount_per_vote: number;
+}
+
+export interface ChannelPollBeginEvent extends BaseBroadcaster {
+  /** ID of the poll. */
+  id: string;
+  /** Question displayed for the poll. */
+  title: string;
+  /** An array of choices for the poll. */
+  choices: TwitchChoices[];
+  /** Not supported. use TwitchBitsVoting if ever implemented */
+  bits_voting: Record<never, never>;
+  /** The time the poll started. */
+  started_at: string;
+  /** The time the poll will end. */
+  ends_at: string;
+}
+
+
+export type ChannelPollBeginSubscription = BaseSubscription<ChannelPollBeginEvent, "channel.poll.begin">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1063,4 +1099,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPointsCustomRewardUpdateSubscription
 | ChannelPointsCustomRewardRemoveSubscription
 | ChannelPointsCustomRewardRedemptionAddSubscription
-| ChannelPointsCustomRewardRedemptionUpdateSubscription;
+| ChannelPointsCustomRewardRedemptionUpdateSubscription
+| ChannelPollBeginSubscription;
