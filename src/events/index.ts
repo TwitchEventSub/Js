@@ -27,6 +27,7 @@ import ChannelModerate from "./ChannelModerate";
 import ChannelModeratorAdd from "./ChannelModeratorAdd";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelPointsAutomaticRewardRedemption from "./ChannelPointsAutomaticRewardRedemption";
+import ChannelPointsCustomRewardAdd from "./ChannelPointsCustomRewardAdd";
 
 export default {
   AutomodMessageHold,
@@ -58,4 +59,5 @@ export default {
   ChannelModeratorAdd,
   ChannelModeratorRemove,
   ChannelPointsAutomaticRewardRedemption,
+  ChannelPointsCustomRewardAdd,
 };

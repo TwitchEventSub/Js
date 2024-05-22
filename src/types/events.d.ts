@@ -926,6 +926,75 @@ export type ChannelPointsAutomaticRewardRedemptionEvent = ChannelPointsAutomatic
 
 export type ChannelPointsAutomaticRewardRedemptionSubscription = BaseSubscription<ChannelPointsAutomaticRewardRedemptionEvent, "channel.channel_points_automatic_reward_redemption.add">;
 
+interface TwitchMaxPerStream {
+  /** Is the setting enabled. */
+  is_enabled: boolean;
+  /** The max per stream limit. */
+  value: number;
+}
+
+interface TwitchMaxPerUserPerStream {
+  /** Is the setting enabled. */
+  is_enabled: boolean;
+  /** The max per user per stream limit. */
+  value: number;
+}
+
+interface TwitchImage {
+  /** URL for the image at 1x size. */
+  url_1x: string;
+  /** URL for the image at 2x size. */
+  url_2x: string;
+  /** URL for the image at 4x size. */
+  url_4x: string;
+}
+
+interface TwitchGlobalCooldown {
+  /** Is the setting enabled. */
+  is_enabled: boolean;
+  /** The cooldown in seconds. */
+  seconds: number;
+}
+
+export interface ChannelPointsCustomRewardAddEvent extends BaseBroadcaster {
+  /** The reward identifier. */
+  id: string;
+  /** Is the reward currently enabled. If false, the reward won’t show up to viewers. */
+  is_enabled: boolean;
+  /** Is the reward currently paused. If true, viewers can’t redeem. */
+  is_paused: boolean;
+  /** Is the reward currently in stock. If false, viewers can’t redeem. */
+  is_in_stock: boolean;
+  /** The reward title. */
+  title: string;
+  /** The reward cost. */
+  cost: number;
+  /** The reward description. */
+  prompt: string;
+  /** Does the viewer need to enter information when redeeming the reward. */
+  is_user_input_required: boolean;
+  /** Should redemptions be set to `fulfilled` status immediately when redeemed and skip the request queue instead of the normal `unfulfilled` status. */
+  should_redemptions_skip_request_queue: boolean;
+  /** Whether a maximum per stream is enabled and what the maximum is. */
+  max_per_stream: TwitchMaxPerStream;
+   /** Whether a maximum per user per stream is enabled and what the maximum is. */
+  max_per_user_per_stream: TwitchMaxPerUserPerStream;
+  /** Custom background color for the reward. Format: Hex with # prefix. */
+  background_color: `#${string}`;
+  /** Set of custom images of 1x, 2x and 4x sizes for the reward. Can be `null` if no images have been uploaded. */
+  image: TwitchImage | null;
+  /** Set of default images of 1x, 2x and 4x sizes for the reward. */
+  default_image: TwitchImage;
+  /** Whether a cooldown is enabled and what the cooldown is in seconds. */
+  global_cooldown: TwitchGlobalCooldown;
+  /** Timestamp of the cooldown expiration. `null` if the reward isn’t on cooldown. */
+  cooldown_expires_at: string | null;
+  /** The number of redemptions redeemed during the current live stream. Counts against the `max_per_stream` limit. `null` if the broadcasters stream isn’t live or `max_per_stream` isn’t enabled. */
+  redemptions_redeemed_current_stream: number | null;
+}
+
+export type ChannelPointsCustomRewardAddSubscription = BaseSubscription<ChannelPointsCustomRewardAddEvent, "channel.channel_points_custom_reward.add">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -953,4 +1022,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelUnbanRequestResolveSubscription
 | ChannelModerateSubscription
 | ChannelModeratorAddSubscription
-| ChannelPointsAutomaticRewardRedemptionSubscription;
+| ChannelPointsAutomaticRewardRedemptionSubscription
+| ChannelPointsCustomRewardAddSubscription;
