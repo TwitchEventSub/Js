@@ -18,6 +18,7 @@ import ChannelSubscriptionEnd from "./ChannelSubscriptionEnd";
 import ChannelSubscriptionGift from "./ChannelSubscriptionGift";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelSubscriptionMessage from "./ChannelSubscriptionMessage";
+import ChannelCheer from "./ChannelCheer";
 
 export default {
   AutomodMessageHold,
@@ -39,5 +40,6 @@ export default {
   ChannelSubscriptionEnd,
   ChannelSubscriptionGift,
   ChannelSubscriptionMessage,
+  ChannelCheer,
   ChannelModeratorRemove,
 };

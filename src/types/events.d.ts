@@ -661,6 +661,15 @@ export interface ChannelSubscriptionMessageEvent extends BaseBroadcaster, BaseUs
 
 export type ChannelSubscriptionMessageSubscription = BaseSubscription<ChannelSubscriptionMessageEvent, "channel.subscription.message">;
 
+export interface ChannelCheerEvent extends BaseBroadcaster, ChannelSubscriptionGiftSpec {
+  /** The message sent with the cheer. */
+  message: string;
+  /** The number of bits cheered. */
+  bits: number;
+}
+
+export type ChannelCheerSubscription = BaseSubscription<ChannelCheerEvent, "channel.cheer">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -679,4 +688,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelSubscribeSubscription
 | ChannelSubscribeEndSubscription
 | ChannelSubscriptionGiftSubscription
-| ChannelSubscriptionMessageSubscription;
+| ChannelSubscriptionMessageSubscription
+| ChannelCheerSubscription;
