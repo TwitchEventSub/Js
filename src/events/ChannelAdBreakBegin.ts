@@ -6,7 +6,7 @@ import BaseEvent from "../util/BaseEvent";
 
 export default class ChannelAdBreakBegin extends BaseEvent<ChannelAdBreakBeginEvent> implements ChannelAdBreakBeginSubscription {
   readonly type = "channel.ad_break.begin";
-  readonly version = "1";
+  readonly version = "2";
   readonly permissions = ["channel:read:ads"];
 
   private _channel: string;
