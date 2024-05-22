@@ -66,46 +66,48 @@ interface BaseMessageEvent extends BaseBroadcaster {
   message_id: string;
 }
 
+interface BaseAutomodMessageHoldFragment {
+  /** Message text in a fragment. */
+  text: string;
+  /** Metadata pertaining to the emote. */
+  emote?: {
+    /** An ID that uniquely identifies this emote. */
+    id: string;
+    /** An ID that identifies the emote set that the emote belongs to. */
+    emote_set_id: string;
+  }
+  /** Metadata pertaining to the cheermote. */
+  cheermote?: {
+    /**
+     * The name portion of the Cheermote string that you use in chat to cheer Bits.
+     * The full Cheermote string is the concatenation of {prefix} + {number of Bits}.
+     * 
+     * For example, if the prefix is “Cheer” and you want to cheer 100 Bits, the full Cheermote string is Cheer100.
+     * When the Cheermote string is entered in chat,
+     * Twitch converts it to the image associated with the Bits tier that was cheered.
+     */
+    prefix: string;
+    /** The amount of bits cheered. */
+    bits: number;
+    /** The tier level of the cheermote. */
+    tier: number;
+  }
+}
+
 export interface AutomodMessageHoldEvent extends BaseMessageEvent, BaseUser {
   /** The body of the message. */
   message: {
     /** The contents of the message caught by automod. */
     text: string;
     /** Metadata surrounding the potential inappropriate fragments of the message. */
-    fragments: {
-      /** Message text in a fragment. */
-      text: string;
-      /** Metadata pertaining to the emote. */
-      emote?: {
-        /** An ID that uniquely identifies this emote. */
-        id: string;
-        /** An ID that identifies the emote set that the emote belongs to. */
-        emote_set_id: string;
-      }
-      /** Metadata pertaining to the cheermote. */
-      cheermote?: {
-        /**
-         * The name portion of the Cheermote string that you use in chat to cheer Bits.
-         * The full Cheermote string is the concatenation of {prefix} + {number of Bits}.
-         * 
-         * For example, if the prefix is “Cheer” and you want to cheer 100 Bits, the full Cheermote string is Cheer100.
-         * When the Cheermote string is entered in chat,
-         * Twitch converts it to the image associated with the Bits tier that was cheered.
-         */
-        prefix: string;
-        /** The amount of bits cheered. */
-        bits: number;
-        /** The tier level of the cheermote. */
-        tier: number;
-      }
-    }[];
+    fragments: BaseAutomodMessageHoldFragment[];
     /** The category of the message. */
     category: string;
     /** The level of severity. */
     level: 1 | 2 | 3 | 4;
     /** The timestamp of when automod saved the message. */
     held_at: string;
-  };
+  }[];
 }
 
 export type AutomodMessageHoldSubscription = BaseSubscription<AutomodMessageHoldEvent, "automod.message.hold">;
@@ -310,7 +312,7 @@ export interface ChannelChatMessageEvent extends BaseMessageEvent, BaseChatter {
     thread_user_login: string;
   }
   /** The ID of a channel points custom reward that was redeemed. */
-  channel_points_custom_reward_id: string;
+  channel_points_custom_reward_id?: string;
 }
 
 export type ChannelChatMessageSubscription = BaseSubscription<ChannelChatMessageEvent, "channel.chat.message">;
@@ -572,7 +574,7 @@ export interface ChannelChatSettingUpdateEvent extends BaseBroadcaster, ChannelC
 
 export type ChannelChatSettingUpdateSubscription = BaseSubscription<ChannelChatSettingUpdateEvent, "channel.chat_settings.update">;
 
-interface ChannelChatUserMessageHoldEvent extends BaseMessageEvent {
+export interface ChannelChatUserMessageHoldEvent extends BaseMessageEvent {
   /** The User ID of the message sender. */
   user_id: string;
   /** The message sender’s login. */
@@ -584,30 +586,18 @@ interface ChannelChatUserMessageHoldEvent extends BaseMessageEvent {
     /** The contents of the message caught by automod. */
     text: string;
     /** Ordered list of chat message fragments. */
-    fragments: {
-      /** Message text in a fragment. */
-      text: string;
-      /** Metadata pertaining to the emote. */
-      emote?: {
-        /** An ID that uniquely identifies this emote. */
-        id: string;
-        /** An ID that identifies the emote set that the emote belongs to. */
-        emote_set_id: string;
-      }
-    };
-    /** Metadata pertaining to the cheermote. */
-    cheermote?: {
-      /**  	The name portion of the Cheermote string that you use in chat to cheer Bits. The full Cheermote string is the concatenation of {prefix} + {number of Bits}.  */
-      prefix: string;
-      /** The amount of bits cheered. */
-      bits: number;
-      /** The tier level of the cheermote. */
-      tier: number;
-    }
+    fragments: BaseAutomodMessageHoldFragment[];
   }
 }
 
 export type ChannelChatUserMessageHoldSubscription = BaseSubscription<ChannelChatUserMessageHoldEvent, "channel.chat.user_message_hold">;
+
+export interface ChannelChatUserMessageUpdateEvent extends ChannelChatUserMessageHoldEvent {
+  /** The message’s status */
+  status: "approved" | "denied" | "invalid";
+}
+
+export type ChannelChatUserMessageUpdateSubscription = BaseSubscription<ChannelChatUserMessageUpdateEvent, "channel.chat.user_message_update">;
 
 
 export type EventItem = ChannelFollowSubscription
@@ -623,4 +613,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatMessageDeleteSubscription
 | ChannelChatNotificationSubscription
 | ChannelChatSettingUpdateSubscription
-| ChannelChatUserMessageHoldSubscription;
+| ChannelChatUserMessageHoldSubscription
+| ChannelChatUserMessageUpdateSubscription;

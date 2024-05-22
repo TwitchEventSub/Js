@@ -10,6 +10,7 @@ import {
   ChannelChatNotificationEvent,
   ChannelChatSettingUpdateEvent,
   ChannelChatUserMessageHoldEvent,
+  ChannelChatUserMessageUpdateEvent,
   ChannelFollowEvent,
   ChannelFollowSubscription,
   ChannelModeratorRemoveEvent,
@@ -29,6 +30,7 @@ import ChannelChatMessageDelete from "./events/ChannelChatMessageDelete";
 import ChannelChatNotification from "./events/ChannelChatNotification";
 import ChannelChatSettingsUpdate from "./events/ChannelChatSettingsUpdate";
 import ChannelChatUserMessageHold from "./events/ChannelChatUserMessageHold";
+import ChannelChatUserMessageUpdate from "./events/ChannelChatUserMessageUpdate";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -120,6 +122,8 @@ export type NotificationChannelChatSettingsUpdate = BaseEventSubMessage<"notific
 
 export type NotificationChannelChatUserMessageHold = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatUserMessageHold["type"], ChannelChatUserMessageHoldEvent>>;
 
+export type NotificationChannelChatUserMessageUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatUserMessageUpdate["type"], ChannelChatUserMessageUpdateEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -134,7 +138,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelChatMessageDelete
 | NotificationChannelChatNotification
 | NotificationChannelChatSettingsUpdate
-| NotificationChannelChatUserMessageHold;
+| NotificationChannelChatUserMessageHold
+| NotificationChannelChatUserMessageUpdate;
 
 export interface PingMessage {
   type: "PING";
