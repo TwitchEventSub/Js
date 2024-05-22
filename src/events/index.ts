@@ -2,8 +2,9 @@ import AutomodMessageHold from "./AutomodMessageHold";
 import AutomodMessageHoldUpdate from "./AutomodMessageHoldUpdate";
 import AutomodSettingsUpdate from "./AutomodSettingsUpdate";
 import AutomodTermsUpdate from "./AutomodTermsUpdate";
-import ChannelAdBreakBegin from "./ChannelAdBreakBegin";
+import ChannelUpdate from "./ChannelUpdate";
 import ChannelFollow from "./ChannelFollow";
+import ChannelAdBreakBegin from "./ChannelAdBreakBegin";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
 
 export default {
@@ -11,7 +12,8 @@ export default {
   AutomodMessageHoldUpdate,
   AutomodSettingsUpdate,
   AutomodTermsUpdate,
-  ChannelAdBreakBegin,
+  ChannelUpdate,
   ChannelFollow,
+  ChannelAdBreakBegin,
   ChannelModeratorRemove,
 };
