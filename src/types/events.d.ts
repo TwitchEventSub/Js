@@ -630,6 +630,37 @@ export interface ChannelSubscriptionGiftEvent extends ChannelSubscriptionGiftSpe
 
 export type ChannelSubscriptionGiftSubscription = BaseSubscription<ChannelSubscriptionGiftEvent, "channel.subscription.gift">;
 
+interface TwitchEmote {
+  /** The index of where the Emote starts in the text. */
+  begin: number;
+  /** The index of where the Emote ends in the text. */
+  end: number;
+  /** The emote ID. */
+  id: string;
+}
+
+interface TwitchMessage {
+  /** The text of the resubscription chat message. */
+  text: string;
+  /** An array that includes the emote ID and start and end positions for where the emote appears in the text. */
+  emotes: TwitchEmote[];
+}
+
+export interface ChannelSubscriptionMessageEvent extends BaseBroadcaster, BaseUser {
+  /** The tier of the user’s subscription. */
+  tier: SubType;
+  /** An object that contains the resubscription message and emote information needed to recreate the message. */
+  message: TwitchMessage;
+  /** The total number of months the user has been subscribed to the channel. */
+  cumulative_months: number;
+  /** The number of consecutive months the user’s current subscription has been active. This value is `null` if the user has opted out of sharing this information. */
+  streak_months: number | null;
+  /** The month duration of the subscription. */
+  duration_months: number;
+}
+
+export type ChannelSubscriptionMessageSubscription = BaseSubscription<ChannelSubscriptionMessageEvent, "channel.subscription.message">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -647,4 +678,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatUserMessageUpdateSubscription
 | ChannelSubscribeSubscription
 | ChannelSubscribeEndSubscription
-| ChannelSubscriptionGiftSubscription;
+| ChannelSubscriptionGiftSubscription
+| ChannelSubscriptionMessageSubscription;
