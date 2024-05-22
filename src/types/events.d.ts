@@ -714,6 +714,17 @@ export interface ChannelUnbanRequestCreateEvent extends BaseBroadcaster, BaseUse
 
 export type ChannelUnbanRequestCreateSubscription = BaseSubscription<ChannelUnbanRequestCreateEvent, "channel.unban_request.create">;
 
+export interface ChannelUnbanRequestResolveEvent extends BaseBroadcaster, BaseModerator, BaseUser {
+  /** The ID of the unban request. */
+  id: string;
+  /** Resolution text supplied by the mod/broadcaster upon approval/denial of the request. */
+  resolution_text?: string;
+  /** Dictates whether the unban request was approved or denied. */
+  status: "approved" | "canceled" | "denied";
+}
+
+export type ChannelUnbanRequestResolveSubscription = BaseSubscription<ChannelUnbanRequestResolveEvent, "channel.unban_request.resolve">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -737,4 +748,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelRaidSubscription
 | ChannelBanSubscription
 | ChannelUnbanSubscription
-| ChannelUnbanRequestCreateSubscription;
+| ChannelUnbanRequestCreateSubscription
+| ChannelUnbanRequestResolveSubscription;
