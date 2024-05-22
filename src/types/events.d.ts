@@ -539,6 +539,40 @@ export type ChannelChatNotificationEvent = BaseChannelChatNotificationEvent
 
 export type ChannelChatNotificationSubscription = BaseSubscription<ChannelChatNotificationEvent, "channel.chat.notification">;
 
+interface ChannelChatSettingUpdateFollowerMode {
+  /** A Boolean value that determines whether the broadcaster restricts the chat room to followers only, based on how long they’ve followed. */
+  follower_mode: true;
+  /** The length of time, in minutes, that the followers must have followed the broadcaster to participate in the chat room. */
+  follower_mode_duration_minutes: number;
+}
+
+type ChannelChatSettingUpdateFollowerModeOff = Omit<{ [K in keyof ChannelChatSettingUpdateFollowerMode]: null }, "follower_mode"> & { follower_mode: false };
+
+type ChannelChatSettingUpdateFollower = ChannelChatSettingUpdateFollowerMode | ChannelChatSettingUpdateFollowerModeOff;
+
+interface ChannelChatSettingUpdateSlowMode {
+  /** A Boolean value that determines whether the broadcaster limits how often users in the chat room are allowed to send messages. */
+  slow_mode: true;
+  /** The amount of time, in seconds, that users need to wait between sending messages. */
+  slow_mode_wait_time_seconds: number;
+}
+
+type ChannelChatSettingUpdateSlowModeOff = Omit<{ [K in keyof ChannelChatSettingUpdateSlowMode]: null }, "slow_mode"> & { slow_mode: false };
+
+type ChannelChatSettingUpdateSlow = ChannelChatSettingUpdateSlowMode | ChannelChatSettingUpdateSlowModeOff;
+
+export interface ChannelChatSettingUpdateEvent extends BaseBroadcaster, ChannelChatSettingUpdateFollower, ChannelChatSettingUpdateSlow {
+  /** A Boolean value that determines whether chat messages must contain only emotes. */
+  emote_mode: boolean;
+  /** A Boolean value that determines whether only users that subscribe to the broadcaster’s channel can talk in the chat room. */
+  subscriber_mode: boolean;
+  /** A Boolean value that determines whether the broadcaster requires users to post only unique messages in the chat room. */
+  unique_chat_mode: boolean;
+}
+
+export type ChannelChatSettingUpdateSubscription = BaseSubscription<ChannelChatSettingUpdateEvent, "channel.chat_settings.update">;
+
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -550,4 +584,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatClearUserMessageSubscription
 | ChannelChatMessageSubscription
 | ChannelChatMessageDeleteSubscription
-| ChannelChatNotificationEvent;
+| ChannelChatNotificationSubscription
+| ChannelChatSettingUpdateSubscription;
