@@ -1003,6 +1003,30 @@ export type ChannelPointsCustomRewardRemoveEvent = ChannelPointsCustomRewardAddE
 
 export type ChannelPointsCustomRewardRemoveSubscription = BaseSubscription<ChannelPointsCustomRewardRemoveEvent, "channel.channel_points_custom_reward.remove">;
 
+interface TwitchReward {
+  /** The reward identifier. */
+  id: string;
+  /** The reward name. */
+  title: string;
+  /** The reward cost. */
+  cost: number;
+  /** The reward description. */
+  promps: string;
+}
+
+export interface ChannelPointsCustomRewardRedemptionAddEvent extends BaseBroadcaster, BaseUser {
+  /** The user input provided. Empty string if not provided. */
+  user_input: string;
+  /** Defaults to `unfulfilled`. */
+  status: "unknown" | "unfulfilled" | "fulfilled" | "canceled";
+  /** Basic information about the reward that was redeemed, at the time it was redeemed. */
+  reward: TwitchReward;
+  /** RFC3339 timestamp of when the reward was redeemed. */
+  redeemed_at: string;
+}
+
+export type ChannelPointsCustomRewardRedemptionAddSubscription = BaseSubscription<ChannelPointsCustomRewardRedemptionAddEvent, "channel.channel_points_custom_reward_redemption.add">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1033,4 +1057,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPointsAutomaticRewardRedemptionSubscription
 | ChannelPointsCustomRewardAddSubscription
 | ChannelPointsCustomRewardUpdateSubscription
-| ChannelPointsCustomRewardRemoveSubscription;
+| ChannelPointsCustomRewardRemoveSubscription
+| ChannelPointsCustomRewardRedemptionAddSubscription;
