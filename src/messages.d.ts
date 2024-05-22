@@ -20,6 +20,7 @@ import {
   ChannelSubscribeEvent,
   ChannelSubscriptionGiftEvent,
   ChannelSubscriptionMessageEvent,
+  ChannelUnbanEvent,
   ChannelUpdateEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
@@ -44,6 +45,7 @@ import ChannelSubscriptionMessage from "./events/ChannelSubscriptionMessage";
 import ChannelCheer from "./events/ChannelCheer";
 import ChannelRaid from "./events/ChannelRaid";
 import ChannelBan from "./events/ChannelBan";
+import ChannelUnban from "./events/ChannelUnban";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -151,6 +153,8 @@ export type NotificationChannelRaid = BaseEventSubMessage<"notification", BaseEv
 
 export type NotificationChannelBan = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelBan["type"], ChannelBanEvent>>;
 
+export type NotificationChannelUnban = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelUnban["type"], ChannelUnbanEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -172,7 +176,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelSubscriptionGift
 | NotificationChannelSubscriptionMessage
 | NotificationChannelCheer
-| NotificationChannelBan;
+| NotificationChannelBan
+| NotificationChannelUnban;
 
 export interface PingMessage {
   type: "PING";

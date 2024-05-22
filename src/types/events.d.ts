@@ -699,6 +699,10 @@ export interface ChannelBanEvent extends BaseBroadcaster, BaseModerator, BaseUse
 
 export type ChannelBanSubscription = BaseSubscription<ChannelBanEvent, "channel.ban">;
 
+export type ChannelUnbanEvent = BaseBroadcaster & BaseModerator & BaseUser;
+
+export type ChannelUnbanSubscription = BaseSubscription<ChannelUnbanEvent, "channel.unban">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -720,4 +724,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelSubscriptionMessageSubscription
 | ChannelCheerSubscription
 | ChannelRaidSubscription
-| ChannelBanSubscription;
+| ChannelBanSubscription
+| ChannelUnbanSubscription;
