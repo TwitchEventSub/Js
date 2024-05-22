@@ -90,7 +90,7 @@ export type NotificationAutomodTermsUpdate = BaseEventSubMessage<"notification",
 
 export type NotificationChannelUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelUpdate["type"], ChannelUpdateEvent>>;
 
-export type NotificationChannelAdBreakBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelAdBreakBegin, ChannelAdBreakBeginEvent>>;
+export type NotificationChannelAdBreakBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelAdBreakBegin["type"], ChannelAdBreakBeginEvent>>;
 
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
