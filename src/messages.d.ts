@@ -20,6 +20,7 @@ import {
   ChannelModeratorRemoveEvent,
   ChannelPointsAutomaticRewardRedemptionEvent,
   ChannelPointsCustomRewardAddEvent,
+  ChannelPointsCustomRewardRemoveEvent,
   ChannelPointsCustomRewardUpdateEvent,
   ChannelRaidEvent,
   ChannelSubscribeEvent,
@@ -60,6 +61,7 @@ import ChannelModeratorAdd from "./events/ChannelModeratorAdd";
 import ChannelPointsAutomaticRewardRedemption from "./events/ChannelPointsAutomaticRewardRedemption";
 import ChannelPointsCustomRewardAdd from "./events/ChannelPointsCustomRewardAdd";
 import ChannelPointsCustomRewardUpdate from "./events/ChannelPointsCustomRewardUpdate";
+import ChannelPointsCustomRewardRemove from "./events/ChannelPointsCustomRewardRemove";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -186,6 +188,8 @@ export type NotificationChannelPointsCustomRewardAdd = BaseEventSubMessage<"noti
 
 export type NotificationChannelPointsCustomRewardUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPointsCustomRewardUpdate["type"], ChannelPointsCustomRewardUpdateEvent>>;
 
+export type NotificationChannelPointsCustomRewardRemove = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPointsCustomRewardRemove["type"], ChannelPointsCustomRewardRemoveEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -215,7 +219,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorAdd
 | NotificationChannelPointsAutomaticRewardRedemption
 | NotificationChannelPointsCustomRewardAdd
-| NotificationChannelPointsCustomRewardUpdate;
+| NotificationChannelPointsCustomRewardUpdate
+| NotificationChannelPointsCustomRewardRemove;
 
 export interface PingMessage {
   type: "PING";

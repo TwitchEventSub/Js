@@ -999,6 +999,10 @@ export type ChannelPointsCustomRewardUpdateEvent = ChannelPointsCustomRewardAddE
 
 export type ChannelPointsCustomRewardUpdateSubscription = BaseSubscription<ChannelPointsCustomRewardUpdateEvent, "channel.channel_points_custom_reward.update">;
 
+export type ChannelPointsCustomRewardRemoveEvent = ChannelPointsCustomRewardAddEvent;
+
+export type ChannelPointsCustomRewardRemoveSubscription = BaseSubscription<ChannelPointsCustomRewardRemoveEvent, "channel.channel_points_custom_reward.remove">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1028,4 +1032,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelModeratorAddSubscription
 | ChannelPointsAutomaticRewardRedemptionSubscription
 | ChannelPointsCustomRewardAddSubscription
-| ChannelPointsCustomRewardUpdateSubscription;
+| ChannelPointsCustomRewardUpdateSubscription
+| ChannelPointsCustomRewardRemoveSubscription;
