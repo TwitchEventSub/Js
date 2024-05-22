@@ -16,9 +16,10 @@ import ChannelChatUserMessageUpdate from "./ChannelChatUserMessageUpdate";
 import ChannelSubscribe from "./ChannelSubscribe";
 import ChannelSubscriptionEnd from "./ChannelSubscriptionEnd";
 import ChannelSubscriptionGift from "./ChannelSubscriptionGift";
-import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelSubscriptionMessage from "./ChannelSubscriptionMessage";
 import ChannelCheer from "./ChannelCheer";
+import ChannelRaid from "./ChannelRaid";
+import ChannelModeratorRemove from "./ChannelModeratorRemove";
 
 export default {
   AutomodMessageHold,
@@ -41,5 +42,6 @@ export default {
   ChannelSubscriptionGift,
   ChannelSubscriptionMessage,
   ChannelCheer,
+  ChannelRaid,
   ChannelModeratorRemove,
 };

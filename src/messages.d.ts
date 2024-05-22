@@ -15,6 +15,7 @@ import {
   ChannelFollowEvent,
   ChannelFollowSubscription,
   ChannelModeratorRemoveEvent,
+  ChannelRaidEvent,
   ChannelSubscribeEvent,
   ChannelSubscriptionGiftEvent,
   ChannelSubscriptionMessageEvent,
@@ -40,6 +41,7 @@ import ChannelSubscriptionEnd from "./events/ChannelSubscriptionEnd";
 import ChannelSubscriptionGift from "./events/ChannelSubscriptionGift";
 import ChannelSubscriptionMessage from "./events/ChannelSubscriptionMessage";
 import ChannelCheer from "./events/ChannelCheer";
+import ChannelRaid from "./events/ChannelRaid";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -142,6 +144,8 @@ export type NotificationChannelSubscriptionGift = BaseEventSubMessage<"notificat
 export type NotificationChannelSubscriptionMessage = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelSubscriptionMessage["type"], ChannelSubscriptionMessageEvent>>;
 
 export type NotificationChannelCheer = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelCheer["type"], ChannelCheerEvent>>;
+
+export type NotificationChannelRaid = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelRaid["type"], ChannelRaidEvent>>;
 
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved

@@ -1,3 +1,5 @@
+import { AddPrefix } from "./utilTypes";
+
 interface SubscriptionType {
   readonly type: string;
   readonly version: string;
@@ -670,6 +672,14 @@ export interface ChannelCheerEvent extends BaseBroadcaster, ChannelSubscriptionG
 
 export type ChannelCheerSubscription = BaseSubscription<ChannelCheerEvent, "channel.cheer">;
 
+
+export interface ChannelRaidEvent extends AddPrefix<BaseBroadcaster, "from_">, AddPrefix<BaseBroadcaster, "to_"> {
+  /** The number of viewers in the raid. */
+  viewers: number;
+}
+
+export type ChannelRaidSubscription = BaseSubscription<ChannelRaidEvent, "channel.raid">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -689,4 +699,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelSubscribeEndSubscription
 | ChannelSubscriptionGiftSubscription
 | ChannelSubscriptionMessageSubscription
-| ChannelCheerSubscription;
+| ChannelCheerSubscription
+| ChannelRaidSubscription;
