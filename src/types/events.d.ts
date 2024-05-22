@@ -878,6 +878,54 @@ export type ChannelModeratorAddEvent = BaseBroadcaster & BaseUser;
 
 export type ChannelModeratorAddSubscription = BaseSubscription<ChannelModeratorAddEvent, "channel.moderator.add">;
 
+// ChannelPointsAutomaticRewardRedemption
+
+interface ChannelPointsAutomaticRewardRedemptionUnlockEmote {
+  type: "random_sub_emote_unlock" | "chosen_sub_emote_unlock"
+}
+
+interface BaseChannelPointsAutomaticRewardRedemptionEventEmote {
+  /** An object that contains the reward information. */
+  reward: {
+    type: "random_sub_emote_unlock" | "chosen_sub_emote_unlock" | "chosen_modified_sub_emote_unlock";
+    /** The reward cost. */ 
+    cost: number;
+    /** Emote that was unlocked. */
+    unlocked_emote: {
+      /** The emote ID. */
+      id: string;
+      /** The human readable emote token. */
+      name: string;
+    }
+  }
+}
+
+interface BaseChannelPointsAutomaticRewardRedemptionEventMessage {
+  /** An object that contains the reward information. */
+  reward: {
+    type: "ssingle_message_bypass_sub_mode" | "send_highlighted_message";
+    /** The reward cost. */
+    cost: number;
+    /** An object that contains the user message and emote information needed to recreate the message. */
+    message: TwitchMessage;
+  }
+  /** Optional. A string that the user entered if the reward requires input. */
+  user_input: string;
+}
+
+type ChannelPointsAutomaticRewardRedemptionEventSpec = BaseChannelPointsAutomaticRewardRedemptionEventEmote | BaseChannelPointsAutomaticRewardRedemptionEventMessage;
+
+interface ChannelPointsAutomaticRewardRedemptionEventCommon {
+  /** The ID of the Redemption. */
+  id: string;
+  /** The UTC date and time (in RFC3339 format) of when the reward was redeemed. */
+  redeemed_at: string;
+}
+
+export type ChannelPointsAutomaticRewardRedemptionEvent = ChannelPointsAutomaticRewardRedemptionEventCommon & ChannelPointsAutomaticRewardRedemptionEventSpec & BaseBroadcaster & BaseUser;
+
+export type ChannelPointsAutomaticRewardRedemptionSubscription = BaseSubscription<ChannelPointsAutomaticRewardRedemptionEvent, "channel.channel_points_automatic_reward_redemption.add">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -902,4 +950,7 @@ export type EventItem = ChannelFollowSubscription
 | ChannelBanSubscription
 | ChannelUnbanSubscription
 | ChannelUnbanRequestCreateSubscription
-| ChannelUnbanRequestResolveSubscription;
+| ChannelUnbanRequestResolveSubscription
+| ChannelModerateSubscription
+| ChannelModeratorAddSubscription
+| ChannelPointsAutomaticRewardRedemptionSubscription;

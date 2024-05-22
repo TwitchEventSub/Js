@@ -24,8 +24,9 @@ import ChannelUnban from "./ChannelUnban";
 import ChannelUnbanRequestCreate from "./ChannelUnbanRequestCreate";
 import ChannelUnbanRequestResolve from "./ChannelUnbanRequestResolve";
 import ChannelModerate from "./ChannelModerate";
-import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelModeratorAdd from "./ChannelModeratorAdd";
+import ChannelModeratorRemove from "./ChannelModeratorRemove";
+import ChannelPointsAutomaticRewardRedemption from "./ChannelPointsAutomaticRewardRedemption";
 
 export default {
   AutomodMessageHold,
@@ -56,4 +57,5 @@ export default {
   ChannelModerate,
   ChannelModeratorAdd,
   ChannelModeratorRemove,
+  ChannelPointsAutomaticRewardRedemption,
 };

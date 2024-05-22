@@ -18,6 +18,7 @@ import {
   ChannelModerateEvent,
   ChannelModeratorAddEvent,
   ChannelModeratorRemoveEvent,
+  ChannelPointsAutomaticRewardRedemptionEvent,
   ChannelRaidEvent,
   ChannelSubscribeEvent,
   ChannelSubscriptionGiftEvent,
@@ -54,6 +55,7 @@ import ChannelUnbanRequestCreate from "./events/ChannelUnbanRequestCreate";
 import ChannelUnbanRequestResolve from "./events/ChannelUnbanRequestResolve";
 import ChannelModerate from "./events/ChannelModerate";
 import ChannelModeratorAdd from "./events/ChannelModeratorAdd";
+import ChannelPointsAutomaticRewardRedemption from "./events/ChannelPointsAutomaticRewardRedemption";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -170,6 +172,11 @@ export type NotificationChannelUnbanRequestResolve = BaseEventSubMessage<"notifi
 export type NotificationChannelModerate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelModerate["type"], ChannelModerateEvent>>;
 
 export type NotificationChannelModeratorAdd = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelModeratorAdd["type"], ChannelModeratorAddEvent>>;
+
+export type NotificationChannelPointsAutomaticRewardRedemption = BaseEventSubMessage<
+  "notification",
+  BaseEventSubNotificationPayload<ChannelPointsAutomaticRewardRedemption["type"], ChannelPointsAutomaticRewardRedemptionEvent>
+>;
 
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
