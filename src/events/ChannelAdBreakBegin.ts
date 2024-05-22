@@ -21,7 +21,6 @@ export default class ChannelAdBreakBegin extends BaseEvent<ChannelAdBreakBeginEv
       // always expect arg count to be channel array length + 1
       return {
         broadcaster_user_id: args[0],
-        moderator_user_id: args[1],
       };
     };
   }
