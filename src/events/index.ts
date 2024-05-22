@@ -19,6 +19,7 @@ import ChannelSubscriptionGift from "./ChannelSubscriptionGift";
 import ChannelSubscriptionMessage from "./ChannelSubscriptionMessage";
 import ChannelCheer from "./ChannelCheer";
 import ChannelRaid from "./ChannelRaid";
+import ChannelBan from "./ChannelBan";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
 
 export default {
@@ -43,5 +44,6 @@ export default {
   ChannelSubscriptionMessage,
   ChannelCheer,
   ChannelRaid,
+  ChannelBan,
   ChannelModeratorRemove,
 };

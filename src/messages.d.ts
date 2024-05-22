@@ -3,6 +3,7 @@ import {
   AutomodSettingsUpdateEvent,
   AutomodTermsUpdateEvent,
   ChannelAdBreakBeginEvent,
+  ChannelBanEvent,
   ChannelChatClearEvent,
   ChannelChatClearUserMessageEvent,
   ChannelChatMessageDeleteEvent,
@@ -42,6 +43,7 @@ import ChannelSubscriptionGift from "./events/ChannelSubscriptionGift";
 import ChannelSubscriptionMessage from "./events/ChannelSubscriptionMessage";
 import ChannelCheer from "./events/ChannelCheer";
 import ChannelRaid from "./events/ChannelRaid";
+import ChannelBan from "./events/ChannelBan";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -147,6 +149,8 @@ export type NotificationChannelCheer = BaseEventSubMessage<"notification", BaseE
 
 export type NotificationChannelRaid = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelRaid["type"], ChannelRaidEvent>>;
 
+export type NotificationChannelBan = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelBan["type"], ChannelBanEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -167,7 +171,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelSubscriptionEnd
 | NotificationChannelSubscriptionGift
 | NotificationChannelSubscriptionMessage
-| NotificationChannelCheer;
+| NotificationChannelCheer
+| NotificationChannelBan;
 
 export interface PingMessage {
   type: "PING";

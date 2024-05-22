@@ -680,6 +680,25 @@ export interface ChannelRaidEvent extends AddPrefix<BaseBroadcaster, "from_">, A
 
 export type ChannelRaidSubscription = BaseSubscription<ChannelRaidEvent, "channel.raid">;
 
+interface ChannelBanTimeLimited {
+  /** The UTC date and time (in RFC3339 format) of when the timeout ends. */
+  ends_at: string;
+  is_permanent: false;
+}
+
+type ChannelBanPermanent = Omit<{ [K in keyof ChannelBanTimeLimited]: null }, "is_permanent"> & { is_permanent: true };
+
+type ChannelBanPermanence = ChannelBanTimeLimited | ChannelBanPermanent;
+
+export interface ChannelBanEvent extends BaseBroadcaster, BaseModerator, BaseUser, ChannelBanPermanence {
+  /** The reason behind the ban. */
+  reason: string;
+  /** The UTC date and time (in RFC3339 format) of when the user was banned or put in a timeout. */
+  banned_at: string;
+}
+
+export type ChannelBanSubscription = BaseSubscription<ChannelBanEvent, "channel.ban">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -700,4 +719,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelSubscriptionGiftSubscription
 | ChannelSubscriptionMessageSubscription
 | ChannelCheerSubscription
-| ChannelRaidSubscription;
+| ChannelRaidSubscription
+| ChannelBanSubscription;
