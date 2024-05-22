@@ -1120,6 +1120,13 @@ export type ChannelPredictionProgressEvent = ChannelPredictionBeginEvent;
 
 export type ChannelPredictionProgressSubscription = BaseSubscription<ChannelPredictionProgressEvent, "channel.prediction.progress">;
 
+export interface ChannelPredictionLockEvent extends Omit<ChannelPredictionBeginEvent, "locks_at"> {
+  /** The time the Channel Points Prediction was locked. */
+  locked_at: string;
+}
+
+export type ChannelPredictionLockSubscription = BaseSubscription<ChannelPredictionLockEvent, "channel.prediction.lock">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1157,4 +1164,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPollProgressSubscription
 | ChannelPollEndSubscription
 | ChannelPredictionBeginSubscription
-| ChannelPredictionProgressSubscription;
+| ChannelPredictionProgressSubscription
+| ChannelPredictionLockSubscription;
