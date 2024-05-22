@@ -33,6 +33,7 @@ import ChannelPointsCustomRewardRemove from "./ChannelPointsCustomRewardRemove";
 import ChannelPointsCustomRewardRedemptionAdd from "./ChannelPointsCustomRewardRedemptionAdd";
 import ChannelPointsCustomRewardRedemptionUpdate from "./ChannelPointsCustomRewardRedemptionUpdate";
 import ChannelPollBegin from "./ChannelPollBegin";
+import ChannelPollProgress from "./ChannelPollProgress";
 
 export default {
   AutomodMessageHold,
@@ -70,4 +71,5 @@ export default {
   ChannelPointsCustomRewardRedemptionAdd,
   ChannelPointsCustomRewardRedemptionUpdate,
   ChannelPollBegin,
+  ChannelPollProgress,
 };

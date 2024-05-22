@@ -25,6 +25,7 @@ import {
   ChannelPointsCustomRewardRemoveEvent,
   ChannelPointsCustomRewardUpdateEvent,
   ChannelPollBeginEvent,
+  ChannelPollProgressEvent,
   ChannelRaidEvent,
   ChannelSubscribeEvent,
   ChannelSubscriptionGiftEvent,
@@ -68,6 +69,7 @@ import ChannelPointsCustomRewardRemove from "./events/ChannelPointsCustomRewardR
 import ChannelPointsCustomRewardRedemptionAdd from "./events/ChannelPointsCustomRewardRedemptionAdd";
 import ChannelPointsCustomRewardRedemptionUpdate from "./events/ChannelPointsCustomRewardRedemptionUpdate";
 import ChannelPollBegin from "./events/ChannelPollBegin";
+import ChannelPollProgress from "./events/ChannelPollProgress";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -202,6 +204,8 @@ export type NotificationChannelPointsCustomRewardRedemptionUpdate = BaseEventSub
 
 export type NotificationChannelPollBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPollBegin["type"], ChannelPollBeginEvent>>;
 
+export type NotificationChannelPollProgress = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPollProgress["type"], ChannelPollProgressEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -235,7 +239,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelPointsCustomRewardRemove
 | NotificationChannelPointsCustomRewardRedemptionAdd
 | NotificationChannelPointsCustomRewardRedemptionUpdate
-| NotificationChannelPollBegin;
+| NotificationChannelPollBegin
+| NotificationChannelPollProgress;
 
 export interface PingMessage {
   type: "PING";

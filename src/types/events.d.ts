@@ -1064,8 +1064,11 @@ export interface ChannelPollBeginEvent extends BaseBroadcaster {
   ends_at: string;
 }
 
-
 export type ChannelPollBeginSubscription = BaseSubscription<ChannelPollBeginEvent, "channel.poll.begin">;
+
+export type ChannelPollProgressEvent = ChannelPollBeginEvent;
+
+export type ChannelPollProgressSubscription = BaseSubscription<ChannelPollProgressEvent, "channel.poll.progress">;
 
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
@@ -1100,4 +1103,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPointsCustomRewardRemoveSubscription
 | ChannelPointsCustomRewardRedemptionAddSubscription
 | ChannelPointsCustomRewardRedemptionUpdateSubscription
-| ChannelPollBeginSubscription;
+| ChannelPollBeginSubscription
+| ChannelPollProgressSubscription;
