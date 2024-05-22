@@ -170,9 +170,27 @@ export interface ChannelUpdateEvent extends BaseBroadcaster {
 
 export type ChannelUpdateSubscription = BaseSubscription<ChannelUpdateEvent, "channel.update">;
 
+export interface ChannelAdBreakBeginEvent extends BaseBroadcaster {
+  /** Length in seconds of the mid-roll ad break requested */
+  duration_seconds: number;
+  /** The UTC timestamp of when the ad break began, in RFC3339 format. */
+  started_at: string;
+  /** Indicates if the ad was automatically scheduled via Ads Manager */
+  is_automatic: boolean;
+  /** The ID of the user that requested the ad. For automatic ads, this will be the ID of the broadcaster. */
+  requester_user_id: string;
+  /** The login of the user that requested the ad. */
+  requester_user_login: string;
+  /** The display name of the user that requested the ad. */
+  requester_user_name: string;
+}
+
+export type ChannelAdBreakBeginSubscription = BaseSubscription<ChannelAdBreakBeginEvent, "channel.ad_break.begin">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
 | AutomodMessageHoldUpdateSubscription
 | AutomodSettingsUpdateSubscription
-| AutomodTermsUpdateSubscription;
+| AutomodTermsUpdateSubscription
+| ChannelAdBreakBeginSubscription;
