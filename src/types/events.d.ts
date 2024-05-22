@@ -995,6 +995,10 @@ export interface ChannelPointsCustomRewardAddEvent extends BaseBroadcaster {
 
 export type ChannelPointsCustomRewardAddSubscription = BaseSubscription<ChannelPointsCustomRewardAddEvent, "channel.channel_points_custom_reward.add">;
 
+export type ChannelPointsCustomRewardUpdateEvent = ChannelPointsCustomRewardAddEvent;
+
+export type ChannelPointsCustomRewardUpdateSubscription = BaseSubscription<ChannelPointsCustomRewardUpdateEvent, "channel.channel_points_custom_reward.update">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1023,4 +1027,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelModerateSubscription
 | ChannelModeratorAddSubscription
 | ChannelPointsAutomaticRewardRedemptionSubscription
-| ChannelPointsCustomRewardAddSubscription;
+| ChannelPointsCustomRewardAddSubscription
+| ChannelPointsCustomRewardUpdateSubscription;
