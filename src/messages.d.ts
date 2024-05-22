@@ -21,6 +21,7 @@ import {
   ChannelPointsAutomaticRewardRedemptionEvent,
   ChannelPointsCustomRewardAddEvent,
   ChannelPointsCustomRewardRedemptionAddEvent,
+  ChannelPointsCustomRewardRedemptionUpdateEvent,
   ChannelPointsCustomRewardRemoveEvent,
   ChannelPointsCustomRewardUpdateEvent,
   ChannelRaidEvent,
@@ -64,6 +65,7 @@ import ChannelPointsCustomRewardAdd from "./events/ChannelPointsCustomRewardAdd"
 import ChannelPointsCustomRewardUpdate from "./events/ChannelPointsCustomRewardUpdate";
 import ChannelPointsCustomRewardRemove from "./events/ChannelPointsCustomRewardRemove";
 import ChannelPointsCustomRewardRedemptionAdd from "./events/ChannelPointsCustomRewardRedemptionAdd";
+import ChannelPointsCustomRewardRedemptionUpdate from "./events/ChannelPointsCustomRewardRedemptionUpdate";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -194,6 +196,8 @@ export type NotificationChannelPointsCustomRewardRemove = BaseEventSubMessage<"n
 
 export type NotificationChannelPointsCustomRewardRedemptionAdd = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPointsCustomRewardRedemptionAdd["type"], ChannelPointsCustomRewardRedemptionAddEvent>>;
 
+export type NotificationChannelPointsCustomRewardRedemptionUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPointsCustomRewardRedemptionUpdate["type"], ChannelPointsCustomRewardRedemptionUpdateEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -225,7 +229,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelPointsCustomRewardAdd
 | NotificationChannelPointsCustomRewardUpdate
 | NotificationChannelPointsCustomRewardRemove
-| NotificationChannelPointsCustomRewardRedemptionAdd;
+| NotificationChannelPointsCustomRewardRedemptionAdd
+| NotificationChannelPointsCustomRewardRedemptionUpdate;
 
 export interface PingMessage {
   type: "PING";

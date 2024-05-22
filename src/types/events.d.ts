@@ -1027,6 +1027,10 @@ export interface ChannelPointsCustomRewardRedemptionAddEvent extends BaseBroadca
 
 export type ChannelPointsCustomRewardRedemptionAddSubscription = BaseSubscription<ChannelPointsCustomRewardRedemptionAddEvent, "channel.channel_points_custom_reward_redemption.add">;
 
+export type ChannelPointsCustomRewardRedemptionUpdateEvent = ChannelPointsCustomRewardRedemptionAddEvent;
+
+export type ChannelPointsCustomRewardRedemptionUpdateSubscription = BaseSubscription<ChannelPointsCustomRewardRedemptionUpdateEvent, "channel.channel_points_custom_reward_redemption.update">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1058,4 +1062,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPointsCustomRewardAddSubscription
 | ChannelPointsCustomRewardUpdateSubscription
 | ChannelPointsCustomRewardRemoveSubscription
-| ChannelPointsCustomRewardRedemptionAddSubscription;
+| ChannelPointsCustomRewardRedemptionAddSubscription
+| ChannelPointsCustomRewardRedemptionUpdateSubscription;
