@@ -12,6 +12,7 @@ import ChannelChatMessageDelete from "./ChannelChatMessageDelete";
 import ChannelChatNotification from "./ChannelChatNotification";
 import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelChatSettingsUpdate from "./ChannelChatSettingsUpdate";
+import ChannelChatUserMessageHold from "./ChannelChatUserMessageHold";
 
 export default {
   AutomodMessageHold,
@@ -27,5 +28,6 @@ export default {
   ChannelChatMessageDelete,
   ChannelChatNotification,
   ChannelChatSettingsUpdate,
+  ChannelChatUserMessageHold,
   ChannelModeratorRemove,
 };

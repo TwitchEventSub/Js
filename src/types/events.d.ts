@@ -572,6 +572,43 @@ export interface ChannelChatSettingUpdateEvent extends BaseBroadcaster, ChannelC
 
 export type ChannelChatSettingUpdateSubscription = BaseSubscription<ChannelChatSettingUpdateEvent, "channel.chat_settings.update">;
 
+interface ChannelChatUserMessageHoldEvent extends BaseMessageEvent {
+  /** The User ID of the message sender. */
+  user_id: string;
+  /** The message sender’s login. */
+  user_login: string;
+  /** The message sender’s display name. */
+  user_name: string;
+  /** The body of the message. */
+  message: {
+    /** The contents of the message caught by automod. */
+    text: string;
+    /** Ordered list of chat message fragments. */
+    fragments: {
+      /** Message text in a fragment. */
+      text: string;
+      /** Metadata pertaining to the emote. */
+      emote?: {
+        /** An ID that uniquely identifies this emote. */
+        id: string;
+        /** An ID that identifies the emote set that the emote belongs to. */
+        emote_set_id: string;
+      }
+    };
+    /** Metadata pertaining to the cheermote. */
+    cheermote?: {
+      /**  	The name portion of the Cheermote string that you use in chat to cheer Bits. The full Cheermote string is the concatenation of {prefix} + {number of Bits}.  */
+      prefix: string;
+      /** The amount of bits cheered. */
+      bits: number;
+      /** The tier level of the cheermote. */
+      tier: number;
+    }
+  }
+}
+
+export type ChannelChatUserMessageHoldSubscription = BaseSubscription<ChannelChatUserMessageHoldEvent, "channel.chat.user_message_hold">;
+
 
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
@@ -585,4 +622,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatMessageSubscription
 | ChannelChatMessageDeleteSubscription
 | ChannelChatNotificationSubscription
-| ChannelChatSettingUpdateSubscription;
+| ChannelChatSettingUpdateSubscription
+| ChannelChatUserMessageHoldSubscription;
