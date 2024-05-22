@@ -610,6 +610,26 @@ export type ChannelSubscribeSubscription = BaseSubscription<ChannelSubscribeEven
 
 export type ChannelSubscribeEndSubscription = BaseSubscription<ChannelSubscribeEvent, "channel.subscription.end">;
 
+interface BaseChannelSubscriptionGiftEvent extends BaseUser {
+  /** Whether the subscription gift was anonymous. */
+  is_anonymous: false;
+}
+
+type ChannelSubscriptionGiftAnonnymous = Omit<{ [K in keyof BaseChannelSubscriptionGiftEvent]: null }, "is_anonymous"> & { is_anonymous: true };
+
+type ChannelSubscriptionGiftSpec = BaseChannelSubscriptionGiftEvent | ChannelSubscriptionGiftAnonnymous;
+
+export interface ChannelSubscriptionGiftEvent extends ChannelSubscriptionGiftSpec {
+  /** The number of subscriptions in the subscription gift. */
+  total: number;
+  /** The tier of subscriptions in the subscription gift. */
+  tier: SubType;
+  /** The number of subscriptions gifted by this user in the channel. This value is null for anonymous gifts or if the gifter has opted out of sharing this information. */
+  cumulative_total: number | null;
+}
+
+export type ChannelSubscriptionGiftSubscription = BaseSubscription<ChannelSubscriptionGiftEvent, "channel.subscription.gift">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -626,4 +646,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelChatUserMessageHoldSubscription
 | ChannelChatUserMessageUpdateSubscription
 | ChannelSubscribeSubscription
-| ChannelSubscribeEndSubscription;
+| ChannelSubscribeEndSubscription
+| ChannelSubscriptionGiftSubscription;

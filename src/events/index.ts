@@ -10,12 +10,13 @@ import ChannelChatClearUserMessage from "./ChannelChatClearUserMessage";
 import ChannelChatMessage from "./ChannelChatMessage";
 import ChannelChatMessageDelete from "./ChannelChatMessageDelete";
 import ChannelChatNotification from "./ChannelChatNotification";
-import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelChatSettingsUpdate from "./ChannelChatSettingsUpdate";
 import ChannelChatUserMessageHold from "./ChannelChatUserMessageHold";
 import ChannelChatUserMessageUpdate from "./ChannelChatUserMessageUpdate";
 import ChannelSubscribe from "./ChannelSubscribe";
 import ChannelSubscriptionEnd from "./ChannelSubscriptionEnd";
+import ChannelSubscriptionGift from "./ChannelSubscriptionGift";
+import ChannelModeratorRemove from "./ChannelModeratorRemove";
 
 export default {
   AutomodMessageHold,
@@ -35,5 +36,6 @@ export default {
   ChannelChatUserMessageUpdate,
   ChannelSubscribe,
   ChannelSubscriptionEnd,
+  ChannelSubscriptionGift,
   ChannelModeratorRemove,
 };
