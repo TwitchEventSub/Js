@@ -36,6 +36,7 @@ import ChannelPollBegin from "./ChannelPollBegin";
 import ChannelPollProgress from "./ChannelPollProgress";
 import ChannelPollEnd from "./ChannelPollEnd";
 import ChannelPredictionBegin from "./ChannelPredictionBegin";
+import ChannelPredictionProgress from "./ChannelPredictionProgress";
 
 export default {
   AutomodMessageHold,
@@ -76,4 +77,5 @@ export default {
   ChannelPollProgress,
   ChannelPollEnd,
   ChannelPredictionBegin,
+  ChannelPredictionProgress,
 };

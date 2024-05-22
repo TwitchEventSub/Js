@@ -1086,7 +1086,7 @@ interface TwitchTopPredictors<Ended extends boolean> extends BaseUser {
   channel_points_used: number;
 }
 
-interface TwitchOutcomes<Ended extends boolean = false> {
+interface TwitchOutcomes<Ended extends boolean> {
   /** The outcome ID. */
   id: string;
   /** The outcome title. */
@@ -1101,13 +1101,13 @@ interface TwitchOutcomes<Ended extends boolean = false> {
   top_predictors: TwitchTopPredictors<Ended>[];
 }
 
-export interface ChannelPredictionBeginEvent extends BaseBroadcaster {
+export interface ChannelPredictionBeginEvent<Ended extends boolean = false> extends BaseBroadcaster {
   /** Channel Points Prediction ID. */
   id: string;
   /** Title for the Channel Points Prediction. */
   title: string;
   /** An array of outcomes for the Channel Points Prediction. */
-  outcomes: TwitchOutcomes[];
+  outcomes: TwitchOutcomes<Ended>[];
   /** The time the Channel Points Prediction started. */
   started_at: string;
   /** The time the Channel Points Prediction will automatically lock. */
@@ -1115,6 +1115,10 @@ export interface ChannelPredictionBeginEvent extends BaseBroadcaster {
 }
 
 export type ChannelPredictionBeginSubscription = BaseSubscription<ChannelPredictionBeginEvent, "channel.prediction.begin">;
+
+export type ChannelPredictionProgressEvent = ChannelPredictionBeginEvent;
+
+export type ChannelPredictionProgressSubscription = BaseSubscription<ChannelPredictionProgressEvent, "channel.prediction.progress">;
 
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
@@ -1152,4 +1156,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPollBeginSubscription
 | ChannelPollProgressSubscription
 | ChannelPollEndSubscription
-| ChannelPredictionBeginSubscription;
+| ChannelPredictionBeginSubscription
+| ChannelPredictionProgressSubscription;
