@@ -305,6 +305,17 @@ export interface ChannelChatMessageEvent extends BaseMessageEvent {
 
 export type ChannelChatMessageSubscription = BaseSubscription<ChannelChatMessageEvent, "channel.chat.message">;
 
+export interface ChannelChatMessageDeleteEvent extends BaseMessageEvent {
+  /** The ID of the user whose message was deleted. */
+  target_user_id: string;
+  /** The user name of the user whose message was deleted. */
+  target_user_name: string;
+  /** The user login of the user whose message was deleted. */
+  target_user_login: string;
+}
+
+export type ChannelChatMessageDeleteSubscription = BaseSubscription<ChannelChatMessageDeleteEvent, "channel.chat.message_delete">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -314,4 +325,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelAdBreakBeginSubscription
 | ChannelChatClearSubscription
 | ChannelChatClearUserMessageSubscription
-| ChannelChatMessageSubscription;
+| ChannelChatMessageSubscription
+| ChannelChatMessageDeleteSubscription;

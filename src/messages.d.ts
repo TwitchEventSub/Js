@@ -5,6 +5,7 @@ import {
   ChannelAdBreakBeginEvent,
   ChannelChatClearEvent,
   ChannelChatClearUserMessageEvent,
+  ChannelChatMessageDeleteEvent,
   ChannelChatMessageEvent,
   ChannelFollowEvent,
   ChannelFollowSubscription,
@@ -21,6 +22,7 @@ import ChannelAdBreakBegin from "./events/ChannelAdBreakBegin";
 import ChannelChatClear from "./events/ChannelChatClear";
 import ChannelChatClearUserMessage from "./events/ChannelChatClearUserMessage";
 import ChannelChatMessage from "./events/ChannelChatMessage";
+import ChannelChatMessageDelete from "./events/ChannelChatMessageDelete";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -104,6 +106,8 @@ export type NotificationChannelChatClearUserMessage = BaseEventSubMessage<"notif
 
 export type NotificationChannelChatMessage = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatMessage["type"], ChannelChatMessageEvent>>;
 
+export type NotificationChannelChatMessageDelete = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelChatMessageDelete["type"], ChannelChatMessageDeleteEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -114,7 +118,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelAdBreakBegin
 | NotificationChannelChatClear
 | NotificationChannelChatClearUserMessage
-| NotificationChannelChatMessage;
+| NotificationChannelChatMessage
+| NotificationChannelChatMessageDelete;
 
 export interface PingMessage {
   type: "PING";

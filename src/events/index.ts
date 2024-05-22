@@ -7,8 +7,9 @@ import ChannelFollow from "./ChannelFollow";
 import ChannelAdBreakBegin from "./ChannelAdBreakBegin";
 import ChannelChatClear from "./ChannelChatClear";
 import ChannelChatClearUserMessage from "./ChannelChatClearUserMessage";
-import ChannelModeratorRemove from "./ChannelModeratorRemove";
 import ChannelChatMessage from "./ChannelChatMessage";
+import ChannelChatMessageDelete from "./ChannelChatMessageDelete";
+import ChannelModeratorRemove from "./ChannelModeratorRemove";
 
 export default {
   AutomodMessageHold,
@@ -21,5 +22,6 @@ export default {
   ChannelChatClear,
   ChannelChatClearUserMessage,
   ChannelChatMessage,
+  ChannelChatMessageDelete,
   ChannelModeratorRemove,
 };
