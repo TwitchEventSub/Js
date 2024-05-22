@@ -1127,6 +1127,15 @@ export interface ChannelPredictionLockEvent extends Omit<ChannelPredictionBeginE
 
 export type ChannelPredictionLockSubscription = BaseSubscription<ChannelPredictionLockEvent, "channel.prediction.lock">;
 
+export interface ChannelPredictionEndEvent extends ChannelPredictionLockEvent {
+  /** ID of the winning outcome. */
+  winning_outcome_id: string;
+  /** The status of the Channel Points Prediction. */
+  status: "resolved" | "canceled";
+}
+
+export type ChannelPredictionEndSubscription = BaseSubscription<ChannelPredictionEndEvent, "channel.prediction.end">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1165,4 +1174,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPollEndSubscription
 | ChannelPredictionBeginSubscription
 | ChannelPredictionProgressSubscription
-| ChannelPredictionLockSubscription;
+| ChannelPredictionLockSubscription
+| ChannelPredictionEndSubscription;

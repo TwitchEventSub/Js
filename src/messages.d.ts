@@ -28,6 +28,7 @@ import {
   ChannelPollEndEvent,
   ChannelPollProgressEvent,
   ChannelPredictionBeginEvent,
+  ChannelPredictionEndEvent,
   ChannelPredictionLockEvent,
   ChannelPredictionProgressEvent,
   ChannelRaidEvent,
@@ -222,6 +223,8 @@ export type NotificationChannelPredictionProgress = BaseEventSubMessage<"notific
 
 export type NotificationChannelPredictionLock = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPredictionLock["type"], ChannelPredictionLockEvent>>;
 
+export type NotificationChannelPredictionEnd = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelPredictionEnd["type"], ChannelPredictionEndEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -260,7 +263,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelPollEnd
 | NotificationChannelPredictionBegin
 | NotificationChannelPredictionProgress
-| NotificationChannelPredictionLock;
+| NotificationChannelPredictionLock
+| NotificationChannelPredictionEnd;
 
 export interface PingMessage {
   type: "PING";
