@@ -1,12 +1,12 @@
 import {
-  CharityDonationEvent,
-  CharityDonationSubscription,
+  CharityCampaignStartEvent,
+  CharityCampaignStartSubscription,
 } from "../types/events";
 import BaseEvent from "../util/BaseEvent";
 
 
-export default class CharityCampaignStart extends BaseEvent<CharityDonationEvent> implements CharityDonationSubscription {
-  readonly type = "channel.charity_campaign.donate";
+export default class CharityCampaignStart extends BaseEvent<CharityCampaignStartEvent> implements CharityCampaignStartSubscription {
+  readonly type = "channel.charity_campaign.start";
   readonly version = "1";
   readonly permissions = ["channel:read:charity"];
 
@@ -25,7 +25,7 @@ export default class CharityCampaignStart extends BaseEvent<CharityDonationEvent
     };
   }
   
-  constructor(channel: string, ...args: ((arg: CharityDonationEvent) => void)[]) {
+  constructor(channel: string, ...args: ((arg: CharityCampaignStartEvent) => void)[]) {
     super(args);
     this._channel = channel;
   }
