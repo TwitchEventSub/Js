@@ -1136,6 +1136,12 @@ export interface ChannelPredictionEndEvent extends ChannelPredictionLockEvent {
 
 export type ChannelPredictionEndSubscription = BaseSubscription<ChannelPredictionEndEvent, "channel.prediction.end">;
 
+export interface ChannelSuspiciousUserMessageEvent extends BaseBroadcaster, BaseModerator, BaseUser {
+  low_trust_status: "none" | "active_monitoring" | "restricted";
+}
+
+export type ChannelSuspiciousUserMessageSubscription = BaseSubscription<ChannelSuspiciousUserMessageEvent, "channel.suspicious_user.message">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1175,4 +1181,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPredictionBeginSubscription
 | ChannelPredictionProgressSubscription
 | ChannelPredictionLockSubscription
-| ChannelPredictionEndSubscription;
+| ChannelPredictionEndSubscription
+| ChannelSuspiciousUserMessageSubscription;

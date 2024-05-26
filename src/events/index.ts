@@ -39,6 +39,7 @@ import ChannelPredictionBegin from "./ChannelPredictionBegin";
 import ChannelPredictionProgress from "./ChannelPredictionProgress";
 import ChannelPredictionLock from "./ChannelPredictionLock";
 import ChannelPredictionEnd from "./ChannelPredictionEnd";
+import ChannelSuspiciousUserMessage from "./ChannelSuspiciousUserMessage";
 
 export default {
   AutomodMessageHold,
@@ -82,4 +83,5 @@ export default {
   ChannelPredictionProgress,
   ChannelPredictionLock,
   ChannelPredictionEnd,
+  ChannelSuspiciousUserMessage,
 };
