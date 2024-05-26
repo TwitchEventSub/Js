@@ -48,6 +48,7 @@ import CharityCampaignStart from "./CharityCampaignStart";
 import CharityCampaignProgress from "./CharityCampaignProgress";
 import CharityCampaignStop from "./CharityCampaignStop";
 import ExtensionBitsTransactionCreate from "./ExtensionBitsTransactionCreate";
+import GoalBegin from "./GoalBegin";
 
 export default {
   AutomodMessageHold,
@@ -100,4 +101,5 @@ export default {
   CharityCampaignProgress,
   CharityCampaignStop,
   ExtensionBitsTransactionCreate,
+  GoalBegin,
 };

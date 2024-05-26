@@ -48,6 +48,7 @@ import {
   CharityCampaignStopEvent,
   CharityDonationEvent,
   ExtensionBitsTransactionCreateEvent,
+  GoalBeginEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -97,6 +98,7 @@ import CharityCampaignStart from "./events/CharityCampaignStart";
 import CharityCampaignProgress from "./events/CharityCampaignProgress";
 import CharityCampaignStop from "./events/CharityCampaignStop";
 import ExtensionBitsTransactionCreate from "./events/ExtensionBitsTransactionCreate";
+import GoalBegin from "./events/GoalBegin";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -261,6 +263,8 @@ export type NotificationCharityCampaignStop = BaseEventSubMessage<"notification"
 
 export type NotificationExtensionBitsTransactionCreate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ExtensionBitsTransactionCreate["type"], ExtensionBitsTransactionCreateEvent>>;
 
+export type NotificationGoalBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<GoalBegin["type"], GoalBeginEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -309,7 +313,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationCharityCampaignStart
 | NotificationCharityCampaignProgress
 | NotificationCharityCampaignStop
-| NotificationExtensionBitsTransactionCreate;
+| NotificationExtensionBitsTransactionCreate
+| NotificationGoalBegin;
 
 export interface PingMessage {
   type: "PING";
