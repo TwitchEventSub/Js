@@ -1396,6 +1396,17 @@ export interface ShoutoutCreateEvent extends BaseShoutoutEvent {
 
 export type ShoutoutCreateSubscription = BaseSubscription<ShoutoutCreateEvent, "channel.shoutout.create">;
 
+export interface ShoutoutReceivedEvent extends BaseShoutoutEvent {
+  /** An ID that identifies the broadcaster that sent the Shoutout. */
+  from_broadcaster_id: string;
+  /** The broadcaster’s login name. */
+  from_broadcaster_login: string;
+  /** The broadcaster’s display name. */
+  from_broadcaster_name: string;
+}
+
+export type ShoutoutReceivedSubscription = BaseSubscription<ShoutoutReceivedEvent, "channel.shoutout.receive">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1453,4 +1464,5 @@ export type EventItem = ChannelFollowSubscription
 | HypeTrainEndSubscription
 | ShieldModeBeginSubscription
 | ShieldModeEndSubscription
-| ShoutoutCreateSubscription;
+| ShoutoutCreateSubscription
+| ShoutoutReceivedSubscription;
