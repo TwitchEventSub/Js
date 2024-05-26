@@ -1343,6 +1343,15 @@ export type HypeTrainProgressEvent = HypeTrainBeginEvent;
 
 export type HypeTrainProgressSubscription = BaseSubscription<HypeTrainProgressEvent, "channel.hype_train.progress">;
 
+export interface HypeTrainEndEvent extends BaseHypeTrainEvent {
+  /** The time when the Hype Train ended. */
+  ended_at: string;
+  /** The time when the Hype Train cooldown ends so that the next Hype Train can start. */
+  cooldown_ends_at: string;
+}
+
+export type HypeTrainEndSubscription = BaseSubscription<HypeTrainEndEvent, "channel.hype_train.end">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1396,4 +1405,5 @@ export type EventItem = ChannelFollowSubscription
 | GoalProgressSubscription
 | GoalEndSubscription
 | HypeTrainBeginSubscription
-| HypeTrainProgressSubscription;
+| HypeTrainProgressSubscription
+| HypeTrainEndSubscription;
