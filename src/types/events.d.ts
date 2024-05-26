@@ -1339,6 +1339,10 @@ export interface HypeTrainBeginEvent extends BaseHypeTrainEvent {
 
 export type HypeTrainBeginSubscription = BaseSubscription<HypeTrainBeginEvent, "channel.hype_train.begin">;
 
+export type HypeTrainProgressEvent = BaseHypeTrainEvent;
+
+export type HypeTrainProgressSubscription = BaseSubscription<HypeTrainProgressEvent, "channel.hype_train.progress">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1391,4 +1395,5 @@ export type EventItem = ChannelFollowSubscription
 | GoalBeginSubscription
 | GoalProgressSubscription
 | GoalEndSubscription
-| HypeTrainBeginSubscription;
+| HypeTrainBeginSubscription
+| HypeTrainProgressSubscription;

@@ -52,6 +52,7 @@ import {
   GoalEndEvent,
   GoalProgressEvent,
   HypeTrainBeginEvent,
+  HypeTrainProgressEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -105,6 +106,7 @@ import GoalBegin from "./events/GoalBegin";
 import GoalProgress from "./events/GoalProgress";
 import GoalEnd from "./events/GoalEnd";
 import HypeTrainBegin from "./events/HypeTrainBegin";
+import HypeTrainProgress from "./events/HypeTrainProgress";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -277,6 +279,8 @@ export type NotificationGoalEnd = BaseEventSubMessage<"notification", BaseEventS
 
 export type NotificationHypeTrainBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<HypeTrainBegin["type"], HypeTrainBeginEvent>>;
 
+export type NotificationHypeTrainProgress = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<HypeTrainProgress["type"], HypeTrainProgressEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -329,7 +333,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationGoalBegin
 | NotificationGoalProgress
 | NotificationGoalEnd
-| NotificationHypeTrainBegin;
+| NotificationHypeTrainBegin
+| NotificationHypeTrainProgress;
 
 export interface PingMessage {
   type: "PING";

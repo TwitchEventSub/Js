@@ -52,6 +52,7 @@ import GoalBegin from "./GoalBegin";
 import GoalProgress from "./GoalProgress";
 import GoalEnd from "./GoalEnd";
 import HypeTrainBegin from "./HypeTrainBegin";
+import HypeTrainProgress from "./HypeTrainProgress";
 
 export default {
   AutomodMessageHold,
@@ -108,4 +109,5 @@ export default {
   GoalProgress,
   GoalEnd,
   HypeTrainBegin,
+  HypeTrainProgress,
 };
