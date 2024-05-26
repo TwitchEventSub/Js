@@ -1198,6 +1198,13 @@ export type CharityCampaignProgressEvent = Omit<CharityCampaignStartEvent, "star
 
 export type CharityCampaignProgressSubscription = BaseSubscription<CharityCampaignProgressEvent, "channel.charity_campaign.progress">;
 
+export interface CharityCampaignStopEvent extends CharityCampaignProgressEvent {
+  /** The UTC timestamp (in RFC3339 format) of when the broadcaster stopped the campaign. */
+  stopped_at: string;
+}
+
+export type CharityCampaignStopSubscription = BaseSubscription<CharityCampaignStopEvent, "channel.charity_campaign.stop">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1244,4 +1251,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelVipRemoveSubscription
 | CharityDonationSubscription
 | CharityCampaignStartSubscription
-| CharityCampaignProgressSubscription;
+| CharityCampaignProgressSubscription
+| CharityCampaignStopSubscription;

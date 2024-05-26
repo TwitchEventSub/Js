@@ -45,6 +45,7 @@ import {
   ChannelVipRemoveEvent,
   CharityCampaignProgressEvent,
   CharityCampaignStartEvent,
+  CharityCampaignStopEvent,
   CharityDonationEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
@@ -93,6 +94,7 @@ import ChannelVipRemove from "./events/ChannelVipRemove";
 import CharityDonation from "./events/CharityDonation";
 import CharityCampaignStart from "./events/CharityCampaignStart";
 import CharityCampaignProgress from "./events/CharityCampaignProgress";
+import CharityCampaignStop from "./events/CharityCampaignStop";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -253,6 +255,8 @@ export type NotificationCharityCampaignStart = BaseEventSubMessage<"notification
 
 export type NotificationCharityCampaignProgress = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<CharityCampaignProgress["type"], CharityCampaignProgressEvent>>;
 
+export type NotificationCharityCampaignStop = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<CharityCampaignStop["type"], CharityCampaignStopEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -299,7 +303,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelVipRemove
 | NotificationCharityDonation
 | NotificationCharityCampaignStart
-| NotificationCharityCampaignProgress;
+| NotificationCharityCampaignProgress
+| NotificationCharityCampaignStop;
 
 export interface PingMessage {
   type: "PING";
