@@ -1205,6 +1205,37 @@ export interface CharityCampaignStopEvent extends CharityCampaignProgressEvent {
 
 export type CharityCampaignStopSubscription = BaseSubscription<CharityCampaignStopEvent, "channel.charity_campaign.stop">;
 
+interface TwitchBaseProduct {
+  /** Product name. */
+  name: string;
+  /** Unique identifier for the product acquired. */
+  sku: string;
+}
+
+interface TwitchProductDev {
+  /** Flag indicating if the product is in development. */
+  in_development: true;
+  bits: 0;
+}
+
+interface TwitchProductProd {
+  /** Flag indicating if the product is in development. */
+  in_development: false;
+  bits: number;
+}
+
+type TwitchProduct = TwitchBaseProduct & (TwitchProductDev | TwitchProductProd);
+
+export interface ExtensionBitsTransactionCreateEvent extends BaseBroadcaster, BaseUser {
+  /** Client ID of the extension. */
+  extension_client_id: string;
+  /** Transaction ID. */
+  id: string;
+  product: TwitchProduct;
+}
+
+export type ExtensionBitsTransactionCreateSubscription = BaseSubscription<ExtensionBitsTransactionCreateEvent, "extension.bits_transaction.create">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1252,4 +1283,5 @@ export type EventItem = ChannelFollowSubscription
 | CharityDonationSubscription
 | CharityCampaignStartSubscription
 | CharityCampaignProgressSubscription
-| CharityCampaignStopSubscription;
+| CharityCampaignStopSubscription
+| ExtensionBitsTransactionCreateSubscription;
