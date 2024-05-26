@@ -43,6 +43,7 @@ import ChannelSuspiciousUserMessage from "./ChannelSuspiciousUserMessage";
 import ChannelSuspiciousUserUpdate from "./ChannelSuspiciousUserUpdate";
 import ChannelVipAdd from "./ChannelVipAdd";
 import ChannelVipRemove from "./ChannelVipRemove";
+import CharityDonation from "./CharityDonation";
 
 export default {
   AutomodMessageHold,
@@ -90,4 +91,5 @@ export default {
   ChannelSuspiciousUserUpdate,
   ChannelVipAdd,
   ChannelVipRemove,
+  CharityDonation,
 };

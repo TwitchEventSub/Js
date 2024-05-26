@@ -496,6 +496,28 @@ interface ChannelChatNotificationBitsBadgeTier {
   }
 }
 
+interface MonetaryNotation {
+  /** The monetary amount. The amount is specified in the currency’s minor unit.
+       * 
+       * For example, the minor units for USD is cents, so if the amount is $5.50 USD, value is set to 550.
+       */
+  value: number;
+  /** The number of decimal places used by the currency.
+   * 
+   * For example, USD uses two decimal places.
+   * 
+   * example formula:
+   * `value / 10^decimal_places`
+   */
+  decimal_place: number;
+  /**
+   * The ISO-4217 three-letter currency code that identifies the type of currency in value.
+   * 
+   * @link https://www.iso.org/iso-4217-currency-codes.html
+   */
+  currency: string;
+}
+
 interface ChannelChatNotificationCharityDonation {
   message_type: "charity_donation";
   /** Information about the charity donation event. */
@@ -503,24 +525,7 @@ interface ChannelChatNotificationCharityDonation {
     /** Name of the charity. */
     charity_name: string;
     /** An object that contains the amount of money that the user paid. */
-    amount: {
-      /** The monetary amount. The amount is specified in the currency’s minor unit.
-       * 
-       * For example, the minor units for USD is cents, so if the amount is $5.50 USD, value is set to 550.
-       */
-      value: number;
-      /** The number of decimal places used by the currency.
-       * 
-       * For example, USD uses two decimal places.
-       */
-      decimal_place: number;
-      /**
-       * The ISO-4217 three-letter currency code that identifies the type of currency in value.
-       * 
-       * @link https://www.iso.org/iso-4217-currency-codes.html
-       */
-      currency: string;
-    }
+    amount: MonetaryNotation
   }
 
 }
@@ -1154,6 +1159,25 @@ export type ChannelVipRemoveEvent = ChannelVipAddEvent;
 
 export type ChannelVipRemoveSubscription = BaseSubscription<ChannelVipRemoveEvent, "channel.vip.remove">;
 
+export interface CharityDonationEvent extends BaseBroadcaster, BaseUser {
+  /** An ID that identifies the donation. The ID is unique across campaigns. */
+  id: string;
+  /** An ID that identifies the charity campaign. */
+  campaign_id: string;
+  /** The charity’s name. */
+  charity_name: string;
+  /** A description of the charity. */
+  charity_description: string;
+  /** A URL to an image of the charity’s logo. The image’s type is PNG and its size is 100px X 100px. */
+  charity_logo: string;
+  /** A URL to the charity’s website. */
+  charity_website: string;
+  /** An object that contains the amount of money that the user donated. */
+  amount: MonetaryNotation;
+}
+
+export type CharityDonationSubscription = BaseSubscription<CharityDonationEvent, "channel.charity_campaign.donate">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1197,4 +1221,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelSuspiciousUserMessageSubscription
 | ChannelSuspiciousUserUpdateSubscription
 | ChannelVipAddSubscription
-| ChannelVipRemoveSubscription;
+| ChannelVipRemoveSubscription
+| CharityDonationSubscription;

@@ -43,6 +43,7 @@ import {
   ChannelUpdateEvent,
   ChannelVipAddEvent,
   ChannelVipRemoveEvent,
+  CharityDonationEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -87,6 +88,7 @@ import ChannelSuspiciousUserMessage from "./events/ChannelSuspiciousUserMessage"
 import ChannelSuspiciousUserUpdate from "./events/ChannelSuspiciousUserUpdate";
 import ChannelVipAdd from "./events/ChannelVipAdd";
 import ChannelVipRemove from "./events/ChannelVipRemove";
+import CharityDonation from "./events/CharityDonation";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -241,6 +243,8 @@ export type NotificationChannelVipAdd = BaseEventSubMessage<"notification", Base
 
 export type NotificationChannelVipRemove = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelVipRemove["type"], ChannelVipRemoveEvent>>;
 
+export type NotificationCharityDonation = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<CharityDonation["type"], CharityDonationEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -284,7 +288,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelSuspiciousUserMessage
 | NotificationChannelSuspiciousUserUpdate
 | NotificationChannelVipAdd
-| NotificationChannelVipRemove;
+| NotificationChannelVipRemove
+| NotificationCharityDonation;
 
 export interface PingMessage {
   type: "PING";
