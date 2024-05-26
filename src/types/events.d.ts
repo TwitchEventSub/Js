@@ -1194,7 +1194,7 @@ export interface CharityCampaignStartEvent extends BaseBroadcaster, BaseCharity 
 
 export type CharityCampaignStartSubscription = BaseSubscription<CharityCampaignStartEvent, "channel.charity_campaign.start">;
 
-export type CharityCampaignProgressEvent = CharityCampaignStartEvent;
+export type CharityCampaignProgressEvent = Omit<CharityCampaignStartEvent, "started_at">;
 
 export type CharityCampaignProgressSubscription = BaseSubscription<CharityCampaignProgressEvent, "channel.charity_campaign.progress">;
 
