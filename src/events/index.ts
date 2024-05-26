@@ -45,6 +45,7 @@ import ChannelVipAdd from "./ChannelVipAdd";
 import ChannelVipRemove from "./ChannelVipRemove";
 import CharityDonation from "./CharityDonation";
 import CharityCampaignStart from "./CharityCampaignStart";
+import CharityCampaignProgress from "./CharityCampaignProgress";
 
 export default {
   AutomodMessageHold,
@@ -94,4 +95,5 @@ export default {
   ChannelVipRemove,
   CharityDonation,
   CharityCampaignStart,
+  CharityCampaignProgress,
 };
