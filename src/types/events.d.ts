@@ -1407,6 +1407,17 @@ export interface ShoutoutReceivedEvent extends BaseShoutoutEvent {
 
 export type ShoutoutReceivedSubscription = BaseSubscription<ShoutoutReceivedEvent, "channel.shoutout.receive">;
 
+export interface StreamOnlineEvent extends BaseBroadcaster {
+  /** The id of the stream. */
+  id: string;
+  /** The stream type. */
+  type: "live" | "playlist" | "watch_party" | "premiere" | "rerun";
+  /** The timestamp at which the stream went online at. */
+  started_at: string;
+}
+
+export type StreamOnlineSubscription = BaseSubscription<StreamOnlineEvent, "stream.online">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1465,4 +1476,5 @@ export type EventItem = ChannelFollowSubscription
 | ShieldModeBeginSubscription
 | ShieldModeEndSubscription
 | ShoutoutCreateSubscription
-| ShoutoutReceivedSubscription;
+| ShoutoutReceivedSubscription
+| StreamOnlineSubscription;
