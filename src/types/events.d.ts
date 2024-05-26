@@ -1159,11 +1159,7 @@ export type ChannelVipRemoveEvent = ChannelVipAddEvent;
 
 export type ChannelVipRemoveSubscription = BaseSubscription<ChannelVipRemoveEvent, "channel.vip.remove">;
 
-export interface CharityDonationEvent extends BaseBroadcaster, BaseUser {
-  /** An ID that identifies the donation. The ID is unique across campaigns. */
-  id: string;
-  /** An ID that identifies the charity campaign. */
-  campaign_id: string;
+interface BaseCharity {
   /** The charity’s name. */
   charity_name: string;
   /** A description of the charity. */
@@ -1172,11 +1168,31 @@ export interface CharityDonationEvent extends BaseBroadcaster, BaseUser {
   charity_logo: string;
   /** A URL to the charity’s website. */
   charity_website: string;
+}
+
+export interface CharityDonationEvent extends BaseBroadcaster, BaseUser, BaseCharity {
+  /** An ID that identifies the donation. The ID is unique across campaigns. */
+  id: string;
+  /** An ID that identifies the charity campaign. */
+  campaign_id: string;
   /** An object that contains the amount of money that the user donated. */
   amount: MonetaryNotation;
 }
 
 export type CharityDonationSubscription = BaseSubscription<CharityDonationEvent, "channel.charity_campaign.donate">;
+
+export interface CharityCampaignStartEvent extends BaseBroadcaster, BaseCharity {
+  /** An ID that identifies the charity campaign. */
+  id: string;
+  /** An object that contains the current amount of donations that the campaign has received. */
+  current_amount: MonetaryNotation;
+  /** An object that contains the campaign’s target fundraising goal. */
+  target_amount: MonetaryNotation;
+  /** The UTC timestamp (in RFC3339 format) of when the broadcaster started the campaign. */
+  started_at: string;
+}
+
+export type CharityCampaignStartSubscription = BaseSubscription<CharityCampaignStartEvent, "channel.charity_campaign.start">;
 
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
@@ -1222,4 +1238,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelSuspiciousUserUpdateSubscription
 | ChannelVipAddSubscription
 | ChannelVipRemoveSubscription
-| CharityDonationSubscription;
+| CharityDonationSubscription
+| CharityCampaignStartSubscription;
