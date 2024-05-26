@@ -1294,6 +1294,15 @@ export type GoalProgressEvent = BaseGoalEvent;
 
 export type GoalProgressSubscription = BaseSubscription<GoalProgressEvent, "channel.goal.progress">;
 
+export interface GoalEndEvent extends BaseGoalEvent {
+  /** A Boolean value that indicates whether the broadcaster achieved their goal. */
+  is_achieved: boolean;
+  /** The UTC timestamp in RFC 3339 format, which indicates when the broadcaster ended the goal. */
+  ended_at: string;
+}
+
+export type GoalEndSubscription = BaseSubscription<GoalEndEvent, "channel.goal.end">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1344,4 +1353,5 @@ export type EventItem = ChannelFollowSubscription
 | CharityCampaignStopSubscription
 | ExtensionBitsTransactionCreateSubscription
 | GoalBeginSubscription
-| GoalProgressSubscription;
+| GoalProgressSubscription
+| GoalEndSubscription;
