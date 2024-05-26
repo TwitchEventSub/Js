@@ -51,6 +51,7 @@ import ExtensionBitsTransactionCreate from "./ExtensionBitsTransactionCreate";
 import GoalBegin from "./GoalBegin";
 import GoalProgress from "./GoalProgress";
 import GoalEnd from "./GoalEnd";
+import HypeTrainBegin from "./HypeTrainBegin";
 
 export default {
   AutomodMessageHold,
@@ -106,4 +107,5 @@ export default {
   GoalBegin,
   GoalProgress,
   GoalEnd,
+  HypeTrainBegin,
 };

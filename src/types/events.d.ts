@@ -1303,6 +1303,42 @@ export interface GoalEndEvent extends BaseGoalEvent {
 
 export type GoalEndSubscription = BaseSubscription<GoalEndEvent, "channel.goal.end">;
 
+interface TwitchContribution extends BaseUser {
+  /** The contribution method used. */
+  type: "bits" | "subscription" | "other";
+  /** The total amount contributed.
+   * If `type` is `bits`, `total` represents the amount of Bits used.
+   * If type is `subscription`, total is 500, 1000, or 2500 to represent tier 1, 2, or 3 subscriptions, respectively.
+   */
+  total: number;
+}
+
+interface BaseHypeTrainEvent extends BaseBroadcaster {
+  /** The Hype Train ID. */
+  id: string;
+  /** Total points contributed to the Hype Train. */
+  total: number;
+  /** The number of points contributed to the Hype Train at the current level. */
+  progress: number;
+  /** The number of points required to reach the next level. */
+  goal: number;
+  /** The contributors with the most points contributed. */
+  top_contributions: TwitchContribution;
+  /** The most recent contribution. */
+  last_contribution: TwitchContribution;
+  /** The starting level of the Hype Train. */
+  level: number;
+  /** The time when the Hype Train started. */
+  started_at: string;
+}
+
+export interface HypeTrainBeginEvent extends BaseHypeTrainEvent {
+  /** The time when the Hype Train expires. The expiration is extended when the Hype Train reaches a new level. */
+  expires_at: string;
+}
+
+export type HypeTrainBeginSubscription = BaseSubscription<HypeTrainBeginEvent, "channel.hype_train.begin">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1354,4 +1390,5 @@ export type EventItem = ChannelFollowSubscription
 | ExtensionBitsTransactionCreateSubscription
 | GoalBeginSubscription
 | GoalProgressSubscription
-| GoalEndSubscription;
+| GoalEndSubscription
+| HypeTrainBeginSubscription;
