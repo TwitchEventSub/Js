@@ -1290,6 +1290,10 @@ export type GoalBeginEvent = BaseGoalEvent;
 
 export type GoalBeginSubscription = BaseSubscription<GoalBeginEvent, "channel.goal.begin">;
 
+export type GoalProgressEvent = BaseGoalEvent;
+
+export type GoalProgressSubscription = BaseSubscription<GoalProgressEvent, "channel.goal.progress">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1339,4 +1343,5 @@ export type EventItem = ChannelFollowSubscription
 | CharityCampaignProgressSubscription
 | CharityCampaignStopSubscription
 | ExtensionBitsTransactionCreateSubscription
-| GoalBeginSubscription;
+| GoalBeginSubscription
+| GoalProgressSubscription;
