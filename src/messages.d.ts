@@ -36,6 +36,7 @@ import {
   ChannelSubscriptionGiftEvent,
   ChannelSubscriptionMessageEvent,
   ChannelSuspiciousUserMessageEvent,
+  ChannelSuspiciousUserUpdateEvent,
   ChannelUnbanEvent,
   ChannelUnbanRequestCreateEvent,
   ChannelUnbanRequestResolveEvent,
@@ -81,6 +82,7 @@ import ChannelPredictionBegin from "./events/ChannelPredictionBegin";
 import ChannelPredictionProgress from "./events/ChannelPredictionProgress";
 import ChannelPredictionLock from "./events/ChannelPredictionLock";
 import ChannelSuspiciousUserMessage from "./events/ChannelSuspiciousUserMessage";
+import ChannelSuspiciousUserUpdate from "./events/ChannelSuspiciousUserUpdate";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -229,6 +231,8 @@ export type NotificationChannelPredictionEnd = BaseEventSubMessage<"notification
 
 export type NotificationChannelSuspiciousUserMessage = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelSuspiciousUserMessage["type"], ChannelSuspiciousUserMessageEvent>>;
 
+export type NotificationChannelSuspiciousUserUpdate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelSuspiciousUserUpdate["type"], ChannelSuspiciousUserUpdateEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -269,7 +273,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelPredictionProgress
 | NotificationChannelPredictionLock
 | NotificationChannelPredictionEnd
-| NotificationChannelSuspiciousUserMessage;
+| NotificationChannelSuspiciousUserMessage
+| NotificationChannelSuspiciousUserUpdate;
 
 export interface PingMessage {
   type: "PING";

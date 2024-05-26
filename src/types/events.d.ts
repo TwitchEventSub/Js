@@ -1142,6 +1142,10 @@ export interface ChannelSuspiciousUserMessageEvent extends BaseBroadcaster, Base
 
 export type ChannelSuspiciousUserMessageSubscription = BaseSubscription<ChannelSuspiciousUserMessageEvent, "channel.suspicious_user.message">;
 
+export type ChannelSuspiciousUserUpdateEvent = ChannelSuspiciousUserMessageEvent;
+
+export type ChannelSuspiciousUserUpdateSubscription = BaseSubscription<SuspiciousUserUpdateEvent, "channel.suspicious_user.update">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1182,4 +1186,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPredictionProgressSubscription
 | ChannelPredictionLockSubscription
 | ChannelPredictionEndSubscription
-| ChannelSuspiciousUserMessageSubscription;
+| ChannelSuspiciousUserMessageSubscription
+| ChannelSuspiciousUserUpdateSubscription;
