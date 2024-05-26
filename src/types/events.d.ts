@@ -1361,6 +1361,13 @@ export interface ShieldModeBeginEvent extends BaseShieldModeEvent {
 
 export type ShieldModeBeginSubscription = BaseSubscription<ShieldModeBeginEvent, "channel.shield_mode.begin">;
 
+export interface ShieldModeEndEvent extends BaseShieldModeEvent {
+  /** The UTC timestamp (in RFC3339 format) of when the moderator deactivated Shield Mode.  */
+  ended_at: string;
+}
+
+export type ShieldModeEndSubscription = BaseSubscription<ShieldModeEndEvent, "channel.shield_mode.end">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1416,4 +1423,5 @@ export type EventItem = ChannelFollowSubscription
 | HypeTrainBeginSubscription
 | HypeTrainProgressSubscription
 | HypeTrainEndSubscription
-| ShieldModeBeginSubscription;
+| ShieldModeBeginSubscription
+| ShieldModeEndSubscription;

@@ -55,6 +55,7 @@ import {
   HypeTrainEndEvent,
   HypeTrainProgressEvent,
   ShieldModeBeginEvent,
+  ShieldModeEndEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -111,6 +112,7 @@ import HypeTrainBegin from "./events/HypeTrainBegin";
 import HypeTrainProgress from "./events/HypeTrainProgress";
 import HypeTrainEnd from "./events/HypeTrainEnd";
 import ShieldModeBegin from "./events/ShieldModeBegin";
+import ShieldModeEnd from "./events/ShieldModeEnd";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -289,6 +291,8 @@ export type NotificationHypeTrainEnd = BaseEventSubMessage<"notification", BaseE
 
 export type NotificationShieldModeBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ShieldModeBegin["type"], ShieldModeBeginEvent>>;
 
+export type NotificationShieldModeEnd = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ShieldModeEnd["type"], ShieldModeEndEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -344,7 +348,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationHypeTrainBegin
 | NotificationHypeTrainProgress
 | NotificationHypeTrainEnd
-| NotificationShieldModeBegin;
+| NotificationShieldModeBegin
+| NotificationShieldModeEnd;
 
 export interface PingMessage {
   type: "PING";

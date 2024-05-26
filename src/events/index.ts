@@ -55,6 +55,7 @@ import HypeTrainBegin from "./HypeTrainBegin";
 import HypeTrainProgress from "./HypeTrainProgress";
 import HypeTrainEnd from "./HypeTrainEnd";
 import ShieldModeBegin from "./ShieldModeBegin";
+import ShieldModeEnd from "./ShieldModeEnd";
 
 export default {
   AutomodMessageHold,
@@ -114,4 +115,5 @@ export default {
   HypeTrainProgress,
   HypeTrainEnd,
   ShieldModeBegin,
+  ShieldModeEnd,
 };
