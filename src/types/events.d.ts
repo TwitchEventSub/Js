@@ -1418,6 +1418,10 @@ export interface StreamOnlineEvent extends BaseBroadcaster {
 
 export type StreamOnlineSubscription = BaseSubscription<StreamOnlineEvent, "stream.online">;
 
+export type StreamOfflineEvent = BaseBroadcaster;
+
+export type StreamOfflineSubscription = BaseSubscription<StreamOfflineEvent, "stream.offline">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1477,4 +1481,5 @@ export type EventItem = ChannelFollowSubscription
 | ShieldModeEndSubscription
 | ShoutoutCreateSubscription
 | ShoutoutReceivedSubscription
-| StreamOnlineSubscription;
+| StreamOnlineSubscription
+| StreamOfflineSubscription;

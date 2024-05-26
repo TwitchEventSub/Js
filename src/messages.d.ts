@@ -58,6 +58,7 @@ import {
   ShieldModeEndEvent,
   ShoutoutCreateEvent,
   ShoutoutReceivedEvent,
+  StreamOfflineEvent,
   StreamOnlineEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
@@ -119,6 +120,7 @@ import ShieldModeEnd from "./events/ShieldModeEnd";
 import ShoutoutCreate from "./events/ShoutoutCreate";
 import ShoutoutReceived from "./events/ShoutoutReceived";
 import StreamOnline from "./events/StreamOnline";
+import StreamOffline from "./events/StreamOffline";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -305,6 +307,8 @@ export type NotificationShoutoutReceived = BaseEventSubMessage<"notification", B
 
 export type NotificationStreamOnline = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<StreamOnline["type"], StreamOnlineEvent>>;
 
+export type NotificationStreamOffline = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<StreamOffline["type"], StreamOfflineEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -364,7 +368,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationShieldModeEnd
 | NotificationShoutoutCreate
 | NotificationShoutoutReceived
-| NotificationStreamOnline;
+| NotificationStreamOnline
+| NotificationStreamOffline;
 
 export interface PingMessage {
   type: "PING";

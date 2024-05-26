@@ -59,6 +59,7 @@ import ShieldModeEnd from "./ShieldModeEnd";
 import ShoutoutCreate from "./ShoutoutCreate";
 import ShoutoutReceived from "./ShoutoutReceived";
 import StreamOnline from "./StreamOnline";
+import StreamOffline from "./StreamOffline";
 
 export default {
   AutomodMessageHold,
@@ -122,4 +123,5 @@ export default {
   ShoutoutCreate,
   ShoutoutReceived,
   StreamOnline,
+  StreamOffline,
 };
