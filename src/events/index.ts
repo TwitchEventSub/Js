@@ -56,6 +56,7 @@ import HypeTrainProgress from "./HypeTrainProgress";
 import HypeTrainEnd from "./HypeTrainEnd";
 import ShieldModeBegin from "./ShieldModeBegin";
 import ShieldModeEnd from "./ShieldModeEnd";
+import ShoutoutCreate from "./ShoutoutCreate";
 
 export default {
   AutomodMessageHold,
@@ -116,4 +117,5 @@ export default {
   HypeTrainEnd,
   ShieldModeBegin,
   ShieldModeEnd,
+  ShoutoutCreate,
 };

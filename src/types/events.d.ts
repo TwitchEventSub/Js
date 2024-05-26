@@ -1368,6 +1368,34 @@ export interface ShieldModeEndEvent extends BaseShieldModeEvent {
 
 export type ShieldModeEndSubscription = BaseSubscription<ShieldModeEndEvent, "channel.shield_mode.end">;
 
+interface BaseShoutoutEvent extends BaseBroadcaster {
+  /** The number of users that were watching the broadcaster’s stream at the time of the Shoutout. */
+  viewer_count: number;
+  /** The UTC timestamp (in RFC3339 format) of when the moderator sent the Shoutout. */
+  started_at: string;
+}
+
+export interface ShoutoutCreateEvent extends BaseShoutoutEvent {
+  /** An ID that identifies the broadcaster that received the Shoutout. */
+  to_broadcaster_id: string;
+  /** The broadcaster’s login name. */
+  to_broadcaster_login: string;
+  /** The broadcaster’s display name. */
+  to_broadcaster_name: string;
+  /** An ID that identifies the moderator that sent the Shoutout. If the broadcaster sent the Shoutout, this ID is the same as the ID in `broadcaster_user_id`. */
+  moderator_user_id: string;
+  /** The moderator’s login name. */
+  moderator_user_login: string;
+  /** The moderator’s display name. */
+  moderator_user_name: string;
+  /** The UTC timestamp (in RFC3339 format) of when the broadcaster may send a Shoutout to a different broadcaster. */
+  cooldown_expires_at: string;
+  /** The UTC timestamp (in RFC3339 format) of when the broadcaster may send another Shoutout to the broadcaster in to_broadcaster_user_id. */
+  target_cooldown_ends_at: string;
+}
+
+export type ShoutoutCreateSubscription = BaseSubscription<ShoutoutCreateEvent, "channel.shoutout.create">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1424,4 +1452,5 @@ export type EventItem = ChannelFollowSubscription
 | HypeTrainProgressSubscription
 | HypeTrainEndSubscription
 | ShieldModeBeginSubscription
-| ShieldModeEndSubscription;
+| ShieldModeEndSubscription
+| ShoutoutCreateSubscription;
