@@ -262,10 +262,10 @@ export default class EventSub {
         }
         const id = message.metadata.message_id;
         setTimeout(() => delete this.messageIdRecord[id], keepAliveSeconds * 1000);
-
+        
         for (const event of this.events) {
+          // type becomes any with message.payload.subscription having 40+ types
           if (event.type === message.payload.subscription.type) {
-            // @ts-expect-error event type is matched in above if statement
             event.dispatchEvent(message.payload.event);
           }
         }

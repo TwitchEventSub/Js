@@ -19,7 +19,7 @@ export default class ChannelRaid extends BaseEvent<ChannelRaidEvent> implements 
 
   get channel() {
     const channels = Object.values(this._properties) as (string | undefined)[];
-    return channels.filter((value) => value !== undefined);
+    return channels.filter((value) => value !== undefined) as string[];
   }
 
   get condition() {
