@@ -42,6 +42,7 @@ import {
   ChannelUnbanRequestResolveEvent,
   ChannelUpdateEvent,
   ChannelVipAddEvent,
+  ChannelVipRemoveEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -85,6 +86,7 @@ import ChannelPredictionLock from "./events/ChannelPredictionLock";
 import ChannelSuspiciousUserMessage from "./events/ChannelSuspiciousUserMessage";
 import ChannelSuspiciousUserUpdate from "./events/ChannelSuspiciousUserUpdate";
 import ChannelVipAdd from "./events/ChannelVipAdd";
+import ChannelVipRemove from "./events/ChannelVipRemove";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -237,6 +239,8 @@ export type NotificationChannelSuspiciousUserUpdate = BaseEventSubMessage<"notif
 
 export type NotificationChannelVipAdd = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelVipAdd["type"], ChannelVipAddEvent>>;
 
+export type NotificationChannelVipRemove = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ChannelVipRemove["type"], ChannelVipRemoveEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -279,7 +283,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelPredictionEnd
 | NotificationChannelSuspiciousUserMessage
 | NotificationChannelSuspiciousUserUpdate
-| NotificationChannelVipAdd;
+| NotificationChannelVipAdd
+| NotificationChannelVipRemove;
 
 export interface PingMessage {
   type: "PING";

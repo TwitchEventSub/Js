@@ -1150,6 +1150,10 @@ export type ChannelVipAddEvent = BaseBroadcaster & BaseUser;
 
 export type ChannelVipAddSubscription = BaseSubscription<ChannelVipAddEvent, "channel.vip.add">;
 
+export type ChannelVipRemoveEvent = ChannelVipAddEvent;
+
+export type ChannelVipRemoveSubscription = BaseSubscription<ChannelVipRemoveEvent, "channel.vip.remove">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1192,4 +1196,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPredictionEndSubscription
 | ChannelSuspiciousUserMessageSubscription
 | ChannelSuspiciousUserUpdateSubscription
-| ChannelVipAddSubscription;
+| ChannelVipAddSubscription
+| ChannelVipRemoveSubscription;
