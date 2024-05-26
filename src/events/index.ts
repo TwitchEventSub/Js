@@ -41,6 +41,7 @@ import ChannelPredictionLock from "./ChannelPredictionLock";
 import ChannelPredictionEnd from "./ChannelPredictionEnd";
 import ChannelSuspiciousUserMessage from "./ChannelSuspiciousUserMessage";
 import ChannelSuspiciousUserUpdate from "./ChannelSuspiciousUserUpdate";
+import ChannelVipAdd from "./ChannelVipAdd";
 
 export default {
   AutomodMessageHold,
@@ -86,4 +87,5 @@ export default {
   ChannelPredictionEnd,
   ChannelSuspiciousUserMessage,
   ChannelSuspiciousUserUpdate,
+  ChannelVipAdd,
 };

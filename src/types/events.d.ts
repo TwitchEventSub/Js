@@ -1146,6 +1146,10 @@ export type ChannelSuspiciousUserUpdateEvent = ChannelSuspiciousUserMessageEvent
 
 export type ChannelSuspiciousUserUpdateSubscription = BaseSubscription<SuspiciousUserUpdateEvent, "channel.suspicious_user.update">;
 
+export type ChannelVipAddEvent = BaseBroadcaster & BaseUser;
+
+export type ChannelVipAddSubscription = BaseSubscription<ChannelVipAddEvent, "channel.vip.add">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1187,4 +1191,5 @@ export type EventItem = ChannelFollowSubscription
 | ChannelPredictionLockSubscription
 | ChannelPredictionEndSubscription
 | ChannelSuspiciousUserMessageSubscription
-| ChannelSuspiciousUserUpdateSubscription;
+| ChannelSuspiciousUserUpdateSubscription
+| ChannelVipAddSubscription;
