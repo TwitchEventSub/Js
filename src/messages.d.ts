@@ -65,10 +65,10 @@ import {
   WhisperReceivedEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
-import AutomodMessageHold from "./events/AutomodMessageHold";
-import AutomodMessageHoldUpdate from "./events/AutomodMessageHoldUpdate";
-import AutomodSettingsUpdate from "./events/AutomodSettingsUpdate";
-import AutomodTermsUpdate from "./events/AutomodTermsUpdate";
+import AutomodMessageHold from "./events/Automod/AutomodMessageHold";
+import AutomodMessageHoldUpdate from "./events/Automod/AutomodMessageHoldUpdate";
+import AutomodSettingsUpdate from "./events/Automod/AutomodSettingsUpdate";
+import AutomodTermsUpdate from "./events/Automod/AutomodTermsUpdate";
 import ChannelUpdate from "./events/ChannelUpdate";
 import ChannelAdBreakBegin from "./events/ChannelAdBreakBegin";
 import ChannelChatClear from "./events/ChannelChatClear";

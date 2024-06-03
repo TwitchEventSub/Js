@@ -1,7 +1,4 @@
-import AutomodMessageHold from "./AutomodMessageHold";
-import AutomodMessageHoldUpdate from "./AutomodMessageHoldUpdate";
-import AutomodSettingsUpdate from "./AutomodSettingsUpdate";
-import AutomodTermsUpdate from "./AutomodTermsUpdate";
+import Automod from "./Automod";
 import ChannelUpdate from "./ChannelUpdate";
 import ChannelFollow from "./ChannelFollow";
 import ChannelAdBreakBegin from "./ChannelAdBreakBegin";
@@ -65,10 +62,7 @@ import UserAuthorizationRevoke from "./UserAuthorizationRevoke";
 import WhisperReceived from "./WhisperReceived";
 
 export default {
-  AutomodMessageHold,
-  AutomodMessageHoldUpdate,
-  AutomodSettingsUpdate,
-  AutomodTermsUpdate,
+  ...Automod,
   ChannelUpdate,
   ChannelFollow,
   ChannelAdBreakBegin,

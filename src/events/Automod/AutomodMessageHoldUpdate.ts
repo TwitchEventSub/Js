@@ -1,8 +1,8 @@
 import {
   AutomodMessageHoldUpdateEvent,
   AutomodMessageHoldUpdateSubscription,
-} from "../types/events";
-import BaseEvent from "../util/BaseEvent";
+} from "../../types/events";
+import BaseEvent from "../../util/BaseEvent";
 
 /** Requires auth to be at least of an editor */
 export default class AutomodMessageHoldUpdate extends BaseEvent<AutomodMessageHoldUpdateEvent> implements AutomodMessageHoldUpdateSubscription {

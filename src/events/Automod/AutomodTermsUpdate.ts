@@ -1,12 +1,12 @@
 import {
-  AutomodMessageHoldEvent,
-  AutomodMessageHoldSubscription,
-} from "../types/events";
-import BaseEvent from "../util/BaseEvent";
+  AutomodTermsUpdateEvent,
+  AutomodTermsUpdateSubscription,
+} from "../../types/events";
+import BaseEvent from "../../util/BaseEvent";
 
 /** Requires auth to be at least of an editor */
-export default class AutomodMessageHold extends BaseEvent<AutomodMessageHoldEvent> implements AutomodMessageHoldSubscription {
-  readonly type = "automod.message.hold";
+export default class AutomodTermsUpdate extends BaseEvent<AutomodTermsUpdateEvent> implements AutomodTermsUpdateSubscription {
+  readonly type = "automod.terms.update";
   readonly version = "1";
   readonly permissions = ["moderator:manage:automod"];
 
@@ -26,7 +26,7 @@ export default class AutomodMessageHold extends BaseEvent<AutomodMessageHoldEven
     };
   }
   
-  constructor(channel: string, ...args: ((arg: AutomodMessageHoldEvent) => void)[]) {
+  constructor(channel: string, ...args: ((arg: AutomodTermsUpdateEvent) => void)[]) {
     super(args);
     this._channel = channel;
   }
