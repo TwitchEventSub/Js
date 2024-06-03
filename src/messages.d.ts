@@ -62,6 +62,7 @@ import {
   StreamOnlineEvent,
   UserAuthorizationGrantEvent,
   UserAuthorizationRevokeEvent,
+  WhisperReceivedEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -125,6 +126,7 @@ import StreamOnline from "./events/StreamOnline";
 import StreamOffline from "./events/StreamOffline";
 import UserAuthorizationGrant from "./events/UserAuthorizationGrant";
 import UserAuthorizationRevoke from "./events/UserAuthorizationRevoke";
+import WhisperReceived from "./events/WhisperReceived";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -317,6 +319,8 @@ export type NotificationUserAuthorizationGrant = BaseEventSubMessage<"notificati
 
 export type NotificationUserAuthorizationRevoke = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<UserAuthorizationRevoke["type"], UserAuthorizationRevokeEvent>>;
 
+export type NotificationWhisperReceived = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<WhisperReceived["type"], WhisperReceivedEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -379,7 +383,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationStreamOnline
 | NotificationStreamOffline
 | NotificationUserAuthorizationGrant
-| NotificationUserAuthorizationRevoke;
+| NotificationUserAuthorizationRevoke
+| NotificationWhisperReceived;
 
 export interface PingMessage {
   type: "PING";

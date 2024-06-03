@@ -1442,6 +1442,18 @@ export interface UserAuthorizationRevokeEvent {
 
 export type UserAuthorizationRevokeSubscription = BaseSubscription<UserAuthorizationRevokeEvent, "user.authorization.revoke">;
 
+export interface WhisperReceivedEvent extends AddPrefix<BaseUser, "from_">, AddPrefix<BaseUser, "to_"> {
+  /** The whisper ID. */
+  whisper_id: string;
+  /** Object containing whisper information. */
+  whisper: {
+    /** The body of the whisper message. */
+    text: string;
+  }
+}
+
+export type WhisperReceivedSubscription = BaseSubscription<WhisperReceivedEvent, "user.whisper.message">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1504,4 +1516,5 @@ export type EventItem = ChannelFollowSubscription
 | StreamOnlineSubscription
 | StreamOfflineSubscription
 | UserAuthorizationGrantSubscription
-| UserAuthorizationRevokeSubscription;
+| UserAuthorizationRevokeSubscription
+| WhisperReceivedSubscription;

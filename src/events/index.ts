@@ -62,6 +62,7 @@ import StreamOnline from "./StreamOnline";
 import StreamOffline from "./StreamOffline";
 import UserAuthorizationGrant from "./UserAuthorizationGrant";
 import UserAuthorizationRevoke from "./UserAuthorizationRevoke";
+import WhisperReceived from "./WhisperReceived";
 
 export default {
   AutomodMessageHold,
@@ -128,4 +129,5 @@ export default {
   StreamOffline,
   UserAuthorizationGrant,
   UserAuthorizationRevoke,
+  WhisperReceived,
 };
