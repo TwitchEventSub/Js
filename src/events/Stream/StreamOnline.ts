@@ -1,11 +1,11 @@
 import {
-  StreamOfflineEvent,
-  StreamOfflineSubscription,
-} from "../types/events";
-import BaseEvent from "../util/BaseEvent";
+  StreamOnlineEvent,
+  StreamOnlineSubscription,
+} from "../../types/events";
+import BaseEvent from "../../util/BaseEvent";
 
-export default class StreamOffline extends BaseEvent<StreamOfflineEvent> implements StreamOfflineSubscription {
-  readonly type = "stream.offline";
+export default class StreamOnline extends BaseEvent<StreamOnlineEvent> implements StreamOnlineSubscription {
+  readonly type = "stream.online";
   readonly version = "1";
   readonly permissions = [];
 
@@ -24,7 +24,7 @@ export default class StreamOffline extends BaseEvent<StreamOfflineEvent> impleme
     };
   }
   
-  constructor(channel: string, ...args: ((arg: StreamOfflineEvent) => void)[]) {
+  constructor(channel: string, ...args: ((arg: StreamOnlineEvent) => void)[]) {
     super(args);
     this._channel = channel;
   }
