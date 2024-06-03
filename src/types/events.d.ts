@@ -9,7 +9,7 @@ interface SubscriptionType {
 
 interface SubscriptionProperties {
   get channel(): string[];
-  get condition(): ((...args: string[]) => Record<string, string>);
+  get condition(): ((...args: string[]) => (Record<string, string>) | undefined);
 }
 
 export type EventIndex = number;
@@ -1422,6 +1422,13 @@ export type StreamOfflineEvent = BaseBroadcaster;
 
 export type StreamOfflineSubscription = BaseSubscription<StreamOfflineEvent, "stream.offline">;
 
+export interface UserAuthorizationGrantEvent extends BaseUser {
+  /** The client_id of the application that was granted user access. */
+  client_id: string;
+}
+
+export type UserAuthorizationGrantSubscription = BaseSubscription<UserAuthorizationGrantEvent, "user.authorization.grant">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1482,4 +1489,5 @@ export type EventItem = ChannelFollowSubscription
 | ShoutoutCreateSubscription
 | ShoutoutReceivedSubscription
 | StreamOnlineSubscription
-| StreamOfflineSubscription;
+| StreamOfflineSubscription
+| UserAuthorizationGrantSubscription;

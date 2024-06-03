@@ -206,7 +206,9 @@ export default class EventSub {
           clientId: this.clientId!,
           session: message.payload.session.id,
           condition: x.condition(...x.channel.map(y => this.broadcasterMap[y])
-          .concat(this.authUserId!)),
+          .concat(this.authUserId!))
+          // client id is required for specific events
+          ?? { clientId: this.clientId! },
           broadcaster: this.broadcasterMap[x.channel[0].toLowerCase()],
           broadcasterOnly: x.broadcasterOnly,
         })))

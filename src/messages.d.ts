@@ -60,6 +60,7 @@ import {
   ShoutoutReceivedEvent,
   StreamOfflineEvent,
   StreamOnlineEvent,
+  UserAuthorizationGrantEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -121,6 +122,7 @@ import ShoutoutCreate from "./events/ShoutoutCreate";
 import ShoutoutReceived from "./events/ShoutoutReceived";
 import StreamOnline from "./events/StreamOnline";
 import StreamOffline from "./events/StreamOffline";
+import UserAuthorizationGrant from "./events/UserAuthorizationGrant";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -309,6 +311,8 @@ export type NotificationStreamOnline = BaseEventSubMessage<"notification", BaseE
 
 export type NotificationStreamOffline = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<StreamOffline["type"], StreamOfflineEvent>>;
 
+export type NotificationUserAuthorizationGrant = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<UserAuthorizationGrant["type"], UserAuthorizationGrantEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -369,7 +373,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationShoutoutCreate
 | NotificationShoutoutReceived
 | NotificationStreamOnline
-| NotificationStreamOffline;
+| NotificationStreamOffline
+| NotificationUserAuthorizationGrant;
 
 export interface PingMessage {
   type: "PING";
