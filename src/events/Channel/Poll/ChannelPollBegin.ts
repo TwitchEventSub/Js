@@ -4,16 +4,24 @@ import {
 } from "../../../types/events";
 import BaseEvent from "../../../util/BaseEvent";
 
-// FIXME: alternatively requires channel:manage:polls
 export default class ChannelPollBegin extends BaseEvent<ChannelPollBeginEvent> implements ChannelPollBeginSubscription {
   readonly type = "channel.poll.begin";
   readonly version = "1";
-  readonly permissions = ["channel:read:polls"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    const permissions = ["channel:read:polls", "channel:manage:polls"];
+    return (tokenPermissions: string[]) => {
+      if (!tokenPermissions.some((permission) => permissions.includes(permission))) {
+        return [permissions[0]];
+      }
+      return [];
+    };
   }
 
   get condition() {

@@ -95,25 +95,6 @@ export interface TwitchMessage {
   emotes: TwitchEmote[];
 }
 
-export interface TwitchBaseProduct {
-  /** Product name. */
-  name: string;
-  /** Unique identifier for the product acquired. */
-  sku: string;
-}
-
-export interface TwitchProductDev {
-  /** Flag indicating if the product is in development. */
-  in_development: true;
-  bits: 0;
-}
-
-export interface TwitchProductProd {
-  /** Flag indicating if the product is in development. */
-  in_development: false;
-  bits: number;
-}
-
 export interface TwitchContribution extends BaseUser {
   /** The contribution method used. */
   type: "bits" | "subscription" | "other";
@@ -123,7 +104,5 @@ export interface TwitchContribution extends BaseUser {
    */
   total: number;
 }
-
-export type TwitchProduct = TwitchBaseProduct & (TwitchProductDev | TwitchProductProd);
 
 export type SubType = "1000" | "2000" | "3000";

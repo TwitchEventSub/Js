@@ -8,12 +8,17 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class CharityDonation extends BaseEvent<CharityDonationEvent> implements CharityDonationSubscription {
   readonly type = "channel.charity_campaign.donate";
   readonly version = "1";
-  readonly permissions = ["channel:read:charity"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["channel:read:charity"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

@@ -8,12 +8,15 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class GoalBegin extends BaseEvent<GoalBeginEvent> implements GoalBeginSubscription {
   readonly type = "channel.goal.begin";
   readonly version = "1";
-  readonly permissions = [];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (_tokenPermissions: string[]) => [];
   }
 
   get condition() {

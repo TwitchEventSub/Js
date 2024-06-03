@@ -4,16 +4,24 @@ import {
 } from "../../../types/events";
 import BaseEvent from "../../../util/BaseEvent";
 
-// FIXME: alternatively requires moderator:manage:shoutouts
 export default class ShoutoutCreate extends BaseEvent<ShoutoutCreateEvent> implements ShoutoutCreateSubscription {
   readonly type = "channel.shoutout.create";
   readonly version = "1";
-  readonly permissions = ["moderator:read:shoutouts"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    const permissions = ["moderator:read:shoutouts", "moderator:manage:shoutouts"];
+    return (tokenPermissions: string[]) => {
+      if (!tokenPermissions.some((permission) => permissions.includes(permission))) {
+        return [permissions[0]];
+      }
+      return [];
+    };
   }
 
   get condition() {

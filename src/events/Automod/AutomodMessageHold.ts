@@ -8,12 +8,17 @@ import BaseEvent from "../../util/BaseEvent";
 export default class AutomodMessageHold extends BaseEvent<AutomodMessageHoldEvent> implements AutomodMessageHoldSubscription {
   readonly type = "automod.message.hold";
   readonly version = "1";
-  readonly permissions = ["moderator:manage:automod"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["moderator:manage:automod"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

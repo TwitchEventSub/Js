@@ -13,13 +13,16 @@ interface BaseChannelRaidCondition {
 export default class ChannelRaid extends BaseEvent<ChannelRaidEvent> implements ChannelRaidSubscription {
   readonly type = "channel.raid";
   readonly version = "1";
-  readonly permissions = [];
 
   private _properties: PickOne<BaseChannelRaidCondition>;
 
   get channel() {
     const channels = Object.values(this._properties) as (string | undefined)[];
     return channels.filter((value) => value !== undefined) as string[];
+  }
+
+  get permissions() {
+    return (_tokenPermissions: string[]) => [];
   }
 
   get condition() {

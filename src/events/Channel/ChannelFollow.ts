@@ -8,12 +8,17 @@ import BaseEvent from "../../util/BaseEvent";
 export default class ChannelFollow extends BaseEvent<ChannelFollowEvent> implements ChannelFollowSubscription {
   readonly type = "channel.follow";
   readonly version = "2";
-  readonly permissions = ["moderator:read:followers"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["moderator:read:followers"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

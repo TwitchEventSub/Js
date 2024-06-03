@@ -14,13 +14,18 @@ interface ChannelChatUserMessageUpdateCondition {
 export default class ChannelChatUserMessageUpdate extends BaseEvent<ChannelChatUserMessageUpdateEvent> implements ChannelChatUserMessageUpdateSubscription {
   readonly type = "channel.chat.user_message_update";
   readonly version = "1";
-  readonly permissions = ["user:read:chat"];
 
   private _channel: string;
   private _user: string;
 
   get channel() {
     return [this._channel, this._user];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["user:read:chat"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

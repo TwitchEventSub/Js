@@ -10,17 +10,25 @@ interface ChannelPointsCustomRewardUpdateCondition {
   rewardId?: string;
 }
 
-// FIXME: alternatively requires channel:manage:redemptions
 export default class ChannelPointsCustomRewardUpdate extends BaseEvent<ChannelPointsCustomRewardUpdateEvent> implements ChannelPointsCustomRewardUpdateSubscription {
   readonly type = "channel.channel_points_custom_reward.update";
   readonly version = "1";
-  readonly permissions = ["channel:read:redemptions"];
 
   private _channel: string;
   private _rewardId: string | undefined;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    const permissions = ["channel:read:redemptions", "channel:manage:redemptions"];
+    return (tokenPermissions: string[]) => {
+      if (!tokenPermissions.some((permission) => permissions.includes(permission))) {
+        return [permissions[0]];
+      }
+      return [];
+    };
   }
 
   get condition() {

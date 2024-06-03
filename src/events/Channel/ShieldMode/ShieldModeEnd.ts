@@ -4,16 +4,24 @@ import {
 } from "../../../types/events";
 import BaseEvent from "../../../util/BaseEvent";
 
-// FIXME: alternatively requires moderator:manage:shield_mode
 export default class ShieldModeEnd extends BaseEvent<ShieldModeEndEvent> implements ShieldModeEndSubscription {
   readonly type = "channel.shield_mode.end";
   readonly version = "1";
-  readonly permissions = ["moderator:read:shield_mode"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    const permissions = ["moderator:read:shield_mode", "moderator:manage:shield_mode"];
+    return (tokenPermissions: string[]) => {
+      if (!tokenPermissions.some((permission) => permissions.includes(permission))) {
+        return [permissions[0]];
+      }
+      return [];
+    };
   }
 
   get condition() {

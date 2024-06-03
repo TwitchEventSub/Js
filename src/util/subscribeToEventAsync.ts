@@ -13,7 +13,6 @@ interface SubscriptionProps<T extends TypeDefinedItem> {
   session: string;
   condition: Record<string, string>;
   broadcaster: string;
-  broadcasterOnly?: true;
 }
 
 export default async function subscribeToEventAsync<T extends TypeDefinedItem>(props: SubscriptionProps<T>) {

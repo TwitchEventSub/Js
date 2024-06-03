@@ -7,7 +7,6 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class ChannelUnban extends BaseEvent<ChannelUnbanEvent> implements ChannelUnbanSubscription {
   readonly type = "channel.unban";
   readonly version = "1";
-  readonly permissions = ["channel:moderate"];
 
   private _channel: string;
 
@@ -15,6 +14,11 @@ export default class ChannelUnban extends BaseEvent<ChannelUnbanEvent> implement
     return [this._channel];
   }
 
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["channel:moderate"].filter((permission) => !tokenPermissions.includes(permission));
+    };
+  }
 
   get condition() {
     return (...args: string[]) => {

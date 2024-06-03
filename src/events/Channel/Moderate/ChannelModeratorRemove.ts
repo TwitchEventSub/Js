@@ -8,12 +8,17 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class ChannelModeratorRemove extends BaseEvent<ChannelModeratorRemoveEvent> implements ChannelModeratorRemoveSubscription {
   readonly type = "channel.moderator.remove";
   readonly version = "2";
-  readonly permissions = ["moderation:read"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["channel:moderate"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

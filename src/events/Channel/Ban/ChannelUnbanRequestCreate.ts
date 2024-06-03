@@ -9,12 +9,16 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class ChannelUnbanRequestCreate extends BaseEvent<ChannelUnbanRequestCreateEvent> implements ChannelUnbanRequestCreateSubscription {
   readonly type = "channel.unban_request.create";
   readonly version = "1";
-  readonly permissions = ["moderator:read:unban_requests"];
-
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["moderator:read:unban_requests"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

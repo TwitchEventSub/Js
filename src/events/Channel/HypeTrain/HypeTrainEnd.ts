@@ -8,12 +8,17 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class HypeTrainEnd extends BaseEvent<HypeTrainEndEvent> implements HypeTrainEndSubscription {
   readonly type = "channel.hype_train.end";
   readonly version = "1";
-  readonly permissions = ["channel:read:hype_train"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["channel:read:hype_train"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

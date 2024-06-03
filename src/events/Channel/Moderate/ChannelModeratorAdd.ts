@@ -8,12 +8,17 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class ChannelModeratorAdd extends BaseEvent<ChannelModeratorAddEvent> implements ChannelModeratorAddSubscription {
   readonly type = "channel.moderator.add";
   readonly version = "1";
-  readonly permissions = ["moderation:read"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["channel:moderate"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

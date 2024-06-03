@@ -7,13 +7,15 @@ import BaseEvent from "../../util/BaseEvent";
 export default class ChannelUpdate extends BaseEvent<ChannelUpdateEvent> implements ChannelUpdateSubscription {
   readonly type = "channel.update";
   readonly version = "2";
-  readonly permissions = [];
-  readonly broadcasterOnly = true;
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (_tokenPermissions: string[]) => [];
   }
 
   get condition() {

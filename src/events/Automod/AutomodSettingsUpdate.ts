@@ -8,12 +8,17 @@ import BaseEvent from "../../util/BaseEvent";
 export default class AutomodSettingsUpdate extends BaseEvent<AutomodSettingsUpdateEvent> implements AutomodSettingsUpdateSubscription {
   readonly type = "automod.settings.update";
   readonly version = "1";
-  readonly permissions = ["moderator:read:automod_settings"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["moderator:read:automod_settings"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

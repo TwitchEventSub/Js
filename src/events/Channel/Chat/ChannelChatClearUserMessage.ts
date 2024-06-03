@@ -13,13 +13,18 @@ interface ChannelChatClearUserMessageCondition {
 export default class ChannelChatClearUserMessage extends BaseEvent<ChannelChatClearUserMessageEvent> implements ChannelChatClearUserMessageSubscription {
   readonly type = "channel.chat.clear_user_messages";
   readonly version = "1";
-  readonly permissions = ["user:read:chat"];
 
   private _channel: string;
   private _user: string;
 
   get channel() {
     return [this._channel, this._user];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["user:read:chat"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

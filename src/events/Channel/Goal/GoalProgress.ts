@@ -8,12 +8,15 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class GoalProgress extends BaseEvent<GoalProgressEvent> implements GoalProgressSubscription {
   readonly type = "channel.goal.progress";
   readonly version = "1";
-  readonly permissions = [];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (_tokenPermissions: string[]) => [];
   }
 
   get condition() {

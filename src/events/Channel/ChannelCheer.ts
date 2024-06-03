@@ -7,12 +7,17 @@ import BaseEvent from "../../util/BaseEvent";
 export default class ChannelCheer extends BaseEvent<ChannelCheerEvent> implements ChannelCheerSubscription {
   readonly type = "channel.cheer";
   readonly version = "1";
-  readonly permissions = ["bits:read"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["bits:read"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

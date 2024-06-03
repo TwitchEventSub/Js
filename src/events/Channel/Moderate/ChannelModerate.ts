@@ -4,18 +4,9 @@ import {
 } from "../../../types/events";
 import BaseEvent from "../../../util/BaseEvent";
 
-// FIXME: alternatively reqyures multitude of permissions
 export default class ChannelModerate extends BaseEvent<ChannelModerateEvent> implements ChannelModerateSubscription {
   readonly type = "channel.moderate";
   readonly version = "1";
-  readonly permissions = [
-    "moderator:read:blocked_terms", // || moderator:manage:blocked_terms
-    "moderator:read:chat_settings", // || moderator:manage:chat_settings
-    "moderator:read:banned_users", // || moderator:manage:banned_users
-    "moderator:read:chat_messages", // || moderator:manage:chat_messages
-    "moderator:read:moderators",
-    "moderator:read:vips",
-  ];
 
   private _channel: string;
 
@@ -23,6 +14,74 @@ export default class ChannelModerate extends BaseEvent<ChannelModerateEvent> imp
     return [this._channel];
   }
 
+  get permissions() {
+    const blockedTerms = ["moderator:read:blocked_terms", "moderator:manage:blocked_terms"];
+    const chatSettings = ["moderator:read:chat_settings", "moderator:manage:chat_settings"];
+    const bannedUsers = ["moderator:read:banned_users", "moderator:manage:banned_users"];
+    const chatMessages = ["moderator:read:chat_messages", "moderator:manage:chat_messages"];
+    return (tokenPermissions: string[]) => {
+      let hasBlockedTerms = false;
+      let hasChatSettings = false;
+      let hasBannedUsers = false;
+      let hasChatMessages = false;
+      let hasModerators = false;
+      let hasVips = false;
+
+      for (const permission of tokenPermissions) {
+        if (blockedTerms.includes(permission)) {
+          hasBlockedTerms = true;
+        }
+
+        if (chatSettings.includes(permission)) {
+          hasChatSettings = true;
+        }
+
+        if (bannedUsers.includes(permission)) {
+          hasBannedUsers = true;
+        }
+
+        if (chatMessages.includes(permission)) {
+          hasChatMessages = true;
+        }
+
+        if (permission === "moderator:read:moderators") {
+          hasModerators = true;
+        }
+
+        if (permission === "moderator:read:vips") {
+          hasVips = true;
+        }
+      }
+
+      const missingPermissions = [];
+
+      if (!hasBlockedTerms) {
+        missingPermissions.push(blockedTerms[0]);
+      }
+
+      if (!hasChatSettings) {
+        missingPermissions.push(chatSettings[0]);
+      }
+
+      if (!hasBannedUsers) {
+        missingPermissions.push(bannedUsers[0]);
+      }
+
+      if (!hasChatMessages) {
+        missingPermissions.push(chatMessages[0]);
+      }
+
+      if (!hasModerators) {
+        missingPermissions.push("moderator:read:moderators");
+      }
+
+      if (!hasVips) {
+        missingPermissions.push("moderator:read:vips");
+      }
+
+      return missingPermissions;
+    };
+  }
 
   get condition() {
     return (...args: string[]) => {

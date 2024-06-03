@@ -7,12 +7,17 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class ChannelSuspiciousUserMessage extends BaseEvent<ChannelSuspiciousUserMessageEvent> implements ChannelSuspiciousUserMessageSubscription {
   readonly type = "channel.suspicious_user.message";
   readonly version = "1";
-  readonly permissions = ["moderator:read:suspicious_users"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["moderator:read:suspicious_users"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

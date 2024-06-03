@@ -13,7 +13,6 @@ import {
   TwitchMaxPerUserPerStream,
   TwitchMessage,
   TwitchOutcomes,
-  TwitchProduct,
   TwitchReward,
 } from "./twitchEvents";
 import { AddPrefix } from "./utilTypes";
@@ -21,13 +20,13 @@ import { AddPrefix } from "./utilTypes";
 interface SubscriptionType {
   readonly type: string;
   readonly version: string;
-  readonly permissions: string[];
-  readonly broadcasterOnly?: true;
 }
 
 interface SubscriptionProperties {
   get channel(): string[];
   get condition(): ((...args: string[]) => (Record<string, string>) | undefined);
+  /** Returns minimum required missing permissions */
+  get permissions(): ((tokenPermissions: string[]) => string[]);
 }
 
 export type EventIndex = number;
@@ -1098,16 +1097,6 @@ export interface CharityCampaignStopEvent extends CharityCampaignProgressEvent {
 
 export type CharityCampaignStopSubscription = BaseSubscription<CharityCampaignStopEvent, "channel.charity_campaign.stop">;
 
-export interface ExtensionBitsTransactionCreateEvent extends BaseBroadcaster, BaseUser {
-  /** Client ID of the extension. */
-  extension_client_id: string;
-  /** Transaction ID. */
-  id: string;
-  product: TwitchProduct;
-}
-
-export type ExtensionBitsTransactionCreateSubscription = BaseSubscription<ExtensionBitsTransactionCreateEvent, "extension.bits_transaction.create">;
-
 interface BaseGoalEvent extends BaseBroadcaster {
   /** An ID that identifies this event. */
   id: string;
@@ -1364,7 +1353,6 @@ export type EventItem = ChannelFollowSubscription
 | CharityCampaignStartSubscription
 | CharityCampaignProgressSubscription
 | CharityCampaignStopSubscription
-| ExtensionBitsTransactionCreateSubscription
 | GoalBeginSubscription
 | GoalProgressSubscription
 | GoalEndSubscription

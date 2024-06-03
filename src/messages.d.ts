@@ -47,7 +47,6 @@ import {
   CharityCampaignStartEvent,
   CharityCampaignStopEvent,
   CharityDonationEvent,
-  ExtensionBitsTransactionCreateEvent,
   GoalBeginEvent,
   GoalEndEvent,
   GoalProgressEvent,
@@ -111,7 +110,6 @@ import CharityDonation from "./events/Channel/Charity/CharityDonation";
 import CharityCampaignStart from "./events/Channel/Charity/CharityCampaignStart";
 import CharityCampaignProgress from "./events/Channel/Charity/CharityCampaignProgress";
 import CharityCampaignStop from "./events/Channel/Charity/CharityCampaignStop";
-import ExtensionBitsTransactionCreate from "./events/ExtensionBitsTransactionCreate";
 import GoalBegin from "./events/GoalBegin";
 import GoalProgress from "./events/GoalProgress";
 import GoalEnd from "./events/GoalEnd";
@@ -289,8 +287,6 @@ export type NotificationCharityCampaignProgress = BaseEventSubMessage<"notificat
 
 export type NotificationCharityCampaignStop = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<CharityCampaignStop["type"], CharityCampaignStopEvent>>;
 
-export type NotificationExtensionBitsTransactionCreate = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<ExtensionBitsTransactionCreate["type"], ExtensionBitsTransactionCreateEvent>>;
-
 export type NotificationGoalBegin = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<GoalBegin["type"], GoalBeginEvent>>;
 
 export type NotificationGoalProgress = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<GoalProgress["type"], GoalProgressEvent>>;
@@ -369,7 +365,6 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationCharityCampaignStart
 | NotificationCharityCampaignProgress
 | NotificationCharityCampaignStop
-| NotificationExtensionBitsTransactionCreate
 | NotificationGoalBegin
 | NotificationGoalProgress
 | NotificationGoalEnd

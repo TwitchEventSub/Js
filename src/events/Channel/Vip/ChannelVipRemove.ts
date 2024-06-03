@@ -5,16 +5,24 @@ import {
 import BaseEvent from "../../../util/BaseEvent";
 
 
-// FIXME: alternatively requires channel:manage:vips
 export default class ChannelVipRemove extends BaseEvent<ChannelVipRemoveEvent> implements ChannelVipRemoveSubscription {
   readonly type = "channel.vip.remove";
   readonly version = "1";
-  readonly permissions = ["channel:read:vips"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    const permissions = ["channel:read:vips", "channel:manage:vips"];
+    return (tokenPermissions: string[]) => {
+      if (!tokenPermissions.some((permission) => permissions.includes(permission))) {
+        return [permissions[0]];
+      }
+      return [];
+    };
   }
 
   get condition() {

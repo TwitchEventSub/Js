@@ -7,12 +7,17 @@ import BaseEvent from "../../../util/BaseEvent";
 export default class ChannelSubscriptionGift extends BaseEvent<ChannelSubscriptionGiftEvent> implements ChannelSubscriptionGiftSubscription {
   readonly type = "channel.subscription.gift";
   readonly version = "1";
-  readonly permissions = ["channel:read:subscriptions"];
 
   private _channel: string;
 
   get channel() {
     return [this._channel];
+  }
+
+  get permissions() {
+    return (tokenPermissions: string[]) => {
+      return ["channel:read:subscriptions"].filter((permission) => !tokenPermissions.includes(permission));
+    };
   }
 
   get condition() {

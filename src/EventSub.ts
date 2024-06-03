@@ -210,7 +210,6 @@ export default class EventSub {
           // client id is required for specific events
           ?? { clientId: this.clientId! },
           broadcaster: this.broadcasterMap[x.channel[0].toLowerCase()],
-          broadcasterOnly: x.broadcasterOnly,
         })))
         .then((res) => {
           const failed = res.map<[boolean, EventItem]>((x, i) => [x, uniqueSubscriptions[i]])
@@ -291,10 +290,21 @@ export default class EventSub {
   }
 
   private getMissingScopes(event?: EventItem) {
-    const scopePermissionMap: [string, string[]][] = event
-      ? [[event.type, event.permissions]]
-      : this.events.map<[string, string[]]>((x) => [x.type, x.permissions]);
+    let scopePermissionMap: [string, string[]][] = [];
+    if (event) {
+      scopePermissionMap = [[event.type, event.permissions(this.permissions ?? [])]];
+    } else {
+      const uniqueTypes = this.events.reduce(
+        (acc, x) => {
+          acc[x.type] = x;
+          return acc;
+        },
+        {} as Record<string, EventItem>,
+      );
 
-    return scopePermissionMap.filter(([, permissions]) => permissions.some((x) => !this.permissions?.includes(x)));
+      scopePermissionMap = Object.values(uniqueTypes)
+      .map<[string, string[]]>((x) => [x.type, x.permissions(this.permissions ?? [])]);
+    }
+    return scopePermissionMap.filter(([, permissions]) => permissions.length);
   }
 }

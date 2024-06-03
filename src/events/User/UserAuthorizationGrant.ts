@@ -7,10 +7,13 @@ import BaseEvent from "../../util/BaseEvent";
 export default class UserAuthorizationGrant extends BaseEvent<UserAuthorizationGrantEvent> implements UserAuthorizationGrantSubscription {
   readonly type = "user.authorization.grant";
   readonly version = "1";
-  readonly permissions = [];
 
   get channel() {
     return [];
+  }
+
+  get permissions() {
+    return (_tokenPermissions: string[]) => [];
   }
 
   get condition() {
