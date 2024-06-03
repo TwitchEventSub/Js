@@ -1,8 +1,8 @@
 import {
   UserAuthorizationGrantEvent,
   UserAuthorizationGrantSubscription,
-} from "../types/events";
-import BaseEvent from "../util/BaseEvent";
+} from "../../types/events";
+import BaseEvent from "../../util/BaseEvent";
 
 export default class UserAuthorizationGrant extends BaseEvent<UserAuthorizationGrantEvent> implements UserAuthorizationGrantSubscription {
   readonly type = "user.authorization.grant";

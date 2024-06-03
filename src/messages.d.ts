@@ -124,9 +124,9 @@ import ShoutoutCreate from "./events/Channel/Shoutout/ShoutoutCreate";
 import ShoutoutReceived from "./events/Channel/Shoutout/ShoutoutReceived";
 import StreamOnline from "./events/Stream/StreamOnline";
 import StreamOffline from "./events/Stream/StreamOffline";
-import UserAuthorizationGrant from "./events/UserAuthorizationGrant";
-import UserAuthorizationRevoke from "./events/UserAuthorizationRevoke";
-import WhisperReceived from "./events/WhisperReceived";
+import UserAuthorizationGrant from "./events/User/UserAuthorizationGrant";
+import UserAuthorizationRevoke from "./events/User/UserAuthorizationRevoke";
+import WhisperReceived from "./events/User/WhisperReceived";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";

@@ -1,8 +1,8 @@
 import {
   WhisperReceivedEvent,
   WhisperReceivedSubscription,
-} from "../types/events";
-import BaseEvent from "../util/BaseEvent";
+} from "../../types/events";
+import BaseEvent from "../../util/BaseEvent";
 
 export default class WhisperReceived extends BaseEvent<WhisperReceivedEvent> implements WhisperReceivedSubscription {
   readonly type = "user.whisper.message";
