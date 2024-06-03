@@ -4,16 +4,15 @@ Libary for managing twitch eventsub via websocket
 ## Usage
 
 ```ts
-import { EventSub, events } from "twitchEventSub";
+import { EventSub, events } from "twitcheventsub.js";
 
 // creating instance
 const sub = new EventSub({
   auth: "YOUR_AUTHENTICATION_KEY",
-  broadcaster: "BROADCASTER",
 });
 
 // creating event handler
-const followEvent = new events.ChannelFollow((e) => {
+const followEvent = new events.ChannelFollow("BROADCASTER", (e) => {
   console.log("event listener", e);
 });
 

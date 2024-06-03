@@ -37,7 +37,7 @@ import getBroadcasterAsync from "../util/getBroadcasterAsync";
 describe("getBroadcasterAsync", () => {
   it("should return broadcaster data", async () => {
     const auth = "auth";
-    const broadcaster = "broadcaster";
+    const broadcaster = ["broadcaster"];
     const clientId = "1";
     const result = await getBroadcasterAsync(auth, broadcaster, clientId);
     expect(result)
@@ -46,7 +46,7 @@ describe("getBroadcasterAsync", () => {
 
   it("should throw an error straight from fetch", async () => {
     const auth = "auth";
-    const broadcaster = "broadcaster";
+    const broadcaster = ["broadcaster"];
     const clientId = "2";
     await expect(getBroadcasterAsync(auth, broadcaster, clientId))
     .rejects

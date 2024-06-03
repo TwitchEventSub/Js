@@ -5,7 +5,7 @@ import {
   setOutput,
   consoleOutput,
 } from "./util/consoleOutput";
-import getBroadcasterAsync from "./util/getBroadcasterAsync";
+import getBroadcasterAsync, { User } from "./util/getBroadcasterAsync";
 import getUserAsync from "./util/getUserAsync";
 import socket from "./util/socket";
 import { EventSubMessage } from "./messages";
@@ -22,17 +22,16 @@ export default class EventSub {
   private permissions: string[] | undefined;
   private clientId: string | undefined;
 
-  private broadcaster: string;
-  private broadcasterId: string | undefined;
   private events: EventItem[] = [];
   
   private socket: WebSocket | WS | undefined;
   private keepAliveTimeout: NodeJS.Timeout | undefined;
   private messageIdRecord: Record<string, true> = {};
+  private broadcasterMap: Record<string, string> = {};
+  private authUserId: string | undefined;
 
   constructor(props: EventSubConstructor) {
     this.auth = props.auth.replace("oauth:", "");
-    this.broadcaster = props.broadcaster;
     setOutput(props.output ?? "error");
   }
 
@@ -48,7 +47,7 @@ export default class EventSub {
 
   async startAsync() {
     await this.initializeAuthAsync();
-    await this.initializeBroadcasterAsync();
+    await this.initializeBroadcasterListAsync();
     this.initializeSocket();
   }
 
@@ -71,6 +70,7 @@ export default class EventSub {
     consoleOutput("debug", "auth initialized", response);
 
     this.clientId = response.client_id;
+    this.authUserId = response.user_id;
     this.permissions = response.scopes;
     const missingScopes = this.getMissingScopes();
     if (missingScopes.length) {
@@ -83,48 +83,85 @@ export default class EventSub {
     }
   }
 
-  private async initializeBroadcasterAsync() {
+  private async initializeBroadcasterListAsync() {
     consoleOutput("debug", "Fetching broadcaster data...");
     if (!this.clientId) {
       throw new Error("client id is not set");
     }
 
+    this.broadcasterMap = this.events.reduce(
+      (acc, x) => {
+        for (const channel of x.channel) {
+          acc[channel.toLocaleLowerCase()] = "";
+        }
+        return acc;
+      },
+      this.broadcasterMap,
+    );
+
+    const broadcasterlist = Object.keys(this.broadcasterMap)
+    .reduce(
+      (acc, x) => {
+        let currentIndex = acc.length - 1;
+        if (acc[currentIndex].length === 100) {
+          acc.push([]);
+          currentIndex++;
+        }
+        acc[currentIndex].push(x);
+        return acc;
+      },
+      [[]] as string[][],
+    );
+
     let err: Error | null = null;
-    const response = await getBroadcasterAsync(this.auth, this.broadcaster, this.clientId)
+    const data: User[] = [];
+    await Promise.all(broadcasterlist.map((x) => getBroadcasterAsync(this.auth, x, this.clientId!)))
+    .then((res) => {
+      for (const response of res) {
+        if (response) {
+          data.push(...response.data);
+        }
+      }
+    })
     .catch((e: Error) => {
       err = e;
-      return null;
     });
 
-    if (!!err || !response) {
+    if (!!err || !data.length) {
       consoleOutput("error", "failed fetching broadcaster data");
 
       throw err ?? new Error("response was not set");
     }
     
-    if (response.data.length === 0) {
-      consoleOutput("error", "broadcaster not found");
-      throw new Error("broadcaster not found");
+    consoleOutput("debug", "broadcasters fetched", data);
+
+    for (const broadcaster of data) {
+      this.broadcasterMap[broadcaster.login.toLowerCase()] = broadcaster.id;
     }
 
-    consoleOutput("debug", "broadcaster initialized", response);
-    
-    this.broadcasterId = response.data[0].id;
+    const missingBroadcaster = Object.entries(this.broadcasterMap)
+    .filter(([, x]) => !x);
+
+    if (missingBroadcaster.length) {
+      consoleOutput("error", "missing broadcaster", missingBroadcaster);
+      throw new Error(`Missing broadcaster: ${missingBroadcaster.join(", ")}`);
+    }
   }
 
   private initializeSocket(url?: string) {
     let keepAliveSeconds = 30;
-    if (!this.broadcasterId) {
-      throw new Error("broadcaster id is not set");
-    }
-    if (!this.clientId) {
-      throw new Error("client id is not set");
+    if (Object.keys(this.broadcasterMap).length === 0) {
+      throw new Error("broadcaster list is not set");
     }
 
+    if (!this.clientId || this.authUserId === undefined) {
+      throw new Error("client id is not set");
+    }
 
     if (url === undefined) {
       url = `wss://eventsub.wss.twitch.tv/ws`;
     }
+
     consoleOutput("debug", "Connecting to socket", url);
     this.socket = new socket(url);
 
@@ -157,7 +194,7 @@ export default class EventSub {
         }, keepAliveSeconds * 1000);
         const uniqueSubscriptions = Object.values(this.events.reduce(
           (acc, x) => {
-            acc[x.type] = x;
+            acc[x.type + x.channel.join(",")] = x;
             return acc;
           },
           {} as Record<string, EventItem>,
@@ -168,7 +205,11 @@ export default class EventSub {
           event: x,
           clientId: this.clientId!,
           session: message.payload.session.id,
-          broadcaster: this.broadcasterId!,
+          condition: x.condition(...x.channel.map(y => this.broadcasterMap[y])
+          .concat(this.authUserId!))
+          // client id is required for specific events
+          ?? { clientId: this.clientId! },
+          broadcaster: this.broadcasterMap[x.channel[0].toLowerCase()],
         })))
         .then((res) => {
           const failed = res.map<[boolean, EventItem]>((x, i) => [x, uniqueSubscriptions[i]])
@@ -222,10 +263,10 @@ export default class EventSub {
         }
         const id = message.metadata.message_id;
         setTimeout(() => delete this.messageIdRecord[id], keepAliveSeconds * 1000);
-
+        
         for (const event of this.events) {
+          // type becomes any with message.payload.subscription having 40+ types
           if (event.type === message.payload.subscription.type) {
-            // @ts-expect-error event type is matched in above if statement
             event.dispatchEvent(message.payload.event);
           }
         }
@@ -249,10 +290,21 @@ export default class EventSub {
   }
 
   private getMissingScopes(event?: EventItem) {
-    const scopePermissionMap: [string, string[]][] = event
-      ? [[event.type, event.permissions]]
-      : this.events.map<[string, string[]]>((x) => [x.type, x.permissions]);
+    let scopePermissionMap: [string, string[]][] = [];
+    if (event) {
+      scopePermissionMap = [[event.type, event.permissions(this.permissions ?? [])]];
+    } else {
+      const uniqueTypes = this.events.reduce(
+        (acc, x) => {
+          acc[x.type] = x;
+          return acc;
+        },
+        {} as Record<string, EventItem>,
+      );
 
-    return scopePermissionMap.filter(([, permissions]) => permissions.some((x) => !this.permissions?.includes(x)));
+      scopePermissionMap = Object.values(uniqueTypes)
+      .map<[string, string[]]>((x) => [x.type, x.permissions(this.permissions ?? [])]);
+    }
+    return scopePermissionMap.filter(([, permissions]) => permissions.length);
   }
 }

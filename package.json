@@ -1,6 +1,6 @@
 {
   "name": "twitcheventsub.js",
-  "version": "0.1.1-test",
+  "version": "0.2.0-test",
   "description": "twitch eventsub trough socket",
   "main": "dist/index.js",
   "scripts": {

@@ -33,7 +33,7 @@ jest.mock(
               ) {
                 const client_id = data.headers.Authorization.replace("Bearer ", "");
                 const scopes = client_id !== failAtScope ? [baseEventPermission] : [];
-                resolve({ json: () => Promise.resolve({ client_id, scopes }) });
+                resolve({ json: () => Promise.resolve({ client_id, scopes, user_id: broadcasterId }) });
               } else {
                 reject(new Error("No Authorization"));
               }
@@ -48,7 +48,7 @@ jest.mock(
                 && !Array.isArray(data.headers["Client-Id"])
                 && data.headers["Client-Id"] !== failAtBroadcaster
               ) {
-                resolve({ json: () => Promise.resolve({ data: [{ id: broadcasterId }] }) });
+                resolve({ json: () => Promise.resolve({ data: [{ id: broadcasterId, login: broadcaster }] }) });
               } else {
                 reject(new Error("No Client-Id"));
               }
@@ -134,7 +134,7 @@ jest.mock(
 );
 
 import EventSub from "../EventSub";
-import ChannelFollow from "../events/ChannelFollow";
+import ChannelFollow from "../events/Channel/ChannelFollow";
 
 describe(
   "EventSub",
@@ -142,8 +142,8 @@ describe(
     it(
       "should crash at auth",
       async () => {
-        const eventSub = new EventSub({ auth: failAtAuth, broadcaster, output: "none" });
-        eventSub.subscribe(new ChannelFollow((e) => console.log(e)));
+        const eventSub = new EventSub({ auth: failAtAuth, output: "none" });
+        eventSub.subscribe(new ChannelFollow("broadcaster", (e) => console.log(e)));
         await expect(eventSub.startAsync())
         .rejects
         .toThrow(new Error("No Authorization"));
@@ -153,8 +153,8 @@ describe(
     it(
       "should crash at scope",
       async () => {
-        const eventSub = new EventSub({ auth: failAtScope, broadcaster, output: "none" });
-        eventSub.subscribe(new ChannelFollow((e) => console.log(e)));
+        const eventSub = new EventSub({ auth: failAtScope, output: "none" });
+        eventSub.subscribe(new ChannelFollow(broadcaster, (e) => console.log(e)));
         await expect(eventSub.startAsync())
         .rejects
         .toThrow(new Error(`Missing required scopes: ${baseEventType} requires ${baseEventPermission}`));
@@ -164,8 +164,8 @@ describe(
     it(
       "should crash at fetching broadcaster data",
       async () => {
-        const eventSub = new EventSub({ auth: failAtBroadcaster, broadcaster, output: "none" });
-        eventSub.subscribe(new ChannelFollow((e) => console.log(e)));
+        const eventSub = new EventSub({ auth: failAtBroadcaster, output: "none" });
+        eventSub.subscribe(new ChannelFollow(broadcaster, (e) => console.log(e)));
         await expect(eventSub.startAsync())
         .rejects
         .toThrow(new Error("No Client-Id"));
@@ -176,8 +176,8 @@ describe(
       "should crash at subscribing to event",
       async () => {
         jest.useFakeTimers();
-        const eventSub = new EventSub({ auth: failAtEvent, broadcaster, output: "none" });
-        eventSub.subscribe(new ChannelFollow((e) => console.log(e)));
+        const eventSub = new EventSub({ auth: failAtEvent, output: "none" });
+        eventSub.subscribe(new ChannelFollow(broadcaster, (e) => console.log(e)));
         await eventSub.startAsync();
         jest.advanceTimersByTime(15);
         setImmediate(() => {
@@ -192,10 +192,10 @@ describe(
     it(
       "should reject new events after initialization",
       async () => {
-        const eventSub = new EventSub({ auth: fullsuccessAuth, broadcaster, output: "none" });
-        eventSub.subscribe(new ChannelFollow((e) => console.log(e)));
+        const eventSub = new EventSub({ auth: fullsuccessAuth, output: "none" });
+        eventSub.subscribe(new ChannelFollow(broadcaster, (e) => console.log(e)));
         await eventSub.startAsync();
-        expect(() => eventSub.subscribe(new ChannelFollow((e) => console.log(e))))
+        expect(() => eventSub.subscribe(new ChannelFollow(broadcaster, (e) => console.log(e))))
         .toThrow(new Error(`cannot subscribe to event ${baseEventType} after initialization`));
       },
     );

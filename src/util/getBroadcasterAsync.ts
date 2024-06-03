@@ -1,5 +1,5 @@
 import uFetch from "./fetch";
-interface User {
+export interface User {
   id: string;
   login: string;
   display_name: string;
@@ -16,9 +16,16 @@ interface UserResponse {
   data: User[];
 }
 
-export default function getBroadcasterAsync(auth: string, broadcaster: string, clientId: string) {
+export default function getBroadcasterAsync(auth: string, broadcasterList: string[], clientId: string) {
+  broadcasterList = broadcasterList.filter((x) => x.trim());
+  if (broadcasterList.length === 0 || broadcasterList.length > 100) {
+    throw new Error("broadcaster list must be between 1 and 100");
+  }
+  const broadcaster = broadcasterList.map((x) => "login=" + x)
+  .join("&");
+
   return uFetch(
-    `https://api.twitch.tv/helix/users?login=${broadcaster}`,
+    `https://api.twitch.tv/helix/users?${broadcaster}`,
     {
       headers: {
         Authorization: `Bearer ${auth}`,

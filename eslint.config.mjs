@@ -55,6 +55,8 @@ export default tseslint.config(
         {
           destructuredArrayIgnorePattern: "^_",
           varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
         }
       ],
       "@stylistic/js/indent": [

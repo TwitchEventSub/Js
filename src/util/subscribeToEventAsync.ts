@@ -11,12 +11,14 @@ interface SubscriptionProps<T extends TypeDefinedItem> {
   clientId: string;
   auth: string;
   session: string;
+  condition: Record<string, string>;
   broadcaster: string;
 }
 
 export default async function subscribeToEventAsync<T extends TypeDefinedItem>(props: SubscriptionProps<T>) {
   let error: Error | null = null;
   consoleOutput("debug", "Subscribing to event:", props.event.type, "version:", props.event.version);
+  
   const response = await fetch(
     "https://api.twitch.tv/helix/eventsub/subscriptions",
     {
@@ -29,10 +31,7 @@ export default async function subscribeToEventAsync<T extends TypeDefinedItem>(p
       body: JSON.stringify({
         type: props.event.type,
         version: props.event.version,
-        condition: {
-          broadcaster_user_id: props.broadcaster,
-          moderator_user_id: props.broadcaster,
-        },
+        condition: props.condition,
         transport: {
           method: "websocket",
           session_id: props.session,

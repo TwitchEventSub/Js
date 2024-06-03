@@ -5,6 +5,7 @@ import { RequestInit } from "node-fetch";
 const responseObject = {
   client_id: "client_id",
   scopes: [],
+  user_id: "user_id",
 };
 
 jest.mock("../util/fetch", () => {
