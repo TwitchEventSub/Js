@@ -1,3 +1,21 @@
+import {
+  BaseBroadcaster,
+  BaseModerator,
+  BaseUser,
+} from "./eventSharedValues";
+import {
+  SubType,
+  TwitchChoices,
+  TwitchContribution,
+  TwitchGlobalCooldown,
+  TwitchImage,
+  TwitchMaxPerStream,
+  TwitchMaxPerUserPerStream,
+  TwitchMessage,
+  TwitchOutcomes,
+  TwitchProduct,
+  TwitchReward,
+} from "./twitchEvents";
 import { AddPrefix } from "./utilTypes";
 
 interface SubscriptionType {
@@ -24,33 +42,6 @@ export type  BaseSubscription<E, T extends string> = BaseEventManagement<E>
   & Omit<SubscriptionType, "type">
   & SubscriptionProperties
   & { readonly type: T };
-
-interface BaseBroadcaster {
-    /** The requested broadcaster ID. */
-    broadcaster_user_id: string;
-    /** The requested broadcaster login. */
-    broadcaster_user_login: string;
-    /** The requested broadcaster display name. */
-    broadcaster_user_name: string;
-}
-
-interface BaseUser {
-  /** The user ID in specified channel. */
-  user_id: string;
-  /** The user login in specified channel. */
-  user_login: string;
-  /** The user display name in specified channel. */
-  user_name: string;
-}
-
-interface BaseModerator {
-  /** The ID of the moderator. */
-  moderator_user_id: string;
-  /** TThe moderator’s user name. */
-  moderator_user_name: string;
-  /** The login of the moderator. */
-  moderator_user_login: string;
-}
 
 export interface ChannelFollowEvent extends BaseBroadcaster, BaseUser {
     /** RFC3339 timestamp of when the follow occurred. */
@@ -346,7 +337,6 @@ interface BaseChannelChatNotificationEvent extends BaseMessageEvent, BaseChatter
   },
 }
 
-type SubType = "1000" | "2000" | "3000";
 
 interface BaseChannelChatNotificationSub {
   /** The type of subscription plan being used. */
@@ -637,22 +627,6 @@ export interface ChannelSubscriptionGiftEvent extends ChannelSubscriptionGiftSpe
 
 export type ChannelSubscriptionGiftSubscription = BaseSubscription<ChannelSubscriptionGiftEvent, "channel.subscription.gift">;
 
-interface TwitchEmote {
-  /** The index of where the Emote starts in the text. */
-  begin: number;
-  /** The index of where the Emote ends in the text. */
-  end: number;
-  /** The emote ID. */
-  id: string;
-}
-
-interface TwitchMessage {
-  /** The text of the resubscription chat message. */
-  text: string;
-  /** An array that includes the emote ID and start and end positions for where the emote appears in the text. */
-  emotes: TwitchEmote[];
-}
-
 export interface ChannelSubscriptionMessageEvent extends BaseBroadcaster, BaseUser {
   /** The tier of the user’s subscription. */
   tier: SubType;
@@ -931,36 +905,6 @@ export type ChannelPointsAutomaticRewardRedemptionEvent = ChannelPointsAutomatic
 
 export type ChannelPointsAutomaticRewardRedemptionSubscription = BaseSubscription<ChannelPointsAutomaticRewardRedemptionEvent, "channel.channel_points_automatic_reward_redemption.add">;
 
-interface TwitchMaxPerStream {
-  /** Is the setting enabled. */
-  is_enabled: boolean;
-  /** The max per stream limit. */
-  value: number;
-}
-
-interface TwitchMaxPerUserPerStream {
-  /** Is the setting enabled. */
-  is_enabled: boolean;
-  /** The max per user per stream limit. */
-  value: number;
-}
-
-interface TwitchImage {
-  /** URL for the image at 1x size. */
-  url_1x: string;
-  /** URL for the image at 2x size. */
-  url_2x: string;
-  /** URL for the image at 4x size. */
-  url_4x: string;
-}
-
-interface TwitchGlobalCooldown {
-  /** Is the setting enabled. */
-  is_enabled: boolean;
-  /** The cooldown in seconds. */
-  seconds: number;
-}
-
 export interface ChannelPointsCustomRewardAddEvent extends BaseBroadcaster {
   /** The reward identifier. */
   id: string;
@@ -1008,17 +952,6 @@ export type ChannelPointsCustomRewardRemoveEvent = ChannelPointsCustomRewardAddE
 
 export type ChannelPointsCustomRewardRemoveSubscription = BaseSubscription<ChannelPointsCustomRewardRemoveEvent, "channel.channel_points_custom_reward.remove">;
 
-interface TwitchReward {
-  /** The reward identifier. */
-  id: string;
-  /** The reward name. */
-  title: string;
-  /** The reward cost. */
-  cost: number;
-  /** The reward description. */
-  promps: string;
-}
-
 export interface ChannelPointsCustomRewardRedemptionAddEvent extends BaseBroadcaster, BaseUser {
   /** The user input provided. Empty string if not provided. */
   user_input: string;
@@ -1035,24 +968,6 @@ export type ChannelPointsCustomRewardRedemptionAddSubscription = BaseSubscriptio
 export type ChannelPointsCustomRewardRedemptionUpdateEvent = ChannelPointsCustomRewardRedemptionAddEvent;
 
 export type ChannelPointsCustomRewardRedemptionUpdateSubscription = BaseSubscription<ChannelPointsCustomRewardRedemptionUpdateEvent, "channel.channel_points_custom_reward_redemption.update">;
-
-interface TwitchChoices {
-  /** ID for the choice. */
-  id: string;
-  /** Text displayed for the choice. */
-  title: string;
-  /** Not used; will be set to 0. */
-  bits_votes: never;
-  /** Number of votes received via Channel Points. */
-  channel_points_votes: number;
-  /** Total number of votes received for the choice across all methods of voting. */
-  votes: number;
-}
-
-interface TwitchBitsVoting {
-  is_enabled: boolean;
-  amount_per_vote: number;
-}
 
 export interface ChannelPollBeginEvent extends BaseBroadcaster {
   /** ID of the poll. */
@@ -1083,28 +998,6 @@ export interface ChannelPollEndEvent extends Omit<ChannelPollBeginEvent, "ends_a
 }
 
 export type ChannelPollEndSubscription = BaseSubscription<ChannelPollEndEvent, "channel.poll.end">;
-
-interface TwitchTopPredictors<Ended extends boolean> extends BaseUser {
-  /** The number of Channel Points won. */
-  channel_points_won: Ended extends true ? number : null;
-  /** The number of Channel Points used to participate in the Prediction. */
-  channel_points_used: number;
-}
-
-interface TwitchOutcomes<Ended extends boolean> {
-  /** The outcome ID. */
-  id: string;
-  /** The outcome title. */
-  title: string;
-  /** The color for the outcome. */
-  color: "pink" | "blue";
-  /** The number of users who used Channel Points on this outcome. */
-  users: number;
-  /** The total number of Channel Points used on this outcome. */
-  channel_points: number;
-  /** An array of users who used the most Channel Points on this outcome. */
-  top_predictors: TwitchTopPredictors<Ended>[];
-}
 
 export interface ChannelPredictionBeginEvent<Ended extends boolean = false> extends BaseBroadcaster {
   /** Channel Points Prediction ID. */
@@ -1205,27 +1098,6 @@ export interface CharityCampaignStopEvent extends CharityCampaignProgressEvent {
 
 export type CharityCampaignStopSubscription = BaseSubscription<CharityCampaignStopEvent, "channel.charity_campaign.stop">;
 
-interface TwitchBaseProduct {
-  /** Product name. */
-  name: string;
-  /** Unique identifier for the product acquired. */
-  sku: string;
-}
-
-interface TwitchProductDev {
-  /** Flag indicating if the product is in development. */
-  in_development: true;
-  bits: 0;
-}
-
-interface TwitchProductProd {
-  /** Flag indicating if the product is in development. */
-  in_development: false;
-  bits: number;
-}
-
-type TwitchProduct = TwitchBaseProduct & (TwitchProductDev | TwitchProductProd);
-
 export interface ExtensionBitsTransactionCreateEvent extends BaseBroadcaster, BaseUser {
   /** Client ID of the extension. */
   extension_client_id: string;
@@ -1302,16 +1174,6 @@ export interface GoalEndEvent extends BaseGoalEvent {
 }
 
 export type GoalEndSubscription = BaseSubscription<GoalEndEvent, "channel.goal.end">;
-
-interface TwitchContribution extends BaseUser {
-  /** The contribution method used. */
-  type: "bits" | "subscription" | "other";
-  /** The total amount contributed.
-   * If `type` is `bits`, `total` represents the amount of Bits used.
-   * If type is `subscription`, total is 500, 1000, or 2500 to represent tier 1, 2, or 3 subscriptions, respectively.
-   */
-  total: number;
-}
 
 interface BaseHypeTrainEvent extends BaseBroadcaster {
   /** The Hype Train ID. */
