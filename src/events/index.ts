@@ -61,6 +61,7 @@ import ShoutoutReceived from "./ShoutoutReceived";
 import StreamOnline from "./StreamOnline";
 import StreamOffline from "./StreamOffline";
 import UserAuthorizationGrant from "./UserAuthorizationGrant";
+import UserAuthorizationRevoke from "./UserAuthorizationRevoke";
 
 export default {
   AutomodMessageHold,
@@ -126,4 +127,5 @@ export default {
   StreamOnline,
   StreamOffline,
   UserAuthorizationGrant,
+  UserAuthorizationRevoke,
 };

@@ -1429,6 +1429,19 @@ export interface UserAuthorizationGrantEvent extends BaseUser {
 
 export type UserAuthorizationGrantSubscription = BaseSubscription<UserAuthorizationGrantEvent, "user.authorization.grant">;
 
+export interface UserAuthorizationRevokeEvent {
+  /** The client_id of the application with revoked user access. */
+  client_id: string;
+  /** The user id for the user who has revoked authorization for your client id. */
+  user_id: string;
+  /** The user login for the user who has revoked authorization for your client id. */
+  user_login: string | null;
+  /** The user display name for the user who has revoked authorization for your client id. */
+  user_name: string | null;
+}
+
+export type UserAuthorizationRevokeSubscription = BaseSubscription<UserAuthorizationRevokeEvent, "user.authorization.revoke">;
+
 export type EventItem = ChannelFollowSubscription
 | ChannelModeratorRemoveSubscription
 | AutomodMessageHoldSubscription
@@ -1490,4 +1503,5 @@ export type EventItem = ChannelFollowSubscription
 | ShoutoutReceivedSubscription
 | StreamOnlineSubscription
 | StreamOfflineSubscription
-| UserAuthorizationGrantSubscription;
+| UserAuthorizationGrantSubscription
+| UserAuthorizationRevokeSubscription;

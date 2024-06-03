@@ -61,6 +61,7 @@ import {
   StreamOfflineEvent,
   StreamOnlineEvent,
   UserAuthorizationGrantEvent,
+  UserAuthorizationRevokeEvent,
 } from "./types/events";
 import ChannelModeratorRemove from "./events/ChannelModeratorRemove";
 import AutomodMessageHold from "./events/AutomodMessageHold";
@@ -123,6 +124,7 @@ import ShoutoutReceived from "./events/ShoutoutReceived";
 import StreamOnline from "./events/StreamOnline";
 import StreamOffline from "./events/StreamOffline";
 import UserAuthorizationGrant from "./events/UserAuthorizationGrant";
+import UserAuthorizationRevoke from "./events/UserAuthorizationRevoke";
 
 
 type EventSubMetaType = "session_welcome" | "session_keepalive" | "notification" | "session_reconnect" | "revocation";
@@ -313,6 +315,8 @@ export type NotificationStreamOffline = BaseEventSubMessage<"notification", Base
 
 export type NotificationUserAuthorizationGrant = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<UserAuthorizationGrant["type"], UserAuthorizationGrantEvent>>;
 
+export type NotificationUserAuthorizationRevoke = BaseEventSubMessage<"notification", BaseEventSubNotificationPayload<UserAuthorizationRevoke["type"], UserAuthorizationRevokeEvent>>;
+
 export type NotificationMessage = NotificationFollowMessage
 | NotificationChannelModeratorRemoved
 | NotificationAutomodMessageHold
@@ -374,7 +378,8 @@ export type NotificationMessage = NotificationFollowMessage
 | NotificationShoutoutReceived
 | NotificationStreamOnline
 | NotificationStreamOffline
-| NotificationUserAuthorizationGrant;
+| NotificationUserAuthorizationGrant
+| NotificationUserAuthorizationRevoke;
 
 export interface PingMessage {
   type: "PING";
