@@ -134,7 +134,7 @@ jest.mock(
 );
 
 import EventSub from "../EventSub";
-import ChannelFollow from "../events/ChannelFollow";
+import ChannelFollow from "../events/Channel/ChannelFollow";
 
 describe(
   "EventSub",
