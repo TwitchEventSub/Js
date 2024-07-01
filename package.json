@@ -41,6 +41,6 @@
   "typings": "./dist/index.d.ts",
   "dependencies": {
     "node-fetch": "^2.7.0",
-    "ws": "^8.17.0"
+    "ws": "^8.17.1"
   }
 }
